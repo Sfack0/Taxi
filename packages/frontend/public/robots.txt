@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /book
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://crete-taxivan.gr/sitemap.xml

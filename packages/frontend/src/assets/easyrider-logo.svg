@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="95" fill="#FDB813" stroke="#1a1a2e" stroke-width="3"/>
+  <text x="100" y="120" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1a1a2e" text-anchor="middle">
+    <tspan fill="white">Easy</tspan><tspan fill="#FDB813">Rider</tspan>
+  </text>
+  <path d="M100 50 L120 80 L100 70 L80 80 Z" fill="#FDB813"/>
+  <rect x="85" y="85" width="30" height="3" fill="#1a1a2e" rx="1"/>
+</svg>

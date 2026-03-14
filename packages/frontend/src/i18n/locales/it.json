@@ -1,0 +1,474 @@
+{
+  "common": {
+    "home": "Home",
+    "login": "Accedi",
+    "register": "Registrati",
+    "logout": "Esci",
+    "back": "Indietro",
+    "continue": "Continua",
+    "confirm": "Conferma",
+    "search": "Cerca",
+    "error": "Errore",
+    "loading": "Caricamento...",
+    "myRides": "I Miei Viaggi",
+    "rides": "Viaggi",
+    "newBooking": "Nuova Prenotazione",
+    "optional": "facoltativo"
+  },
+  "home": {
+    "tagline": "Comfort Transfer Services",
+    "subtitle": "Prenota il tuo trasferimento online",
+    "bookRide": "Prenota un Viaggio",
+    "servicesTitle": "I Nostri Servizi",
+    "servicesSubtitle": "Trasporto affidabile in tutta Creta",
+    "services": {
+      "airportTransfers": {
+        "title": "Trasferimenti Aeroporto e Porto",
+        "description": "Arrivi e partenze confortevoli dagli aeroporti e porti di Heraklion e Chania"
+      },
+      "scheduledTransfers": {
+        "title": "Trasferimenti Programmati",
+        "description": "Trasferimenti prenotati alla vostra destinazione, sempre puntuali"
+      },
+      "localTransport": {
+        "title": "Trasporto Locale",
+        "description": "Spostatevi rapidamente e comodamente in città"
+      },
+      "tours": {
+        "title": "Tour",
+        "description": "Scoprite le gemme nascoste di Creta con tour personalizzati"
+      }
+    },
+    "vehicleTitle": "Il Nostro Veicolo",
+    "vehicleSeats": "9 Posti",
+    "vehicleSeatsDesc": "Taxi van spazioso con posto per tutti",
+    "pricingRule": "Prezzi Equi",
+    "pricingRuleDesc": "1-4 passeggeri a tariffa normale, 5+ passeggeri a +30%",
+    "contactTitle": "Contattaci",
+    "contactSubtitle": "Contattaci per prenotazioni e informazioni",
+    "footerTagline": "Il vostro servizio taxi di fiducia a Creta",
+    "allRightsReserved": "Tutti i diritti riservati",
+    "highlight24": "Disponibile 24/7",
+    "highlightSeats": "Fino a 8 posti",
+    "highlightCancel": "Cancellazione gratuita",
+    "about": {
+      "title": "Chi siamo",
+      "p1": "Con oltre 25 anni di esperienza, il nostro servizio taxi familiare offre un trasporto comodo e affidabile per viaggiatori che apprezzano qualità e fiducia.",
+      "p2": "Mettiamo al primo posto comfort, sicurezza e puntualità. Ogni corsa è gestita con cura, dai trasferimenti aeroportuali alle corse private fino al trasporto personalizzato in tutta Creta."
+    }
+  },
+  "booking": {
+    "step1": "Luogo",
+    "step2": "Dettagli",
+    "step3": "Conferma",
+    "roundtrip": "Andata e ritorno?",
+    "pickupLocation": "Luogo di Ritiro",
+    "dropoffLocation": "Luogo di Destinazione",
+    "selectLocation": "Seleziona luogo...",
+    "myLocation": "La mia posizione",
+    "swapLocations": "Inverti luoghi",
+    "date": "Data",
+    "time": "Ora",
+    "outboundDate": "Data Andata",
+    "outboundTime": "Ora Andata",
+    "returnDate": "Data Ritorno",
+    "returnTime": "Ora Ritorno",
+    "people": "Persone",
+    "returnPeople": "Persone Ritorno",
+    "roundtripLabel": "Aggiungi ritorno",
+    "freeCancellation": "Cancellazione gratuita",
+    "selectDateTimeAlert": "Seleziona data e ora di ritiro.",
+    "selectReturnDateTimeAlert": "Seleziona data e ora di ritorno.",
+    "otherLocation": "Altro luogo...",
+    "customLocationPlaceholder": "es. Hotel Minos, Piazza dei Leoni...",
+    "backToList": "Scegli dalla lista",
+    "noResults": "Nessun luogo trovato",
+    "popularLocations": "Luoghi popolari",
+    "pickFromMap": "Scegli dalla mappa",
+    "tapToSelect": "Tocca sulla mappa per selezionare un luogo",
+    "paymentMethod": "Pagamento",
+    "cash": "Contanti",
+    "card": "Carta",
+    "childSeat": "Seggiolino",
+    "yes": "Sì",
+    "notes": "Note",
+    "notesPlaceholder": "es. richieste speciali...",
+    "price": "Prezzo",
+    "estimatedPrice": "Prezzo stim.",
+    "showRoute": "Mostra percorso sulla mappa",
+    "hideRoute": "Nascondi mappa",
+    "flightInfo": "Info Volo",
+    "returnFlightInfo": "Info Volo Ritorno",
+    "flightNumber": "N° Volo",
+    "flightTime": "Ora del Volo",
+    "luggageCount": "Bagagli"
+  },
+  "customerInfo": {
+    "title": "Informazioni di Contatto",
+    "subtitle": "Compila i tuoi dati per completare la prenotazione",
+    "name": "Nome Completo",
+    "namePlaceholder": "es. Mario Rossi",
+    "phone": "Telefono",
+    "phonePlaceholder": "3123456789",
+    "email": "Email",
+    "emailPlaceholder": "es. mario@esempio.it"
+  },
+  "confirmation": {
+    "title": "Conferma Prenotazione",
+    "subtitle": "Verifica i tuoi dati prima di confermare",
+    "contactInfo": "Informazioni di Contatto",
+    "route": "Percorso",
+    "from": "Da",
+    "to": "A",
+    "outbound": "Andata",
+    "return": "Ritorno",
+    "dateTime": "Data & Ora",
+    "confirming": "Prenotazione...",
+    "extras": "Extra"
+  },
+  "success": {
+    "title": "Prenotazione Creata!",
+    "subtitle": "L'autista sarà avvisato e ti contatterà",
+    "bookingNumber": "Numero Prenotazione",
+    "status": "Stato",
+    "emailConfirmation": "Conferma Email",
+    "emailSent": "Un'email di conferma è stata inviata a",
+    "nextStep": "Prossimo Passo",
+    "nextStepText": "L'autista sarà informato della tua prenotazione e ti contatterà al numero di telefono che hai fornito.",
+    "oops": "Ops!",
+    "notFound": "Prenotazione non trovata"
+  },
+  "history": {
+    "title": "Cronologia",
+    "subtitle": "Visualizza e gestisci le tue prenotazioni",
+    "filters": "Filtri",
+    "all": "Tutte",
+    "completed": "Completate",
+    "active": "Attive",
+    "cancelled": "Cancellate",
+    "thisWeek": "Questa Settimana",
+    "thisMonth": "Questo Mese",
+    "allTime": "Tutte le Date",
+    "pending": "In attesa",
+    "accepted": "Accettate",
+    "selectDates": "Seleziona intervallo di date",
+    "noRides": "Nessuna prenotazione",
+    "noCompleted": "Nessuna prenotazione completata",
+    "noActive": "Nessuna prenotazione attiva",
+    "noPending": "Nessuna prenotazione in attesa",
+    "noAccepted": "Nessuna prenotazione accettata",
+    "noCancelled": "Nessuna prenotazione cancellata",
+    "booking": "Prenotazione",
+    "pickup": "Ritiro",
+    "dropoff": "Destinazione",
+    "people": "persone",
+    "estimate": "Stima",
+    "rate": "Valuta",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "pageOf": "Pagina {{page}} di {{total}}",
+    "searchPlaceholder": "Cerca per località...",
+    "noMoreRides": "Nessun'altra prenotazione",
+    "sortLabel": "Ordina",
+    "sortDateDesc": "Data corsa ↓",
+    "sortDateAsc": "Data corsa ↑",
+    "sortCreated": "Prenotate di recente",
+    "cancelRide": "Annulla prenotazione",
+    "confirmCancel": "Sei sicuro di voler annullare?",
+    "yesCancel": "Sì, annulla"
+  },
+  "auth": {
+    "welcome": "Benvenuto",
+    "loginSubtitle": "Accedi al tuo account",
+    "password": "Password",
+    "passwordPlaceholder": "Inserisci la tua password",
+    "loggingIn": "Accesso...",
+    "loginButton": "Accedi",
+    "noAccount": "Non hai un account?",
+    "createAccount": "Crea Account",
+    "registerSubtitle": "Registrati su Comfort Transfer Services",
+    "firstName": "Nome",
+    "firstNamePlaceholder": "Mario",
+    "lastName": "Cognome",
+    "lastNamePlaceholder": "Rossi",
+    "phone": "Telefono",
+    "phonePlaceholder": "3123456789",
+    "passwordHelperText": "Almeno 8 caratteri",
+    "confirmPassword": "Conferma Password",
+    "confirmPasswordPlaceholder": "Reinserisci la password",
+    "registering": "Creazione...",
+    "registerButton": "Registrati",
+    "hasAccount": "Hai già un account?",
+    "passwordsMismatch": "Le password non corrispondono",
+    "passwordTooShort": "La password deve essere di almeno 8 caratteri",
+    "registerFailed": "Registrazione fallita. Riprova.",
+    "invalidEmail": "Inserisci un indirizzo email valido",
+    "loginFailed": "Accesso fallito. Riprova.",
+    "emailExists": "Esiste già un account con questa email",
+    "phoneExists": "Esiste già un account con questo numero di telefono",
+    "invalidCredentials": "Email o password non validi",
+    "accountInactive": "L'account è disattivato",
+    "verifyEmail": "Verifica la Tua Email",
+    "otpSentTo": "Abbiamo inviato un codice di verifica a",
+    "enterOtp": "Codice di Verifica",
+    "verifyButton": "Verifica",
+    "verifying": "Verifica...",
+    "resendCode": "Rinvia Codice",
+    "resendIn": "Rinvia tra {{seconds}}s",
+    "otpExpired": "Codice scaduto. Richiedine uno nuovo.",
+    "otpInvalid": "Codice non valido. Riprova.",
+    "otpMaxAttempts": "Troppi tentativi. Richiedi un nuovo codice.",
+    "otpRateLimit": "Troppi codici richiesti. Riprova tra 10 minuti.",
+    "otpCooldown": "Attendi prima di richiedere un nuovo codice.",
+    "verifyFailed": "Verifica fallita. Riprova.",
+    "resendFailed": "Invio codice fallito. Riprova.",
+    "changePassword": "Cambia Password",
+    "currentPassword": "Password Attuale",
+    "newPassword": "Nuova Password",
+    "confirmNewPassword": "Conferma Nuova Password",
+    "passwordChanged": "Password cambiata con successo!",
+    "passwordMismatch": "Le password non corrispondono",
+    "wrongPassword": "Password attuale errata",
+    "samePassword": "La nuova password deve essere diversa",
+    "editProfile": "Modifica Profilo",
+    "saveProfile": "Salva",
+    "profileSaved": "Profilo aggiornato!",
+    "allFieldsRequired": "Compila tutti i campi"
+  },
+  "footer": {
+    "quickLinks": "Link Rapidi"
+  },
+  "transfers": {
+    "metaTitle": "Taxi da {{from}} a {{to}} | Comfort Transfer Services",
+    "metaDescription": "Prenota un trasferimento privato in taxi da {{from}} a {{to}} a Creta. {{km}} km, circa {{minutes}} min. Da {{price}}€. Servizio porta a porta, van 8 posti, cancellazione gratuita.",
+    "heroTitle": "Trasferimento da {{from}} a {{to}}",
+    "heroSubtitle": "Servizio di trasferimento comodo e affidabile a Creta",
+    "bookNow": "Prenota Ora",
+    "routeDetails": "Dettagli Percorso",
+    "from": "Da",
+    "to": "A",
+    "duration": "Durata",
+    "distance": "Distanza",
+    "vehicle": "Veicolo",
+    "vehicleDesc": "Taxi van 8 posti, aria condizionata, confortevole",
+    "pricing": "Prezzi",
+    "pricingDesc": "Da {{price}}€ (1-4 pers.) / {{priceVan}}€ (5-8 pers.)",
+    "minutesApprox": "~{{minutes}} min",
+    "faqTitle": "Domande Frequenti",
+    "faq": {
+      "howLong": "Quanto dura il trasferimento da {{from}} a {{to}}?",
+      "howLongAnswer": "Il trasferimento da {{from}} a {{to}} dura circa {{minutes}} minuti e copre {{km}} km, a seconda delle condizioni del traffico.",
+      "howMuch": "Quanto costa il taxi da {{from}} a {{to}}?",
+      "howMuchAnswer": "Il trasferimento da {{from}} a {{to}} costa {{price}}€ per 1-4 passeggeri o {{priceVan}}€ per 5-8 passeggeri. Prezzo fisso, senza costi nascosti.",
+      "howBook": "Come prenoto un trasferimento?",
+      "howBookAnswer": "Puoi prenotare online sul nostro sito cliccando 'Prenota Ora', oppure contattaci telefonicamente o via email. Confermiamo la prenotazione immediatamente.",
+      "passengers": "Quanti passeggeri potete ospitare?",
+      "passengersAnswer": "Il nostro taxi van ospita comodamente fino a 8 passeggeri con spazio per i bagagli. Per 1-4 passeggeri si applica la tariffa normale, per 5-8 passeggeri si applica una tariffa più alta.",
+      "cancellation": "Qual è la vostra politica di cancellazione?",
+      "cancellationAnswer": "Offriamo cancellazione gratuita su tutti i trasferimenti. Puoi cancellare o modificare la prenotazione in qualsiasi momento senza alcun costo."
+    },
+    "indexTitle": "Tutti i Trasferimenti a Creta | Comfort Transfer Services",
+    "indexDescription": "Scopri tutti i percorsi di trasferimento in taxi disponibili a Creta. Trasferimenti aeroportuali, portuali e interurbani. Prenota online ora.",
+    "indexHeading": "Trasferimenti in Taxi a Creta",
+    "indexSubheading": "Scopri tutti i nostri percorsi di trasferimento e prenota online",
+    "popularTransfers": "Trasferimenti Popolari",
+    "viewAll": "Vedi tutti i trasferimenti"
+  },
+  "destinations": {
+    "pageTitle": "Esplora Creta | Comfort Transfer Services",
+    "heading": "Esplora Creta",
+    "subheading": "Scopri le spiagge più belle e i siti storici dell'isola",
+    "bookTransfer": "Prenota Trasferimento",
+    "allRegions": "Tutte",
+    "allCategories": "Tutti",
+    "noResults": "Nessuna destinazione trovata per questa combinazione.",
+    "heraklion": "Heraklion",
+    "rethymno": "Rethymno",
+    "chania": "Chania",
+    "lasithi": "Lasithi",
+    "beach": "Spiaggia",
+    "historical": "Storico",
+    "popularTitle": "Destinazioni Popolari",
+    "popularSubtitle": "I migliori luoghi da visitare a Creta",
+    "viewAll": "Vedi Tutte le Destinazioni",
+    "fodele": {
+      "name": "Spiaggia di Fodele",
+      "description": "La spiaggia di Fodele è una spiaggia sabbiosa situata a pochi chilometri a nord del villaggio di Fodele, circa 25 km a ovest di Heraklion. Sabbia dorata, acque limpide e colline verdi creano un'atmosfera naturale e tranquilla."
+    },
+    "agiaPelagia": {
+      "name": "Agia Pelagia",
+      "description": "La spiaggia di Agia Pelagia si trova in una bella baia protetta, circa 20 km a ovest di Heraklion. Acque calme e cristalline con sabbia dorata — perfetta per nuotare, fare snorkeling e rilassarsi."
+    },
+    "paliokastro": {
+      "name": "Paliokastro",
+      "description": "Paliokastro è una piccola zona costiera a circa 15 km a ovest di Heraklion. Nota per il paesaggio roccioso, la piccola spiaggia di ciottoli e le rovine di una fortezza veneziana. Acque profonde e limpide ideali per le immersioni."
+    },
+    "sisi": {
+      "name": "Sissi",
+      "description": "Sissi è un piccolo e tranquillo villaggio di pescatori sulla costa nord-orientale di Creta, a circa 35 km a est di Heraklion. Noto per il porto affascinante, le piccole spiagge sabbiose e l'atmosfera rilassata."
+    },
+    "matala": {
+      "name": "Matala",
+      "description": "Matala è un villaggio pittoresco sulla costa meridionale di Creta, famoso per la spiaggia sabbiosa, le acque turchesi e le iconiche grotte scolpite nelle scogliere, un tempo abitate dagli hippie negli anni '60."
+    },
+    "lentas": {
+      "name": "Lentas",
+      "description": "Lentas è un villaggio tranquillo sulla costa sud di Creta, circa 75 km a sud di Heraklion. Noto per la sua atmosfera pacifica, la bella spiaggia e la vista sui monti Asterousia. Antico porto della città di Gortina."
+    },
+    "threeChurches": {
+      "name": "Tre Chiese",
+      "description": "Tre Chiese è una piccola zona costiera isolata nel sud di Creta — un gioiello nascosto che offre una bellezza naturale mozzafiato, spiagge isolate e un'atmosfera tranquilla."
+    },
+    "tsoutsouros": {
+      "name": "Tsoutsouros",
+      "description": "Tsoutsouros è un piccolo villaggio tranquillo sulla costa sud di Creta, circa 65 km a sud di Heraklion. Noto per la lunga spiaggia sabbiosa e le acque cristalline. Nelle vicinanze si trovano le rovine dell'antica città di Inatos."
+    },
+    "knossosPalace": {
+      "name": "Palazzo di Cnosso",
+      "description": "Il più grande sito archeologico dell'età del bronzo a Creta, associato al mito del Minotauro e del Labirinto. Risalente al 2000-1400 a.C., presenta un'architettura minoica avanzata e affreschi colorati."
+    },
+    "koulesForetress": {
+      "name": "Fortezza di Koules",
+      "description": "Una fortezza veneziana del XVI secolo all'ingresso del vecchio porto di Heraklion. Offre una vista panoramica sul mare e uno sguardo alla difesa marittima veneziana. Un punto di riferimento di Heraklion."
+    },
+    "archaeologicalMuseum": {
+      "name": "Museo Archeologico",
+      "description": "Uno dei musei più importanti della Grecia per i reperti minoici. Da vedere: il Disco di Festo, le figurine della Dea dei Serpenti e gli affreschi di Cnosso."
+    },
+    "agiosTitos": {
+      "name": "Chiesa di Agios Titos",
+      "description": "Costruita originariamente nel X secolo e ricostruita nel XIX secolo, questa chiesa splendidamente restaurata riflette la storia religiosa di Creta con un mix di influenze architettoniche bizantine, veneziane e ottomane."
+    },
+    "bali": {
+      "name": "Bali",
+      "description": "Bali è un affascinante villaggio costiero sulla costa nord di Creta, noto per le belle spiagge con acque calme e limpide. Circondato da colline e uliveti, offre un mix di natura e tradizione."
+    },
+    "georgioupoli": {
+      "name": "Georgioupoli",
+      "description": "Georgioupoli è un affascinante villaggio costiero sulla costa nord-occidentale di Creta, famoso per la sua lunga spiaggia sabbiosa di oltre 10 chilometri e il fiume Almyros. La piccola cappella bianca di Agios Nikolaos su un isolotto è imperdibile."
+    },
+    "preveli": {
+      "name": "Preveli",
+      "description": "Preveli è una famosa spiaggia sulla costa sud di Creta, nota per la sua foresta di palme unica dove il fiume Kourtaliotis sfocia nel mare creando una bella laguna. Sopra si trova lo storico Monastero di Preveli."
+    },
+    "plakias": {
+      "name": "Plakias",
+      "description": "Plakias è un rilassato villaggio costiero sulla costa sud di Creta, famoso per la sua ampia spiaggia sabbiosa, lo sfondo montuoso e l'atmosfera rilassata. Le acque cristalline sono perfette per nuotare e fare snorkeling."
+    },
+    "elafonisi": {
+      "name": "Elafonisi",
+      "description": "Elafonisi è una piccola isola e spiaggia sulla costa sud-occidentale di Creta, famosa per la sabbia rosa e le acque cristalline e poco profonde. La sabbia deve il suo colore rosa alle conchiglie frantumate. Una delle spiagge più belle della Grecia."
+    },
+    "balos": {
+      "name": "Laguna di Balos",
+      "description": "La laguna di Balos è uno degli spettacoli naturali più belli di Creta, sulla costa nord-occidentale vicino a Kissamos. Famosa per le acque turchesi poco profonde, la sabbia bianco-rosa e l'incredibile paesaggio lagunare."
+    },
+    "falasarna": {
+      "name": "Falasarna",
+      "description": "Falasarna è una bellissima zona balneare sulla costa occidentale di Creta, vicino a Kissamos. Famosa per la lunga e ampia spiaggia sabbiosa, le acque blu e i tramonti spettacolari. Rovine antiche di una città greco-romana nelle vicinanze."
+    },
+    "stavros": {
+      "name": "Stavros (Spiaggia di Zorba)",
+      "description": "Stavros è un piccolo villaggio costiero tranquillo sulla penisola di Akrotiri, a 15-20 km a nord-est di Chania. Famoso per la spiaggia circolare con acque turchesi poco profonde. Qui è stato girato il film \"Zorba il Greco\" (1964)."
+    },
+    "elounda": {
+      "name": "Elounda",
+      "description": "Elounda è una bella città costiera nel nord-est di Creta, famosa per le acque blu calme, i resort di lusso e l'atmosfera rilassata. Nelle vicinanze potete visitare la famosa isola di Spinalonga con la sua fortezza veneziana."
+    },
+    "voulisma": {
+      "name": "Voulisma (Spiaggia Dorata)",
+      "description": "La spiaggia di Voulisma è una delle più belle spiagge della Creta orientale, vicino al villaggio di Istro. Famosa per le acque turchesi brillanti, la sabbia dorata e l'atmosfera tropicale."
+    },
+    "vai": {
+      "name": "Spiaggia delle Palme di Vai",
+      "description": "La spiaggia di Vai è famosa per la sua enorme foresta naturale di palme — la più grande d'Europa. Sabbia dorata, acque turchesi e un'atmosfera tropicale ed esotica. Una spiaggia ben organizzata che rimane naturale e speciale."
+    },
+    "makrigialos": {
+      "name": "Makrigialos",
+      "description": "Makrigialos è un tranquillo villaggio costiero sulla costa sud-orientale di Creta. Noto per la lunga spiaggia sabbiosa, le acque calme e poco profonde e l'atmosfera rilassata e familiare. Il nome significa \"lunga spiaggia\" in greco!"
+    }
+  },
+  "locations": {
+    "heraklionAirport": "Aeroporto di Heraklion (HER)",
+    "chaniaAirport": "Aeroporto di Chania (CHQ)",
+    "heraklionPort": "Porto di Heraklion",
+    "chaniaPort": "Porto di Chania (Souda)",
+    "rethymnoPort": "Porto di Rethymno",
+    "heraklionCenter": "Centro di Heraklion",
+    "hersonissos": "Hersonissos",
+    "malia": "Malia",
+    "agiosNikolaos": "Agios Nikolaos",
+    "elounda": "Elounda",
+    "rethymno": "Rethymno",
+    "chaniaOldTown": "Città Vecchia di Chania",
+    "stalida": "Stalida",
+    "gouves": "Gouves",
+    "kokkiniHani": "Kokkini Hani",
+    "ammoudara": "Ammoudara",
+    "agiaPelagia": "Agia Pelagia",
+    "bali": "Bali",
+    "plakias": "Plakias",
+    "matala": "Matala",
+    "ierapetra": "Ierapetra",
+    "sitia": "Sitia",
+    "archanes": "Archanes",
+    "moires": "Moires",
+    "tympaki": "Tympaki",
+    "zaros": "Zaros",
+    "anogia": "Anogia",
+    "knossos": "Cnosso",
+    "fodele": "Fodele",
+    "loutraki": "Loutraki",
+    "georgioupoli": "Georgioupoli",
+    "kalyves": "Kalyves",
+    "platanias": "Platanias",
+    "kissamos": "Kissamos",
+    "paleochora": "Paleochora",
+    "sfakia": "Sfakia (Hora Sfakion)",
+    "agiaGalini": "Agia Galini",
+    "lakeKournas": "Lago di Kournas",
+    "elafonisi": "Elafonisi",
+    "balos": "Balos",
+    "vai": "Vai",
+    "spinalonga": "Spinalonga"
+  },
+  "tours": {
+    "metaTitle": "Tour a Creta | Crete TaxiVan",
+    "metaDescription": "Scopri Creta con i migliori tour. Tour popolari o crea il tuo itinerario personalizzato.",
+    "heroTitle": "Esplora Creta",
+    "heroSubtitle": "Scopri i luoghi più belli dell'isola con i nostri tour organizzati o crea il tuo percorso",
+    "tabs": { "popular": "Tour Popolari", "diy": "Crea il Tuo" },
+    "popular": "Popolare",
+    "fromPrice": "da {{price}}€",
+    "bookTour": "Prenota Tour",
+    "noTours": "Nessun tour trovato in questa categoria",
+    "bookingStops": "Tappe",
+    "ctaTitle": "Cerchi qualcosa di speciale?",
+    "ctaSubtitle": "Chiamaci per pianificare il tour perfetto su misura per te",
+    "callUs": "Chiamaci",
+    "orBookTransfer": "o Prenota un Transfer",
+    "categories": { "all": "Tutti", "beach": "Spiagge", "culture": "Cultura", "adventure": "Avventura", "nature": "Natura" },
+    "items": {
+      "knossos-heraklion": { "name": "Cnosso & Heraklion", "description": "Immergiti nella civiltà minoica ed esplora la storica città di Heraklion" },
+      "elafonisi-falasarna": { "name": "Elafonisi & Falasarna", "description": "Sabbia rosa e acque cristalline nelle spiagge più belle di Creta" },
+      "balos-gramvousa": { "name": "Laguna di Balos & Gramvousa", "description": "L'esotica laguna di Balos e la fortezza veneziana di Gramvousa" },
+      "spinalonga-elounda": { "name": "Spinalonga & Elounda", "description": "L'isola storica di Spinalonga e la cosmopolita baia di Elounda" },
+      "rethymno-arkadi": { "name": "Rethymno & Monastero di Arkadi", "description": "Architettura veneziana, monastero storico e pittoresco porto antico" },
+      "south-coast": { "name": "Costa Sud: Matala & Preveli", "description": "Grotte hippie, spiagge nascoste e la foresta di palme di Preveli" },
+      "chania-old-town": { "name": "Città Vecchia di Chania", "description": "Porto veneziano, vicoli affascinanti e il famoso mercato di Chania" },
+      "lasithi-plateau": { "name": "Altopiano di Lasithi & Grotta di Zeus", "description": "Grotta mitica, mulini a vento e paesaggi montani spettacolari" }
+    },
+    "stops": {
+      "knossosPalace": "Palazzo di Cnosso", "archaeologicalMuseum": "Museo Archeologico", "heraklionOldTown": "Città Vecchia di Heraklion",
+      "elafonisi": "Elafonisi", "falasarna": "Falasarna", "kissamos": "Kissamos", "balos": "Balos", "gramvousa": "Gramvousa",
+      "elounda": "Elounda", "spinalonga": "Spinalonga", "agiosNikolaos": "Agios Nikolaos",
+      "arkadiMonastery": "Monastero di Arkadi", "rethymnoOldTown": "Città Vecchia di Rethymno", "rethymnoHarbor": "Porto Veneziano di Rethymno",
+      "matala": "Matala", "preveli": "Preveli", "plakias": "Plakias",
+      "chaniaOldTown": "Città Vecchia di Chania", "chaniaHarbor": "Porto Veneziano di Chania", "chaniaMarket": "Mercato di Chania",
+      "lasithiPlateau": "Altopiano di Lasithi", "zeusCave": "Grotta di Zeus", "psychro": "Psychro",
+      "knossos": "Cnosso", "rethymno": "Rethymno", "chania": "Chania", "bali": "Bali", "vai": "Vai", "heraklion": "Heraklion", "georgioupoli": "Georgioupoli"
+    },
+    "diy": { "yourItinerary": "Il Tuo Itinerario", "stops": "tappe", "chooseStops": "Scegli le tue tappe", "bookCustomTour": "Prenota Tour Personalizzato", "customTour": "Tour Personalizzato" },
+    "booking": { "title": "Prenota Tour", "date": "Data", "selectDate": "Seleziona data", "people": "Persone", "specialRequests": "Richieste speciali", "notesPlaceholder": "Orario di ritiro, punti di interesse...", "submit": "Conferma Prenotazione", "success": "La tua prenotazione è stata registrata!", "successMessage": "Ti contatteremo presto per confermare il tuo tour.", "close": "Chiudi", "error": "Qualcosa è andato storto. Riprova." }
+  }
+}

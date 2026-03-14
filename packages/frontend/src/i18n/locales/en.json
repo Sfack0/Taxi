@@ -1,0 +1,547 @@
+{
+  "common": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "back": "Back",
+    "continue": "Continue",
+    "confirm": "Confirm",
+    "search": "Search",
+    "error": "Error",
+    "loading": "Loading...",
+    "myRides": "My Rides",
+    "rides": "Rides",
+    "newBooking": "New Booking",
+    "optional": "optional"
+  },
+  "home": {
+    "tagline": "Comfort Transfer Services",
+    "subtitle": "Book your transfer online",
+    "bookRide": "Book a Ride",
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "Reliable transportation across Crete",
+    "services": {
+      "airportTransfers": {
+        "title": "Airport & Port Transfers",
+        "description": "Comfortable arrivals and departures from Heraklion and Chania airports and ports"
+      },
+      "scheduledTransfers": {
+        "title": "Scheduled Transfers",
+        "description": "Pre-booked transfers to your destination, on time every time"
+      },
+      "localTransport": {
+        "title": "Local Transport",
+        "description": "Get around town quickly and comfortably"
+      },
+      "tours": {
+        "title": "Tours",
+        "description": "Discover Crete's hidden gems with personalized tours"
+      }
+    },
+    "vehicleTitle": "Our Vehicle",
+    "vehicleSeats": "9 Seats",
+    "vehicleSeatsDesc": "Spacious taxi van with room for everyone",
+    "pricingRule": "Fair Pricing",
+    "pricingRuleDesc": "1-4 passengers at regular rate, 5+ passengers at +30%",
+    "contactTitle": "Contact Us",
+    "contactSubtitle": "Get in touch for bookings and inquiries",
+    "footerTagline": "Your trusted taxi service in Crete",
+    "allRightsReserved": "All rights reserved",
+    "highlight24": "24/7 Available",
+    "highlightSeats": "Up to 8 seats",
+    "highlightCancel": "Free cancellation",
+    "about": {
+      "title": "About Us",
+      "p1": "With over 25 years of experience, our family-owned taxi service offers comfortable, reliable transportation for travelers who value quality and trust.",
+      "p2": "We put comfort, safety, and punctuality first. Every ride is handled with care, from airport transfers and private rides to personalized transportation across Crete."
+    }
+  },
+  "booking": {
+    "step1": "Booking",
+    "step2": "Details",
+    "step3": "Confirmation",
+    "roundtrip": "Round trip?",
+    "pickupLocation": "Pickup Location",
+    "dropoffLocation": "Dropoff Location",
+    "selectLocation": "Select location...",
+    "myLocation": "My Location",
+    "swapLocations": "Swap locations",
+    "date": "Date",
+    "time": "Time",
+    "outboundDate": "Outbound Date",
+    "outboundTime": "Outbound Time",
+    "returnDate": "Return Date",
+    "returnTime": "Return Time",
+    "people": "People",
+    "returnPeople": "Return People",
+    "roundtripLabel": "Add return trip",
+    "freeCancellation": "Free cancellation",
+    "selectDateTimeAlert": "Please select pickup date and time.",
+    "selectReturnDateTimeAlert": "Please select return date and time.",
+    "otherLocation": "Other location...",
+    "customLocationPlaceholder": "e.g. Hotel Minos, Lions Square...",
+    "backToList": "Choose from list",
+    "noResults": "No locations found",
+    "popularLocations": "Popular locations",
+    "pickFromMap": "Pick from map",
+    "tapToSelect": "Tap on the map to select a location",
+    "paymentMethod": "Payment",
+    "cash": "Cash",
+    "card": "Card",
+    "childSeat": "Child Seat",
+    "yes": "Yes",
+    "notes": "Notes",
+    "notesPlaceholder": "e.g. special requests...",
+    "price": "Price",
+    "estimatedPrice": "Est. price",
+    "showRoute": "Show route on map",
+    "hideRoute": "Hide map",
+    "flightInfo": "Flight Info",
+    "returnFlightInfo": "Return Flight Info",
+    "flightNumber": "Flight No.",
+    "flightTime": "Flight Time",
+    "luggageCount": "Luggage"
+  },
+  "customerInfo": {
+    "title": "Contact Information",
+    "subtitle": "Fill in your details to complete the booking",
+    "name": "Full Name",
+    "namePlaceholder": "e.g. John Smith",
+    "phone": "Phone",
+    "phonePlaceholder": "6912345678",
+    "email": "Email",
+    "emailPlaceholder": "e.g. john@example.com"
+  },
+  "confirmation": {
+    "title": "Booking Confirmation",
+    "subtitle": "Review your details before confirming",
+    "contactInfo": "Contact Information",
+    "route": "Route",
+    "from": "From",
+    "to": "To",
+    "outbound": "Outbound",
+    "return": "Return",
+    "dateTime": "Date & Time",
+    "confirming": "Booking...",
+    "extras": "Extras"
+  },
+  "success": {
+    "title": "Booking Created!",
+    "subtitle": "The driver will be notified and will contact you",
+    "bookingNumber": "Booking Number",
+    "status": "Status",
+    "emailConfirmation": "Email Confirmation",
+    "emailSent": "A confirmation email has been sent to",
+    "nextStep": "Next Step",
+    "nextStepText": "The driver will be notified about your booking and will contact you at the phone number you provided.",
+    "oops": "Oops!",
+    "notFound": "Booking not found"
+  },
+  "history": {
+    "title": "History",
+    "subtitle": "View and manage your bookings",
+    "filters": "Filters",
+    "all": "All",
+    "completed": "Completed",
+    "active": "Active",
+    "cancelled": "Cancelled",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "allTime": "All Time",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "selectDates": "Select date range",
+    "noRides": "No bookings",
+    "noCompleted": "No completed bookings",
+    "noActive": "No active bookings",
+    "noPending": "No pending bookings",
+    "noAccepted": "No accepted bookings",
+    "noCancelled": "No cancelled bookings",
+    "booking": "Booking",
+    "pickup": "Pickup",
+    "dropoff": "Dropoff",
+    "people": "people",
+    "estimate": "Estimate",
+    "rate": "Rate",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {{page}} of {{total}}",
+    "searchPlaceholder": "Search by location...",
+    "noMoreRides": "No more bookings",
+    "sortLabel": "Sort",
+    "sortDateDesc": "Ride date ↓",
+    "sortDateAsc": "Ride date ↑",
+    "sortCreated": "Recently booked",
+    "cancelRide": "Cancel booking",
+    "confirmCancel": "Are you sure you want to cancel?",
+    "yesCancel": "Yes, cancel"
+  },
+  "auth": {
+    "welcome": "Welcome",
+    "loginSubtitle": "Sign in to your account",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "loggingIn": "Signing in...",
+    "loginButton": "Sign In",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create Account",
+    "registerSubtitle": "Sign up for Comfort Transfer Services",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "John",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Smith",
+    "phone": "Phone",
+    "phonePlaceholder": "6912345678",
+    "passwordHelperText": "At least 8 characters",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Re-enter your password",
+    "registering": "Creating...",
+    "registerButton": "Sign Up",
+    "hasAccount": "Already have an account?",
+    "passwordsMismatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "registerFailed": "Registration failed. Please try again.",
+    "invalidEmail": "Please enter a valid email address",
+    "loginFailed": "Login failed. Please try again.",
+    "emailExists": "An account with this email already exists",
+    "phoneExists": "An account with this phone number already exists",
+    "invalidCredentials": "Invalid email or password",
+    "accountInactive": "Account is deactivated",
+    "verifyEmail": "Verify Your Email",
+    "otpSentTo": "We sent a verification code to",
+    "enterOtp": "Verification Code",
+    "verifyButton": "Verify",
+    "verifying": "Verifying...",
+    "resendCode": "Resend Code",
+    "resendIn": "Resend in {{seconds}}s",
+    "otpExpired": "Code expired. Please request a new one.",
+    "otpInvalid": "Invalid code. Please try again.",
+    "otpMaxAttempts": "Too many attempts. Please request a new code.",
+    "otpRateLimit": "Too many codes requested. Please try again in 10 minutes.",
+    "otpCooldown": "Please wait before requesting a new code.",
+    "verifyFailed": "Verification failed. Please try again.",
+    "resendFailed": "Failed to resend code. Please try again.",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "passwordChanged": "Password changed successfully!",
+    "passwordMismatch": "Passwords do not match",
+    "wrongPassword": "Wrong current password",
+    "samePassword": "New password must be different from current",
+    "editProfile": "Edit Profile",
+    "saveProfile": "Save",
+    "profileSaved": "Profile updated!",
+    "allFieldsRequired": "Please fill in all fields"
+  },
+  "footer": {
+    "quickLinks": "Quick Links"
+  },
+  "transfers": {
+    "metaTitle": "Taxi from {{from}} to {{to}} | Comfort Transfer Services",
+    "metaDescription": "Book a private taxi transfer from {{from}} to {{to}} in Crete. {{km}} km, approx. {{minutes}} min. From {{price}}€. Door-to-door service, 8-seat van, free cancellation.",
+    "heroTitle": "Transfer from {{from}} to {{to}}",
+    "heroSubtitle": "Comfortable and reliable transfer service in Crete",
+    "bookNow": "Book Now",
+    "routeDetails": "Route Details",
+    "from": "From",
+    "to": "To",
+    "duration": "Duration",
+    "distance": "Distance",
+    "vehicle": "Vehicle",
+    "vehicleDesc": "8-seat taxi van, A/C, comfortable",
+    "pricing": "Pricing",
+    "pricingDesc": "From {{price}}€ (1-4 pax) / {{priceVan}}€ (5-8 pax)",
+    "minutesApprox": "~{{minutes}} min",
+    "faqTitle": "Frequently Asked Questions",
+    "faq": {
+      "howLong": "How long is the transfer from {{from}} to {{to}}?",
+      "howLongAnswer": "The transfer from {{from}} to {{to}} takes approximately {{minutes}} minutes and covers {{km}} km, depending on traffic conditions.",
+      "howMuch": "How much does the taxi from {{from}} to {{to}} cost?",
+      "howMuchAnswer": "The transfer from {{from}} to {{to}} costs {{price}}€ for 1-4 passengers, or {{priceVan}}€ for 5-8 passengers. Fixed price, no hidden fees.",
+      "howBook": "How do I book a transfer?",
+      "howBookAnswer": "You can book online through our website by clicking 'Book Now', or contact us by phone or email. We'll confirm your booking immediately.",
+      "passengers": "How many passengers can you accommodate?",
+      "passengersAnswer": "Our taxi van seats up to 8 passengers comfortably with space for luggage. For 1-4 passengers the regular rate applies, for 5-8 passengers a higher rate applies.",
+      "cancellation": "What is your cancellation policy?",
+      "cancellationAnswer": "We offer free cancellation on all transfers. You can cancel or modify your booking at any time without any charge."
+    },
+    "indexTitle": "All Transfers in Crete | Comfort Transfer Services",
+    "indexDescription": "Browse all available taxi transfer routes in Crete. Airport transfers, port transfers, and inter-city routes. Book online now.",
+    "indexHeading": "Taxi Transfers in Crete",
+    "indexSubheading": "Browse all our available transfer routes and book online",
+    "popularTransfers": "Popular Transfers",
+    "viewAll": "View all transfers"
+  },
+  "destinations": {
+    "pageTitle": "Explore Crete | Comfort Transfer Services",
+    "heading": "Explore Crete",
+    "subheading": "Discover the most beautiful beaches and historic sites across the island",
+    "bookTransfer": "Book Transfer",
+    "allRegions": "All",
+    "allCategories": "All",
+    "noResults": "No destinations found for this combination.",
+    "heraklion": "Heraklion",
+    "rethymno": "Rethymno",
+    "chania": "Chania",
+    "lasithi": "Lasithi",
+    "beach": "Beach",
+    "historical": "Historical",
+    "popularTitle": "Popular Destinations",
+    "popularSubtitle": "Top places to visit in Crete",
+    "viewAll": "View All Destinations",
+    "fodele": {
+      "name": "Fodele Beach",
+      "description": "Fodele Beach is a sandy beach located just a few kilometers north of Fodele village, about 25 km west of Heraklion. It has golden sand, clear waters, and is surrounded by green hills, giving it a more natural, peaceful feel. The beach is partly organized, with sunbeds, umbrellas, and a few cafes nearby."
+    },
+    "agiaPelagia": {
+      "name": "Agia Pelagia",
+      "description": "Agia Pelagia Beach is a popular seaside spot located about 20 km west of Heraklion. It's set in a beautiful, sheltered bay, with calm, crystal-clear waters and soft golden sand — perfect for swimming, snorkeling, and relaxing. The beach is well-organized with sunbeds, umbrellas, and lots of cafes and tavernas."
+    },
+    "paliokastro": {
+      "name": "Paliokastro",
+      "description": "Paliokastro is a small coastal area located about 15 km west of Heraklion. It's known for its rocky landscape, small pebbly beach, and the ruins of a Venetian fortress. The beach has deep, clear waters — great for swimming, snorkeling, and diving — but it's wilder and more natural compared to organized tourist beaches."
+    },
+    "sisi": {
+      "name": "Sissi",
+      "description": "Sissi is a small, peaceful fishing village on the northeastern coast of Crete. It's about 35 km east of Heraklion and close to Malia. Known for its charming harbor, small sandy beaches, and relaxed atmosphere, it's a perfect escape from the more crowded tourist destinations."
+    },
+    "matala": {
+      "name": "Matala",
+      "description": "Matala is a picturesque village on the southern coast of Crete, about 75 km southwest of Heraklion. It's famous for its sandy beach, clear turquoise waters, and the iconic caves carved into the cliffs, which were once used by ancient Minoans and later became home to hippies in the 1960s."
+    },
+    "lentas": {
+      "name": "Lentas",
+      "description": "Lentas is a quiet, charming village on the southern coast of Crete, about 75 km south of Heraklion. It's known for its peaceful vibe, beautiful sandy and pebbly beach, and scenic views of the Asterousia Mountains. Historically a harbor for the ancient city of Gortyn."
+    },
+    "threeChurches": {
+      "name": "Three Churches",
+      "description": "Three Churches is a small, remote coastal area in southern Crete — a hidden gem offering stunning natural beauty, secluded beaches, and a peaceful atmosphere. The landscaped surroundings make it a perfect spot for those looking to escape the urban environment."
+    },
+    "tsoutsouros": {
+      "name": "Tsoutsouros",
+      "description": "Tsoutsouros is a small, peaceful village on the southern coast of Crete, about 65 km south of Heraklion. Known for its long sandy beach and crystal-clear waters, it's perfect for swimming and relaxing. The area is also historically significant, with nearby ruins of the ancient city of Inatos."
+    },
+    "knossosPalace": {
+      "name": "Knossos Palace",
+      "description": "The largest Bronze Age archaeological site on Crete, associated with the myth of the Minotaur and the Labyrinth. Dating from around 2000-1400 BC, it showcases advanced Minoan architecture, colorful frescoes, and storied mythology. The most famous Minoan palace in the world."
+    },
+    "koulesForetress": {
+      "name": "Koules Fortress",
+      "description": "A 16th-century Venetian fortress at the entrance to Heraklion's old harbor. It offers panoramic sea views and insight into Venetian maritime defense. A landmark of Heraklion and a great spot to enjoy the sunset over the sea."
+    },
+    "archaeologicalMuseum": {
+      "name": "Archaeological Museum",
+      "description": "One of the most significant museums in Greece for Minoan artifacts. Must-see items include the Phaistos Disc, Snake Goddess figurines, and frescoes from Knossos. It perfectly complements a visit to Knossos Palace."
+    },
+    "agiosTitos": {
+      "name": "Church of Agios Titos",
+      "description": "Originally built in the 10th century and reconstructed in the 19th century, this beautifully restored church reflects Crete's layered religious history with a mix of Byzantine, Venetian, and Ottoman architectural influences."
+    },
+    "bali": {
+      "name": "Bali",
+      "description": "Bali is a charming seaside village on the north coast of Crete, known for its beautiful beaches with calm, clear waters, ideal for swimming and relaxing. Surrounded by hills and olive groves, it offers a blend of nature and tradition — great for families, couples, and anyone seeking a quiet beach getaway."
+    },
+    "georgioupoli": {
+      "name": "Georgioupoli",
+      "description": "Georgioupoli is a charming coastal village on the northwest coast of Crete, famous for its long sandy beach stretching over 10 kilometers and its beautiful Almyros River. The iconic small white chapel of Agios Nikolaos, built on a rocky islet, is a must-see."
+    },
+    "preveli": {
+      "name": "Preveli",
+      "description": "Preveli is a famous beach on the south coast of Crete, best known for its unique palm forest where the Kourtaliotis River flows into the sea, creating a beautiful lagoon. Above the beach sits the historic Preveli Monastery. Perfect for nature lovers and hikers."
+    },
+    "plakias": {
+      "name": "Plakias",
+      "description": "Plakias is a relaxed seaside village on the south coast of Crete, famous for its wide sandy beach, beautiful mountain backdrop, and laid-back atmosphere. The crystal-clear waters are perfect for swimming, snorkeling, and windsurfing. Nearby you can visit Preveli Beach and Kourtaliotiko Gorge."
+    },
+    "elafonisi": {
+      "name": "Elafonisi",
+      "description": "Elafonisi is a small island and beach on the southwest coast of Crete, famous for its pink sand and crystal-clear, shallow waters. The sand gets its pink color from crushed seashells. You can walk through the shallow water to reach the island — one of the most beautiful beaches in Greece."
+    },
+    "balos": {
+      "name": "Balos Lagoon",
+      "description": "Balos Lagoon is one of the most stunning natural sights in Crete, located on the northwest coast near Kissamos. It's famous for its shallow turquoise waters, white-pink sand, and incredible lagoon landscape. You can reach it by boat or by driving and hiking down a rocky path."
+    },
+    "falasarna": {
+      "name": "Falasarna",
+      "description": "Falasarna is a beautiful beach area on the west coast of Crete, near Kissamos. It's famous for its long, wide sandy beach, clear blue waters, and amazing sunsets. The beach is made up of several smaller beaches, giving it a natural, open feel. Ancient ruins of a Greek-Roman city are nearby."
+    },
+    "stavros": {
+      "name": "Stavros (Zorba Beach)",
+      "description": "Stavros is a small, quiet coastal village on the Akrotiri Peninsula, about 15-20 km northeast of Chania. It's famous for its beautiful circular beach with shallow turquoise waters and a dramatic rocky mountain. This is where the famous movie \"Zorba the Greek\" (1964) was filmed."
+    },
+    "elounda": {
+      "name": "Elounda",
+      "description": "Elounda is a beautiful coastal town in northeastern Crete, famous for its calm blue waters, luxurious resorts, and relaxed atmosphere. Originally a fishing village, it has become one of Crete's top destinations. Nearby you can visit the famous Spinalonga Island with its Venetian fortress."
+    },
+    "voulisma": {
+      "name": "Voulisma (Golden Beach)",
+      "description": "Voulisma Beach is one of the most beautiful beaches in eastern Crete, near the village of Istro. It's famous for its bright turquoise waters, soft golden sand, and tropical vibe. The water is shallow and very clear, making it ideal for swimming and snorkeling."
+    },
+    "vai": {
+      "name": "Vai Palm Beach",
+      "description": "Vai Beach is famous for its huge natural palm forest — the largest in Europe. The beach has golden sand, clear turquoise waters, and a tropical, exotic feel. A well-organized beach that still feels natural and special thanks to the impressive palm forest surrounding it."
+    },
+    "makrigialos": {
+      "name": "Makrigialos",
+      "description": "Makrigialos is a peaceful seaside village on the southeast coast of Crete. It's known for its long sandy beach, calm shallow waters, and relaxed, family-friendly atmosphere. The name means \"long beach\" in Greek! It has a charming harbor and seafront tavernas."
+    }
+  },
+  "locations": {
+    "heraklionAirport": "Heraklion Airport (HER)",
+    "chaniaAirport": "Chania Airport (CHQ)",
+    "heraklionPort": "Heraklion Port",
+    "chaniaPort": "Chania Port (Souda)",
+    "rethymnoPort": "Rethymno Port",
+    "heraklionCenter": "Heraklion Center",
+    "hersonissos": "Hersonissos",
+    "malia": "Malia",
+    "agiosNikolaos": "Agios Nikolaos",
+    "elounda": "Elounda",
+    "rethymno": "Rethymno",
+    "chaniaOldTown": "Chania Old Town",
+    "stalida": "Stalida",
+    "gouves": "Gouves",
+    "kokkiniHani": "Kokkini Hani",
+    "ammoudara": "Ammoudara",
+    "agiaPelagia": "Agia Pelagia",
+    "bali": "Bali",
+    "plakias": "Plakias",
+    "matala": "Matala",
+    "ierapetra": "Ierapetra",
+    "sitia": "Sitia",
+    "archanes": "Archanes",
+    "moires": "Moires",
+    "tympaki": "Tympaki",
+    "zaros": "Zaros",
+    "anogia": "Anogia",
+    "knossos": "Knossos",
+    "fodele": "Fodele",
+    "loutraki": "Loutraki",
+    "georgioupoli": "Georgioupoli",
+    "kalyves": "Kalyves",
+    "platanias": "Platanias",
+    "kissamos": "Kissamos",
+    "paleochora": "Paleochora",
+    "sfakia": "Sfakia (Hora Sfakion)",
+    "agiaGalini": "Agia Galini",
+    "lakeKournas": "Lake Kournas",
+    "elafonisi": "Elafonisi",
+    "balos": "Balos",
+    "vai": "Vai",
+    "spinalonga": "Spinalonga"
+  },
+  "tours": {
+    "metaTitle": "Tours in Crete | Crete TaxiVan",
+    "metaDescription": "Discover Crete with the best guided tours. Popular tours or build your own custom itinerary.",
+    "heroTitle": "Explore Crete",
+    "heroSubtitle": "Discover the most beautiful places on the island with our curated tours or create your own route",
+    "tabs": {
+      "popular": "Popular Tours",
+      "diy": "Build Your Own"
+    },
+    "popular": "Popular",
+    "fromPrice": "from {{price}}€",
+    "bookTour": "Book Tour",
+    "noTours": "No tours found in this category",
+    "bookingStops": "Stops",
+    "ctaTitle": "Looking for something special?",
+    "ctaSubtitle": "Call us to plan the perfect tour tailored just for you",
+    "callUs": "Call Us",
+    "orBookTransfer": "or Book a Transfer",
+    "categories": {
+      "all": "All",
+      "beach": "Beaches",
+      "culture": "Culture",
+      "adventure": "Adventure",
+      "nature": "Nature"
+    },
+    "items": {
+      "knossos-heraklion": {
+        "name": "Knossos & Heraklion City",
+        "description": "Dive into Minoan civilization and explore the historic city of Heraklion"
+      },
+      "elafonisi-falasarna": {
+        "name": "Elafonisi & Falasarna Beaches",
+        "description": "Pink sand and crystal-clear waters at Crete's most stunning beaches"
+      },
+      "balos-gramvousa": {
+        "name": "Balos Lagoon & Gramvousa",
+        "description": "The exotic lagoon of Balos and the Venetian fortress on Gramvousa island"
+      },
+      "spinalonga-elounda": {
+        "name": "Spinalonga & Elounda",
+        "description": "The historic island of Spinalonga and the cosmopolitan bay of Elounda"
+      },
+      "rethymno-arkadi": {
+        "name": "Rethymno & Arkadi Monastery",
+        "description": "Venetian architecture, a historic monastery, and a picturesque old harbor"
+      },
+      "south-coast": {
+        "name": "South Coast: Matala & Preveli",
+        "description": "Hippie caves, hidden beaches, and the palm forest of Preveli"
+      },
+      "chania-old-town": {
+        "name": "Chania Old Town",
+        "description": "Venetian harbor, charming alleys, and the famous Chania market"
+      },
+      "lasithi-plateau": {
+        "name": "Lasithi Plateau & Zeus Cave",
+        "description": "Mythical cave, windmills, and spectacular mountain scenery"
+      }
+    },
+    "stops": {
+      "knossosPalace": "Knossos Palace",
+      "archaeologicalMuseum": "Archaeological Museum",
+      "heraklionOldTown": "Heraklion Old Town",
+      "elafonisi": "Elafonisi",
+      "falasarna": "Falasarna",
+      "kissamos": "Kissamos",
+      "balos": "Balos",
+      "gramvousa": "Gramvousa",
+      "elounda": "Elounda",
+      "spinalonga": "Spinalonga",
+      "agiosNikolaos": "Agios Nikolaos",
+      "arkadiMonastery": "Arkadi Monastery",
+      "rethymnoOldTown": "Rethymno Old Town",
+      "rethymnoHarbor": "Rethymno Venetian Harbor",
+      "matala": "Matala",
+      "preveli": "Preveli",
+      "plakias": "Plakias",
+      "chaniaOldTown": "Chania Old Town",
+      "chaniaHarbor": "Chania Venetian Harbor",
+      "chaniaMarket": "Chania Market",
+      "lasithiPlateau": "Lasithi Plateau",
+      "zeusCave": "Zeus Cave",
+      "psychro": "Psychro",
+      "knossos": "Knossos",
+      "rethymno": "Rethymno",
+      "chania": "Chania",
+      "bali": "Bali",
+      "vai": "Vai",
+      "heraklion": "Heraklion",
+      "georgioupoli": "Georgioupoli"
+    },
+    "diy": {
+      "yourItinerary": "Your Itinerary",
+      "stops": "stops",
+      "chooseStops": "Choose your stops",
+      "bookCustomTour": "Book Custom Tour",
+      "customTour": "Custom Tour"
+    },
+    "booking": {
+      "title": "Book Tour",
+      "date": "Date",
+      "selectDate": "Select date",
+      "people": "People",
+      "specialRequests": "Special requests",
+      "notesPlaceholder": "Pickup time, points of interest...",
+      "submit": "Complete Booking",
+      "success": "Your booking has been submitted!",
+      "successMessage": "We will contact you shortly to confirm your tour.",
+      "close": "Close",
+      "error": "Something went wrong. Please try again."
+    }
+  }
+}
