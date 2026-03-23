@@ -161,6 +161,8 @@
     "booking": "Réservation",
     "pickup": "Prise en charge",
     "dropoff": "Destination",
+    "selectPickup": "Sélectionnez le lieu de prise en charge",
+    "selectDropoff": "Sélectionnez la destination",
     "people": "personnes",
     "estimate": "Estimation",
     "rate": "Évaluer",
@@ -272,7 +274,14 @@
     "indexHeading": "Transferts en Taxi en Crète",
     "indexSubheading": "Découvrez tous nos itinéraires de transfert et réservez en ligne",
     "popularTransfers": "Transferts Populaires",
-    "viewAll": "Voir tous les transferts"
+    "viewAll": "Voir tous les transferts",
+    "fixedPrices": "Prix fixes",
+    "freeCancellation": "Annulation gratuite",
+    "fromPrice": "à partir de",
+    "bookNow": "Réserver",
+    "customRoute": "Vous ne trouvez pas votre trajet ?",
+    "customRouteDescription": "Nous proposons des transferts vers toute destination en Crète. Réservez un transfert personnalisé.",
+    "bookCustom": "Réserver un Transfert"
   },
   "destinations": {
     "pageTitle": "Explorer la Crète | Comfort Transfer Services",

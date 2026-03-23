@@ -53,6 +53,19 @@ const LocationPicker = ({
   const [pickupCoords, setPickupCoords] = useState<{ lat: number; lng: number }>(pickupCoordinates);
   const [dropoffCoords, setDropoffCoords] = useState<{ lat: number; lng: number }>(dropoffCoordinates);
 
+  // Sync local coords when context updates (e.g. from URL params)
+  useEffect(() => {
+    if (pickupCoordinates.lat !== 0 && pickupCoordinates.lng !== 0) {
+      setPickupCoords(pickupCoordinates);
+    }
+  }, [pickupCoordinates.lat, pickupCoordinates.lng]);
+
+  useEffect(() => {
+    if (dropoffCoordinates.lat !== 0 && dropoffCoordinates.lng !== 0) {
+      setDropoffCoords(dropoffCoordinates);
+    }
+  }, [dropoffCoordinates.lat, dropoffCoordinates.lng]);
+
   // Date objects for DatePicker (restore from context on remount)
   const [scheduledDate, setScheduledDate] = useState<Date | null>(scheduledFor);
   const [scheduledTime, setScheduledTime] = useState<Date | null>(scheduledFor);

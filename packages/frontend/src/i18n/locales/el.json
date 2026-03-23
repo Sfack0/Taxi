@@ -161,6 +161,8 @@
     "booking": "Κράτηση",
     "pickup": "Παραλαβή",
     "dropoff": "Αποβίβαση",
+    "selectPickup": "Επιλέξτε σημείο παραλαβής",
+    "selectDropoff": "Επιλέξτε προορισμό",
     "people": "άτομα",
     "estimate": "Εκτίμηση",
     "rate": "Αξιολόγηση",
@@ -272,7 +274,14 @@
     "indexHeading": "Μεταφορές με Ταξί στην Κρήτη",
     "indexSubheading": "Δείτε όλες τις διαθέσιμες διαδρομές και κλείστε online",
     "popularTransfers": "Δημοφιλείς Μεταφορές",
-    "viewAll": "Όλες οι μεταφορές"
+    "viewAll": "Όλες οι μεταφορές",
+    "fixedPrices": "Σταθερές τιμές",
+    "freeCancellation": "Δωρεάν ακύρωση",
+    "fromPrice": "από",
+    "bookNow": "Κράτηση",
+    "customRoute": "Δεν βρίσκετε τη διαδρομή σας;",
+    "customRouteDescription": "Προσφέρουμε μεταφορές σε οποιονδήποτε προορισμό στην Κρήτη. Κλείστε μια προσαρμοσμένη μεταφορά.",
+    "bookCustom": "Κλείστε Μεταφορά"
   },
   "destinations": {
     "pageTitle": "Εξερευνήστε την Κρήτη | Comfort Transfer Services",

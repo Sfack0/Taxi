@@ -14,7 +14,6 @@ export const LOCATIONS_DATA: LocationData[] = [
   // Ports
   { greek: 'Λιμάνι Ηρακλείου', key: 'heraklionPort', lat: 35.3450, lng: 25.1500 },
   { greek: 'Λιμάνι Χανίων (Σούδα)', key: 'chaniaPort', lat: 35.4886, lng: 24.0783 },
-  { greek: 'Λιμάνι Ρεθύμνου', key: 'rethymnoPort', lat: 35.3720, lng: 24.4750 },
   // Major cities & tourist areas
   { greek: 'Κέντρο Ηρακλείου', key: 'heraklionCenter', lat: 35.3387, lng: 25.1442 },
   { greek: 'Ρέθυμνο', key: 'rethymno', lat: 35.3693, lng: 24.4731 },

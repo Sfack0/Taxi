@@ -4,9 +4,10 @@ import { Helmet } from 'react-helmet-async';
 import { getRouteBySlug } from '../data/transferRoutes';
 import { LOCATIONS_DATA } from '../data/locations';
 import { calculatePrice } from '../utils/pricing';
+import { estimateRoadDistanceFromCoords } from '../utils/distance';
 import TransferHero from '../components/transfers/TransferHero';
 import TransferRouteInfo from '../components/transfers/TransferRouteInfo';
-import TransferFAQ from '../components/transfers/TransferFAQ';
+
 import DestinationDescription from '../components/transfers/DestinationDescription';
 import ContactSection from '../components/home/ContactSection';
 import Footer from '../components/home/Footer';
@@ -37,8 +38,12 @@ const TransferRoute = () => {
   const bookingUrl = `/book?${bookingParams.toString()}`;
 
   const pageTitle = t('transfers.metaTitle', { from: fromName, to: toName });
-  const price = calculatePrice(route.estimatedKm, 1);
-  const priceVan = calculatePrice(route.estimatedKm, 5);
+  const coordsDistance = fromLocation && toLocation
+    ? estimateRoadDistanceFromCoords(fromLocation.lat, fromLocation.lng, toLocation.lat, toLocation.lng)
+    : null;
+  const distanceKm = coordsDistance ?? route.estimatedKm;
+  const price = calculatePrice(distanceKm, 1);
+  const priceVan = calculatePrice(distanceKm, 5);
 
   const pageDescription = t('transfers.metaDescription', {
     from: fromName,
@@ -83,53 +88,6 @@ const TransferRoute = () => {
     },
   };
 
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: t('transfers.faq.howLong', { from: fromName, to: toName }),
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: t('transfers.faq.howLongAnswer', { from: fromName, to: toName, minutes: route.estimatedMinutes, km: route.estimatedKm }),
-        },
-      },
-      {
-        '@type': 'Question',
-        name: t('transfers.faq.howMuch', { from: fromName, to: toName }),
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: t('transfers.faq.howMuchAnswer', { from: fromName, to: toName, price, priceVan }),
-        },
-      },
-      {
-        '@type': 'Question',
-        name: t('transfers.faq.howBook'),
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: t('transfers.faq.howBookAnswer'),
-        },
-      },
-      {
-        '@type': 'Question',
-        name: t('transfers.faq.passengers'),
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: t('transfers.faq.passengersAnswer'),
-        },
-      },
-      {
-        '@type': 'Question',
-        name: t('transfers.faq.cancellation'),
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: t('transfers.faq.cancellationAnswer'),
-        },
-      },
-    ],
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Helmet>
@@ -140,7 +98,6 @@ const TransferRoute = () => {
         <meta property="og:type" content="website" />
         <link rel="canonical" href={`https://crete-taxivan.gr/transfers/${route.slug}`} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       {/* Header */}
@@ -164,15 +121,9 @@ const TransferRoute = () => {
         fromName={fromName}
         toName={toName}
         estimatedMinutes={route.estimatedMinutes}
-        estimatedKm={route.estimatedKm}
+        estimatedKm={distanceKm}
       />
       <DestinationDescription toKey={route.toKey} />
-      <TransferFAQ
-        fromName={fromName}
-        toName={toName}
-        estimatedMinutes={route.estimatedMinutes}
-        estimatedKm={route.estimatedKm}
-      />
       <ContactSection />
       <Footer />
     </div>

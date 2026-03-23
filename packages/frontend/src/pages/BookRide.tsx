@@ -21,6 +21,7 @@ const BookRideContent = () => {
     bookingState,
     setPickupAddress,
     setDropoffAddress,
+    setPickupCoordinates,
     setDropoffCoordinates,
     setCustomerInfo,
     setNotes,
@@ -35,6 +36,8 @@ const BookRideContent = () => {
   // Pre-fill from URL search params (e.g. from transfer landing pages or destinations)
   const fromParam = searchParams.get('from') || '';
   const toParam = searchParams.get('to') || '';
+  const fromLatParam = searchParams.get('fromLat');
+  const fromLngParam = searchParams.get('fromLng');
   const toLatParam = searchParams.get('toLat');
   const toLngParam = searchParams.get('toLng');
 
@@ -42,6 +45,7 @@ const BookRideContent = () => {
   useEffect(() => {
     if (fromParam) setPickupAddress(fromParam);
     if (toParam) setDropoffAddress(toParam);
+    if (fromLatParam && fromLngParam) setPickupCoordinates({ lat: Number(fromLatParam), lng: Number(fromLngParam) });
     if (toLatParam && toLngParam) setDropoffCoordinates({ lat: Number(toLatParam), lng: Number(toLngParam) });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -161,6 +161,8 @@
     "booking": "Booking",
     "pickup": "Pickup",
     "dropoff": "Dropoff",
+    "selectPickup": "Select pickup location",
+    "selectDropoff": "Select destination",
     "people": "people",
     "estimate": "Estimate",
     "rate": "Rate",
@@ -272,7 +274,14 @@
     "indexHeading": "Taxi Transfers in Crete",
     "indexSubheading": "Browse all our available transfer routes and book online",
     "popularTransfers": "Popular Transfers",
-    "viewAll": "View all transfers"
+    "viewAll": "View all transfers",
+    "fixedPrices": "Fixed prices",
+    "freeCancellation": "Free cancellation",
+    "fromPrice": "from",
+    "bookNow": "Book now",
+    "customRoute": "Can't find your route?",
+    "customRouteDescription": "We offer transfers to any destination in Crete. Book a custom transfer and we'll take you wherever you need to go.",
+    "bookCustom": "Book a Custom Transfer"
   },
   "destinations": {
     "pageTitle": "Explore Crete | Comfort Transfer Services",

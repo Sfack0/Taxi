@@ -35,10 +35,9 @@ export const TRANSFER_ROUTES: TransferRoute[] = [
   { slug: 'chania-airport-to-georgioupoli', fromKey: 'chaniaAirport', toKey: 'georgioupoli', estimatedMinutes: 45, estimatedKm: 40 },
   { slug: 'chania-airport-to-kissamos', fromKey: 'chaniaAirport', toKey: 'kissamos', estimatedMinutes: 50, estimatedKm: 42 },
 
-  // Chania / Rethymno Port (3 routes)
+  // Chania Port / Souda (2 routes)
   { slug: 'chania-port-to-chania-old-town', fromKey: 'chaniaPort', toKey: 'chaniaOldTown', estimatedMinutes: 15, estimatedKm: 7 },
   { slug: 'chania-port-to-rethymno', fromKey: 'chaniaPort', toKey: 'rethymno', estimatedMinutes: 60, estimatedKm: 55 },
-  { slug: 'rethymno-port-to-rethymno', fromKey: 'rethymnoPort', toKey: 'rethymno', estimatedMinutes: 5, estimatedKm: 2 },
 
   // Inter-city (3 routes)
   { slug: 'heraklion-to-rethymno', fromKey: 'heraklionCenter', toKey: 'rethymno', estimatedMinutes: 75, estimatedKm: 78 },

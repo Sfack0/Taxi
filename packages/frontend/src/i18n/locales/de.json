@@ -161,6 +161,8 @@
     "booking": "Buchung",
     "pickup": "Abholung",
     "dropoff": "Ziel",
+    "selectPickup": "Abholort auswählen",
+    "selectDropoff": "Zielort auswählen",
     "people": "Personen",
     "estimate": "Schätzung",
     "rate": "Bewerten",
@@ -272,7 +274,14 @@
     "indexHeading": "Taxitransfers auf Kreta",
     "indexSubheading": "Entdecken Sie alle verfügbaren Transferrouten und buchen Sie online",
     "popularTransfers": "Beliebte Transfers",
-    "viewAll": "Alle Transfers anzeigen"
+    "viewAll": "Alle Transfers anzeigen",
+    "fixedPrices": "Festpreise",
+    "freeCancellation": "Kostenlose Stornierung",
+    "fromPrice": "ab",
+    "bookNow": "Buchen",
+    "customRoute": "Route nicht gefunden?",
+    "customRouteDescription": "Wir bieten Transfers zu jedem Ziel auf Kreta an. Buchen Sie einen individuellen Transfer.",
+    "bookCustom": "Transfer Buchen"
   },
   "destinations": {
     "pageTitle": "Kreta Entdecken | Comfort Transfer Services",

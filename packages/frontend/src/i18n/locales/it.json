@@ -161,6 +161,8 @@
     "booking": "Prenotazione",
     "pickup": "Ritiro",
     "dropoff": "Destinazione",
+    "selectPickup": "Seleziona luogo di ritiro",
+    "selectDropoff": "Seleziona destinazione",
     "people": "persone",
     "estimate": "Stima",
     "rate": "Valuta",
@@ -272,7 +274,14 @@
     "indexHeading": "Trasferimenti in Taxi a Creta",
     "indexSubheading": "Scopri tutti i nostri percorsi di trasferimento e prenota online",
     "popularTransfers": "Trasferimenti Popolari",
-    "viewAll": "Vedi tutti i trasferimenti"
+    "viewAll": "Vedi tutti i trasferimenti",
+    "fixedPrices": "Prezzi fissi",
+    "freeCancellation": "Cancellazione gratuita",
+    "fromPrice": "da",
+    "bookNow": "Prenota",
+    "customRoute": "Non trovi il tuo percorso?",
+    "customRouteDescription": "Offriamo trasferimenti verso qualsiasi destinazione a Creta. Prenota un trasferimento personalizzato.",
+    "bookCustom": "Prenota un Trasferimento"
   },
   "destinations": {
     "pageTitle": "Esplora Creta | Comfort Transfer Services",
