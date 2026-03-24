@@ -42,7 +42,7 @@ const LocationPicker = ({
   initialDropoff,
 }: LocationPickerProps) => {
   const { t, i18n } = useTranslation();
-  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, bookingState } = useBooking();
+  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, setDirectionsDistance: setContextDirectionsDistance, bookingState } = useBooking();
   const { isRoundtrip, returnPeople, paymentMethod, childSeat, pickupCoordinates, dropoffCoordinates, scheduledFor, returnScheduledFor } = bookingState;
   const { isLoaded } = useGoogleMaps();
 
@@ -75,11 +75,14 @@ const LocationPicker = ({
   const [people, setPeople] = useState(2);
   const [showMap, setShowMap] = useState(false);
   const [estimatedDuration, setEstimatedDuration] = useState<string | null>(null);
+  const [directionsDistance, setDirectionsDistance] = useState<number | null>(null);
 
-  // Estimated road distance using coordinates
-  const estimatedDistance = useMemo(() => {
+  // Estimated road distance: prefer Directions API, fallback to haversine
+  const haversineDistance = useMemo(() => {
     return estimateRoadDistanceFromCoords(pickupCoords.lat, pickupCoords.lng, dropoffCoords.lat, dropoffCoords.lng);
   }, [pickupCoords, dropoffCoords]);
+
+  const estimatedDistance = directionsDistance ?? haversineDistance;
 
   // Estimated price based on distance and people
   const estimatedPrice = useMemo(() => {
@@ -87,10 +90,11 @@ const LocationPicker = ({
     return calculatePrice(estimatedDistance, people);
   }, [estimatedDistance, people]);
 
-  // Fetch trip duration from Directions API
-  const fetchDuration = useCallback(() => {
+  // Fetch trip duration and distance from Directions API
+  const fetchDirections = useCallback(() => {
     if (!isLoaded || pickupCoords.lat === 0 || dropoffCoords.lat === 0) {
       setEstimatedDuration(null);
+      setDirectionsDistance(null);
       return;
     }
     const service = new google.maps.DirectionsService();
@@ -102,16 +106,23 @@ const LocationPicker = ({
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK && result) {
-          const durationText = result.routes[0]?.legs[0]?.duration?.text || null;
+          const leg = result.routes[0]?.legs[0];
+          const durationText = leg?.duration?.text || null;
           setEstimatedDuration(durationText);
+          const distanceMeters = leg?.distance?.value;
+          if (distanceMeters) {
+            const km = Math.round(distanceMeters / 1000);
+            setDirectionsDistance(km);
+            setContextDirectionsDistance(km);
+          }
         }
       }
     );
   }, [isLoaded, pickupCoords.lat, pickupCoords.lng, dropoffCoords.lat, dropoffCoords.lng]);
 
   useEffect(() => {
-    fetchDuration();
-  }, [fetchDuration]);
+    fetchDirections();
+  }, [fetchDirections]);
 
   // Get current locale string for DatePicker
   const currentLocale = useMemo(() => {

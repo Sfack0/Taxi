@@ -26,6 +26,7 @@ interface BookingState {
   returnFlightNumber: string;
   returnFlightTime: string;
   returnLuggageCount: number;
+  directionsDistance: number | null;
   notes: string;
   currentRide: Ride | null;
   step: number;
@@ -51,6 +52,7 @@ interface BookingContextType {
   setReturnFlightNumber: (returnFlightNumber: string) => void;
   setReturnFlightTime: (returnFlightTime: string) => void;
   setReturnLuggageCount: (returnLuggageCount: number) => void;
+  setDirectionsDistance: (distance: number | null) => void;
   setNotes: (notes: string) => void;
   createBooking: () => Promise<Ride>;
   nextStep: () => void;
@@ -95,6 +97,7 @@ const initialState: BookingState = {
   returnFlightNumber: '',
   returnFlightTime: '',
   returnLuggageCount: 0,
+  directionsDistance: null,
   notes: '',
   currentRide: null,
   step: 1,
@@ -167,6 +170,10 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
   const setReturnLuggageCount = (returnLuggageCount: number) => {
     setBookingState((prev) => ({ ...prev, returnLuggageCount }));
     setError(null);
+  };
+
+  const setDirectionsDistance = (distance: number | null) => {
+    setBookingState((prev) => ({ ...prev, directionsDistance: distance }));
   };
 
   const setNotes = (notes: string) => {
@@ -250,11 +257,12 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
         notes: bookingState.notes || undefined,
       };
 
-      // Calculate and attach price based on distance
-      const dist = estimateRoadDistanceFromCoords(
+      // Calculate and attach price based on distance (prefer Directions API distance)
+      const haversineDist = estimateRoadDistanceFromCoords(
         bookingState.pickupCoordinates.lat, bookingState.pickupCoordinates.lng,
         bookingState.dropoffCoordinates.lat, bookingState.dropoffCoordinates.lng,
       );
+      const dist = bookingState.directionsDistance ?? haversineDist;
       if (dist) {
         payload.distance = dist;
         payload.estimatedDuration = Math.max(30, Math.round((dist / 50) * 60));
@@ -326,6 +334,7 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
     setReturnFlightNumber,
     setReturnFlightTime,
     setReturnLuggageCount,
+    setDirectionsDistance,
     setNotes,
     createBooking,
     nextStep,
