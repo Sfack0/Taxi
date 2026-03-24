@@ -77,12 +77,8 @@ const LocationPicker = ({
   const [estimatedDuration, setEstimatedDuration] = useState<string | null>(null);
   const [directionsDistance, setDirectionsDistance] = useState<number | null>(null);
 
-  // Estimated road distance: prefer Directions API, fallback to haversine
-  const haversineDistance = useMemo(() => {
-    return estimateRoadDistanceFromCoords(pickupCoords.lat, pickupCoords.lng, dropoffCoords.lat, dropoffCoords.lng);
-  }, [pickupCoords, dropoffCoords]);
-
-  const estimatedDistance = directionsDistance ?? haversineDistance;
+  // Use Directions API distance for display; no haversine fallback to avoid flickering
+  const estimatedDistance = directionsDistance;
 
   // Estimated price based on distance and people
   const estimatedPrice = useMemo(() => {
@@ -94,7 +90,6 @@ const LocationPicker = ({
   const fetchDirections = useCallback(() => {
     if (!isLoaded || pickupCoords.lat === 0 || dropoffCoords.lat === 0) {
       setEstimatedDuration(null);
-      setDirectionsDistance(null);
       return;
     }
     const service = new google.maps.DirectionsService();

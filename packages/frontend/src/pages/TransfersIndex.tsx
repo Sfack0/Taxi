@@ -2,9 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { TRANSFER_ROUTES } from '../data/transferRoutes';
-import { LOCATIONS_DATA } from '../data/locations';
 import { calculatePrice } from '../utils/pricing';
-import { estimateRoadDistanceFromCoords } from '../utils/distance';
 import Footer from '../components/home/Footer';
 import LanguageSelector from '../components/common/LanguageSelector';
 import ThemeToggle from '../components/common/ThemeToggle';
@@ -141,12 +139,7 @@ const TransfersIndex = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {routes.map((route) => {
                   const toName = t(`locations.${route.toKey}`);
-                  const fromLoc = LOCATIONS_DATA.find((l) => l.key === route.fromKey);
-                  const toLoc = LOCATIONS_DATA.find((l) => l.key === route.toKey);
-                  const coordsDistance = fromLoc && toLoc
-                    ? estimateRoadDistanceFromCoords(fromLoc.lat, fromLoc.lng, toLoc.lat, toLoc.lng)
-                    : null;
-                  const price = calculatePrice(coordsDistance ?? route.estimatedKm, 1);
+                  const price = calculatePrice(route.estimatedKm, 1);
                   return (
                     <Link
                       key={route.slug}
@@ -159,7 +152,7 @@ const TransfersIndex = () => {
                             {toName}
                           </h3>
                           <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            <span>~{coordsDistance ?? route.estimatedKm} km</span>
+                            <span>~{route.estimatedKm} km</span>
                             <span className="text-gray-300 dark:text-gray-600">|</span>
                             <span>~{route.estimatedMinutes} min</span>
                           </div>

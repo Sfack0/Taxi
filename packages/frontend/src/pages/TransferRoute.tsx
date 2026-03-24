@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { getRouteBySlug } from '../data/transferRoutes';
 import { LOCATIONS_DATA } from '../data/locations';
 import { calculatePrice } from '../utils/pricing';
-import { estimateRoadDistanceFromCoords } from '../utils/distance';
+
 import TransferHero from '../components/transfers/TransferHero';
 import TransferRouteInfo from '../components/transfers/TransferRouteInfo';
 
@@ -38,10 +38,7 @@ const TransferRoute = () => {
   const bookingUrl = `/book?${bookingParams.toString()}`;
 
   const pageTitle = t('transfers.metaTitle', { from: fromName, to: toName });
-  const coordsDistance = fromLocation && toLocation
-    ? estimateRoadDistanceFromCoords(fromLocation.lat, fromLocation.lng, toLocation.lat, toLocation.lng)
-    : null;
-  const distanceKm = coordsDistance ?? route.estimatedKm;
+  const distanceKm = route.estimatedKm;
   const price = calculatePrice(distanceKm, 1);
   const priceVan = calculatePrice(distanceKm, 5);
 
