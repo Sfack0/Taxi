@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
@@ -19,6 +20,8 @@ const TransferRoute = () => {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   const route = slug ? getRouteBySlug(slug) : undefined;
   if (!route) return <Navigate to="/transfers" replace />;

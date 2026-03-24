@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { registerLocale } from 'react-datepicker';
 import { el } from 'date-fns/locale/el';
@@ -74,8 +75,11 @@ const LocationPicker = ({
 
   const [people, setPeople] = useState(2);
   const [showMap, setShowMap] = useState(false);
+  const [searchParams] = useSearchParams();
+  const urlDistance = searchParams.get('distance') ? Number(searchParams.get('distance')) : null;
+
   const [estimatedDuration, setEstimatedDuration] = useState<string | null>(null);
-  const [directionsDistance, setDirectionsDistance] = useState<number | null>(bookingState.directionsDistance);
+  const [directionsDistance, setDirectionsDistance] = useState<number | null>(urlDistance ?? bookingState.directionsDistance);
 
   // Use Directions API distance for display; no haversine fallback to avoid flickering
   const estimatedDistance = directionsDistance;
@@ -85,6 +89,9 @@ const LocationPicker = ({
     if (!estimatedDistance) return null;
     return calculatePrice(estimatedDistance, people);
   }, [estimatedDistance, people]);
+
+  // Track whether distance was pre-set (e.g. from transfer page URL param)
+  const hasPresetDistance = useRef(urlDistance !== null);
 
   // Fetch trip duration and distance from Directions API
   const fetchDirections = useCallback(() => {
@@ -104,15 +111,20 @@ const LocationPicker = ({
           const leg = result.routes[0]?.legs[0];
           const durationText = leg?.duration?.text || null;
           setEstimatedDuration(durationText);
-          const distanceMeters = leg?.distance?.value;
           const durationSeconds = leg?.duration?.value;
-          if (distanceMeters) {
-            const km = Math.round(distanceMeters / 1000);
-            setDirectionsDistance(km);
-            setContextDirectionsDistance(km);
-          }
           if (durationSeconds) {
             setContextDirectionsDuration(Math.ceil(durationSeconds / 60));
+          }
+          // Only update distance from API if not pre-set from transfer page
+          if (!hasPresetDistance.current) {
+            const distanceMeters = leg?.distance?.value;
+            if (distanceMeters) {
+              const km = Math.round(distanceMeters / 1000);
+              setDirectionsDistance(km);
+              setContextDirectionsDistance(km);
+            }
+          } else {
+            hasPresetDistance.current = false; // allow future changes (e.g. user picks different location)
           }
         }
       }
