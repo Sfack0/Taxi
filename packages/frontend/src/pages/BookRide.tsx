@@ -23,6 +23,7 @@ const BookRideContent = () => {
     setDropoffAddress,
     setPickupCoordinates,
     setDropoffCoordinates,
+    setDirectionsDistance,
     setCustomerInfo,
     setNotes,
     createBooking,
@@ -40,6 +41,7 @@ const BookRideContent = () => {
   const fromLngParam = searchParams.get('fromLng');
   const toLatParam = searchParams.get('toLat');
   const toLngParam = searchParams.get('toLng');
+  const distanceParam = searchParams.get('distance');
 
   // Push URL params into BookingContext (for later steps like confirmation)
   useEffect(() => {
@@ -47,6 +49,7 @@ const BookRideContent = () => {
     if (toParam) setDropoffAddress(toParam);
     if (fromLatParam && fromLngParam) setPickupCoordinates({ lat: Number(fromLatParam), lng: Number(fromLngParam) });
     if (toLatParam && toLngParam) setDropoffCoordinates({ lat: Number(toLatParam), lng: Number(toLngParam) });
+    if (distanceParam) setDirectionsDistance(Number(distanceParam));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

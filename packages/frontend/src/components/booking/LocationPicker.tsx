@@ -42,7 +42,7 @@ const LocationPicker = ({
   initialDropoff,
 }: LocationPickerProps) => {
   const { t, i18n } = useTranslation();
-  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, setDirectionsDistance: setContextDirectionsDistance, bookingState } = useBooking();
+  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, setDirectionsDistance: setContextDirectionsDistance, setDirectionsDuration: setContextDirectionsDuration, bookingState } = useBooking();
   const { isRoundtrip, returnPeople, paymentMethod, childSeat, pickupCoordinates, dropoffCoordinates, scheduledFor, returnScheduledFor } = bookingState;
   const { isLoaded } = useGoogleMaps();
 
@@ -75,7 +75,7 @@ const LocationPicker = ({
   const [people, setPeople] = useState(2);
   const [showMap, setShowMap] = useState(false);
   const [estimatedDuration, setEstimatedDuration] = useState<string | null>(null);
-  const [directionsDistance, setDirectionsDistance] = useState<number | null>(null);
+  const [directionsDistance, setDirectionsDistance] = useState<number | null>(bookingState.directionsDistance);
 
   // Use Directions API distance for display; no haversine fallback to avoid flickering
   const estimatedDistance = directionsDistance;
@@ -105,10 +105,14 @@ const LocationPicker = ({
           const durationText = leg?.duration?.text || null;
           setEstimatedDuration(durationText);
           const distanceMeters = leg?.distance?.value;
+          const durationSeconds = leg?.duration?.value;
           if (distanceMeters) {
             const km = Math.round(distanceMeters / 1000);
             setDirectionsDistance(km);
             setContextDirectionsDistance(km);
+          }
+          if (durationSeconds) {
+            setContextDirectionsDuration(Math.ceil(durationSeconds / 60));
           }
         }
       }

@@ -34,6 +34,7 @@ const TransferRoute = () => {
     to: toName,
     ...(fromLocation && { fromLat: String(fromLocation.lat), fromLng: String(fromLocation.lng) }),
     ...(toLocation && { toLat: String(toLocation.lat), toLng: String(toLocation.lng) }),
+    distance: String(route.estimatedKm),
   });
   const bookingUrl = `/book?${bookingParams.toString()}`;
 

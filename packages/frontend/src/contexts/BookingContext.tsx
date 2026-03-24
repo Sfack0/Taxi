@@ -27,6 +27,7 @@ interface BookingState {
   returnFlightTime: string;
   returnLuggageCount: number;
   directionsDistance: number | null;
+  directionsDuration: number | null;
   notes: string;
   currentRide: Ride | null;
   step: number;
@@ -53,6 +54,7 @@ interface BookingContextType {
   setReturnFlightTime: (returnFlightTime: string) => void;
   setReturnLuggageCount: (returnLuggageCount: number) => void;
   setDirectionsDistance: (distance: number | null) => void;
+  setDirectionsDuration: (duration: number | null) => void;
   setNotes: (notes: string) => void;
   createBooking: () => Promise<Ride>;
   nextStep: () => void;
@@ -98,6 +100,7 @@ const initialState: BookingState = {
   returnFlightTime: '',
   returnLuggageCount: 0,
   directionsDistance: null,
+  directionsDuration: null,
   notes: '',
   currentRide: null,
   step: 1,
@@ -174,6 +177,10 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
 
   const setDirectionsDistance = (distance: number | null) => {
     setBookingState((prev) => ({ ...prev, directionsDistance: distance }));
+  };
+
+  const setDirectionsDuration = (duration: number | null) => {
+    setBookingState((prev) => ({ ...prev, directionsDuration: duration }));
   };
 
   const setNotes = (notes: string) => {
@@ -265,7 +272,7 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
       const dist = bookingState.directionsDistance ?? haversineDist;
       if (dist) {
         payload.distance = dist;
-        payload.estimatedDuration = Math.max(30, Math.round((dist / 50) * 60));
+        payload.estimatedDuration = bookingState.directionsDuration ?? Math.max(30, Math.round((dist / 50) * 60));
         const price = calculatePrice(dist, bookingState.people);
         if (price) payload.price = price;
       }
@@ -335,6 +342,7 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
     setReturnFlightTime,
     setReturnLuggageCount,
     setDirectionsDistance,
+    setDirectionsDuration,
     setNotes,
     createBooking,
     nextStep,
