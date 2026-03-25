@@ -17,6 +17,7 @@ import Destinations from './pages/Destinations';
 import ToursPage from './pages/ToursPage';
 import Spinner from './components/common/Spinner';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import WhatsAppButton from './components/common/WhatsAppButton';
 import { GoogleMapsProvider } from './components/common/GoogleMapsProvider';
 
 // Protected Route wrapper
@@ -119,6 +120,7 @@ function App() {
             <ToastProvider>
               <AuthProvider>
                 <AppRoutes />
+                <WhatsAppButton />
               </AuthProvider>
             </ToastProvider>
           </ThemeProvider>
