@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 const DRIVERS = [
-  { name: 'Giannis', phone: '6972455475', hours: '07:00 – 17:00' },
-  { name: 'Matthaios', phone: '6949811410', hours: '17:00 – 07:00' },
+  { name: 'Matthaios', phone: '6949811410', hours: '17:00 – 05:00' },
+  { name: 'Giannis', phone: '6972455475', hours: '05:00 – 17:00' },
 ];
 const EMAIL = 'cts.crete@gmail.com';
 
