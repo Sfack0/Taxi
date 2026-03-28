@@ -16,6 +16,7 @@ import ThemeToggle from '../components/common/ThemeToggle';
 import { isAirportAddress, isTransportHub } from '../utils/airport';
 import { estimateRoadDistanceFromCoords } from '../utils/distance';
 import '../styles/calendar-custom.css';
+import Logo from '../components/common/Logo';
 
 
 const statusColors: Record<string, string> = {
@@ -295,7 +296,7 @@ const AdminCalendar = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-4">
             <button onClick={() => navigate('/')}>
-              <img src="/cts-logo.png" alt="Comfort Transfer Services" className="h-10 sm:h-12 md:h-14" />
+              <Logo className="h-10 sm:h-12 md:h-14" />
             </button>
             <div>
               <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Ημερολόγιο</h1>

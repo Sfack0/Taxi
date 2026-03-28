@@ -6,7 +6,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
         '/',
-        '/cts-logo.png',
+        '/cts-logo-blue.png',
       ]);
     })
   );

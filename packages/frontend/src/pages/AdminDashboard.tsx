@@ -20,6 +20,7 @@ import { calculatePrice } from '../utils/pricing';
 import { isAirportAddress, isTransportHub } from '../utils/airport';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import SortDropdown from '../components/common/SortDropdown';
+import Logo from '../components/common/Logo';
 
 type ConfirmAction = 'accept' | 'reject' | 'complete' | null;
 
@@ -497,7 +498,7 @@ const AdminDashboard = () => {
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">
-              <img src="/cts-logo.png" alt="Comfort Transfer Services" className="h-10 sm:h-12 md:h-16" />
+              <Logo className="h-10 sm:h-12 md:h-16" />
               <div className="hidden sm:block">
                 <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Admin Dashboard</h1>
               </div>

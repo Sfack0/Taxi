@@ -11,6 +11,7 @@ import VehicleInfo from '../components/home/VehicleInfo';
 import ContactSection from '../components/home/ContactSection';
 import PopularDestinations from '../components/home/PopularDestinations';
 import Footer from '../components/home/Footer';
+import Logo from '../components/common/Logo';
 
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
         <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
           {/* Logo */}
-          <img src="/cts-logo.png" alt="Comfort Transfer Services" className="h-14 sm:h-16 md:h-20" />
+          <Logo className="h-14 sm:h-16 md:h-20" />
 
           {/* Nav */}
           <div className="flex items-center gap-1 sm:gap-2">

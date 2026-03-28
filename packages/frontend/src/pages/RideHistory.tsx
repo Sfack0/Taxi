@@ -18,6 +18,7 @@ import { LOCATIONS_DATA } from '../data/locations';
 import { estimateRoadDistance } from '../utils/distance';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import SortDropdown from '../components/common/SortDropdown';
+import Logo from '../components/common/Logo';
 
 registerLocale('el', el);
 
@@ -360,7 +361,7 @@ const RideHistory = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">
               <button onClick={() => navigate('/')}>
-                <img src="/cts-logo.png" alt="Comfort Transfer Services" className="h-10 sm:h-12 md:h-16" />
+                <Logo className="h-10 sm:h-12 md:h-16" />
               </button>
               <div className="hidden sm:block">
                 <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">{t('history.title')}</h1>

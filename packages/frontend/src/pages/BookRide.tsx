@@ -10,6 +10,7 @@ import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import LanguageSelector from '../components/common/LanguageSelector';
 import ThemeToggle from '../components/common/ThemeToggle';
+import Logo from '../components/common/Logo';
 
 
 const BookRideContent = () => {
@@ -88,7 +89,7 @@ const BookRideContent = () => {
       <header className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
           <button onClick={() => navigate('/')}>
-            <img src="/cts-logo.png" alt="Comfort Transfer Services" className="h-12 sm:h-16 md:h-20" />
+            <Logo className="h-12 sm:h-16 md:h-20" />
           </button>
           <div className="flex items-center gap-2">
             <ThemeToggle />
