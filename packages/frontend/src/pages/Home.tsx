@@ -62,10 +62,17 @@ const Home = () => {
       <HeroCarousel>
         <h1 className="font-heading text-white font-bold mb-3 sm:mb-4 drop-shadow-lg text-center">
           <span className="block text-3xl sm:text-4xl md:text-5xl">{t('home.tagline')}</span>
-          <span className="block text-xl sm:text-2xl md:text-3xl mt-1 tracking-widest uppercase text-white/80">Crete</span>
+          <span className="block text-base sm:text-lg md:text-xl mt-1 tracking-widest uppercase text-white/80">Heraklion · Crete</span>
         </h1>
-        <p className="text-base sm:text-lg text-white/70 mb-8 sm:mb-10 max-w-xl text-center">
+        <p className="text-base sm:text-lg text-white/70 mb-2 max-w-xl text-center">
           {t('home.subtitle')}
+        </p>
+        <p className="flex items-center justify-center gap-1.5 text-sm text-white/50 mb-8 sm:mb-10">
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Based in Heraklion
         </p>
         <Button
           onClick={() => navigate('/book')}
