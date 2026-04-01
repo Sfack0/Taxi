@@ -50,7 +50,7 @@
     "footerTagline": "Votre service de taxi de confiance en Crète",
     "allRightsReserved": "Tous droits réservés",
     "highlight24": "Disponible 24h/24",
-    "highlightSeats": "Jusqu'à 8 places",
+    "highlightSeats": "Jusqu'à 9 places",
     "highlightCancel": "Annulation gratuite",
     "about": {
       "title": "À propos de nous",
@@ -243,7 +243,7 @@
   },
   "transfers": {
     "metaTitle": "Taxi de {{from}} à {{to}} | Comfort Transfer Services",
-    "metaDescription": "Réservez un transfert privé en taxi de {{from}} à {{to}} en Crète. {{km}} km, environ {{minutes}} min. À partir de {{price}}€. Service porte-à-porte, van 8 places, annulation gratuite.",
+    "metaDescription": "Réservez un transfert privé en taxi de {{from}} à {{to}} en Crète. {{km}} km, environ {{minutes}} min. À partir de {{price}}€. Service porte-à-porte, van 9 places, annulation gratuite.",
     "heroTitle": "Transfert de {{from}} à {{to}}",
     "heroSubtitle": "Service de transfert confortable et fiable en Crète",
     "bookNow": "Réserver Maintenant",
@@ -253,7 +253,7 @@
     "duration": "Durée",
     "distance": "Distance",
     "vehicle": "Véhicule",
-    "vehicleDesc": "Taxi van 8 places, climatisé, confortable",
+    "vehicleDesc": "Taxi van 9 places, climatisé, confortable",
     "pricing": "Tarification",
     "pricingDesc": "À partir de {{price}}€ (1-4 pers.) / {{priceVan}}€ (5-8 pers.)",
     "minutesApprox": "~{{minutes}} min",

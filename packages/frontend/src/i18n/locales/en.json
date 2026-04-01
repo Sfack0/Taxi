@@ -50,7 +50,7 @@
     "footerTagline": "Your trusted taxi service in Crete",
     "allRightsReserved": "All rights reserved",
     "highlight24": "24/7 Available",
-    "highlightSeats": "Up to 8 seats",
+    "highlightSeats": "Up to 9 seats",
     "highlightCancel": "Free cancellation",
     "about": {
       "title": "About Us",
@@ -243,7 +243,7 @@
   },
   "transfers": {
     "metaTitle": "Taxi from {{from}} to {{to}} | Comfort Transfer Services",
-    "metaDescription": "Book a private taxi transfer from {{from}} to {{to}} in Crete. {{km}} km, approx. {{minutes}} min. From {{price}}€. Door-to-door service, 8-seat van, free cancellation.",
+    "metaDescription": "Book a private taxi transfer from {{from}} to {{to}} in Crete. {{km}} km, approx. {{minutes}} min. From {{price}}€. Door-to-door service, 9-seat van, free cancellation.",
     "heroTitle": "Transfer from {{from}} to {{to}}",
     "heroSubtitle": "Comfortable and reliable transfer service in Crete",
     "bookNow": "Book Now",
@@ -253,7 +253,7 @@
     "duration": "Duration",
     "distance": "Distance",
     "vehicle": "Vehicle",
-    "vehicleDesc": "8-seat taxi van, A/C, comfortable",
+    "vehicleDesc": "9-seat taxi van, A/C, comfortable",
     "pricing": "Pricing",
     "pricingDesc": "From {{price}}€ (1-4 pax) / {{priceVan}}€ (5-8 pax)",
     "minutesApprox": "~{{minutes}} min",

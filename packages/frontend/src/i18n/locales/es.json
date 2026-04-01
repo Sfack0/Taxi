@@ -50,7 +50,7 @@
     "footerTagline": "Su servicio de taxi de confianza en Creta",
     "allRightsReserved": "Todos los derechos reservados",
     "highlight24": "Disponible 24/7",
-    "highlightSeats": "Hasta 8 asientos",
+    "highlightSeats": "Hasta 9 asientos",
     "highlightCancel": "Cancelación gratuita",
     "about": {
       "title": "Sobre nosotros",
@@ -243,7 +243,7 @@
   },
   "transfers": {
     "metaTitle": "Taxi de {{from}} a {{to}} | Comfort Transfer Services",
-    "metaDescription": "Reserve un traslado privado en taxi de {{from}} a {{to}} en Creta. {{km}} km, aprox. {{minutes}} min. Desde {{price}}€. Servicio puerta a puerta, furgoneta 8 plazas, cancelación gratuita.",
+    "metaDescription": "Reserve un traslado privado en taxi de {{from}} a {{to}} en Creta. {{km}} km, aprox. {{minutes}} min. Desde {{price}}€. Servicio puerta a puerta, furgoneta 9 plazas, cancelación gratuita.",
     "heroTitle": "Traslado de {{from}} a {{to}}",
     "heroSubtitle": "Servicio de traslado cómodo y fiable en Creta",
     "bookNow": "Reservar Ahora",
@@ -253,7 +253,7 @@
     "duration": "Duración",
     "distance": "Distancia",
     "vehicle": "Vehículo",
-    "vehicleDesc": "Taxi furgoneta 8 plazas, A/C, cómodo",
+    "vehicleDesc": "Taxi furgoneta 9 plazas, A/C, cómodo",
     "pricing": "Precios",
     "pricingDesc": "Desde {{price}}€ (1-4 pers.) / {{priceVan}}€ (5-8 pers.)",
     "minutesApprox": "~{{minutes}} min",

@@ -50,7 +50,7 @@
     "footerTagline": "Η αξιόπιστη υπηρεσία ταξί στην Κρήτη",
     "allRightsReserved": "Με επιφύλαξη παντός δικαιώματος",
     "highlight24": "24/7 Διαθέσιμοι",
-    "highlightSeats": "Έως 8 θέσεις",
+    "highlightSeats": "Έως 9 θέσεις",
     "highlightCancel": "Δωρεάν ακύρωση",
     "about": {
       "title": "Σχετικά με εμάς",
@@ -243,7 +243,7 @@
   },
   "transfers": {
     "metaTitle": "Ταξί από {{from}} προς {{to}} | Comfort Transfer Services",
-    "metaDescription": "Κλείστε ιδιωτική μεταφορά με ταξί από {{from}} προς {{to}} στην Κρήτη. {{km}} km, περίπου {{minutes}} λεπτά. Από {{price}}€. Πόρτα-πόρτα, 8θέσιο van, δωρεάν ακύρωση.",
+    "metaDescription": "Κλείστε ιδιωτική μεταφορά με ταξί από {{from}} προς {{to}} στην Κρήτη. {{km}} km, περίπου {{minutes}} λεπτά. Από {{price}}€. Πόρτα-πόρτα, 9θέσιο van, δωρεάν ακύρωση.",
     "heroTitle": "Μεταφορά από {{from}} προς {{to}}",
     "heroSubtitle": "Άνετη και αξιόπιστη υπηρεσία μεταφοράς στην Κρήτη",
     "bookNow": "Κράτηση Τώρα",
@@ -253,7 +253,7 @@
     "duration": "Διάρκεια",
     "distance": "Απόσταση",
     "vehicle": "Όχημα",
-    "vehicleDesc": "8θέσιο ταξί van, A/C, άνετο",
+    "vehicleDesc": "9θέσιο ταξί van, A/C, άνετο",
     "pricing": "Τιμολόγηση",
     "pricingDesc": "Από {{price}}€ (1-4 άτομα) / {{priceVan}}€ (5-8 άτομα)",
     "minutesApprox": "~{{minutes}} λεπτά",

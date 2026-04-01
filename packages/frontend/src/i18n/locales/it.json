@@ -50,7 +50,7 @@
     "footerTagline": "Il vostro servizio taxi di fiducia a Creta",
     "allRightsReserved": "Tutti i diritti riservati",
     "highlight24": "Disponibile 24/7",
-    "highlightSeats": "Fino a 8 posti",
+    "highlightSeats": "Fino a 9 posti",
     "highlightCancel": "Cancellazione gratuita",
     "about": {
       "title": "Chi siamo",
@@ -243,7 +243,7 @@
   },
   "transfers": {
     "metaTitle": "Taxi da {{from}} a {{to}} | Comfort Transfer Services",
-    "metaDescription": "Prenota un trasferimento privato in taxi da {{from}} a {{to}} a Creta. {{km}} km, circa {{minutes}} min. Da {{price}}€. Servizio porta a porta, van 8 posti, cancellazione gratuita.",
+    "metaDescription": "Prenota un trasferimento privato in taxi da {{from}} a {{to}} a Creta. {{km}} km, circa {{minutes}} min. Da {{price}}€. Servizio porta a porta, van 9 posti, cancellazione gratuita.",
     "heroTitle": "Trasferimento da {{from}} a {{to}}",
     "heroSubtitle": "Servizio di trasferimento comodo e affidabile a Creta",
     "bookNow": "Prenota Ora",
@@ -253,7 +253,7 @@
     "duration": "Durata",
     "distance": "Distanza",
     "vehicle": "Veicolo",
-    "vehicleDesc": "Taxi van 8 posti, aria condizionata, confortevole",
+    "vehicleDesc": "Taxi van 9 posti, aria condizionata, confortevole",
     "pricing": "Prezzi",
     "pricingDesc": "Da {{price}}€ (1-4 pers.) / {{priceVan}}€ (5-8 pers.)",
     "minutesApprox": "~{{minutes}} min",

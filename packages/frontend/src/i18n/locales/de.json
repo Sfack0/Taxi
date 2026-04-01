@@ -50,7 +50,7 @@
     "footerTagline": "Ihr vertrauenswürdiger Taxiservice auf Kreta",
     "allRightsReserved": "Alle Rechte vorbehalten",
     "highlight24": "24/7 Verfügbar",
-    "highlightSeats": "Bis zu 8 Sitze",
+    "highlightSeats": "Bis zu 9 Sitze",
     "highlightCancel": "Kostenlose Stornierung",
     "about": {
       "title": "Über uns",
@@ -243,7 +243,7 @@
   },
   "transfers": {
     "metaTitle": "Taxi von {{from}} nach {{to}} | Comfort Transfer Services",
-    "metaDescription": "Buchen Sie einen privaten Taxitransfer von {{from}} nach {{to}} auf Kreta. {{km}} km, ca. {{minutes}} Min. Ab {{price}}€. Tür-zu-Tür-Service, 8-Sitzer-Van, kostenlose Stornierung.",
+    "metaDescription": "Buchen Sie einen privaten Taxitransfer von {{from}} nach {{to}} auf Kreta. {{km}} km, ca. {{minutes}} Min. Ab {{price}}€. Tür-zu-Tür-Service, 9-Sitzer-Van, kostenlose Stornierung.",
     "heroTitle": "Transfer von {{from}} nach {{to}}",
     "heroSubtitle": "Komfortabler und zuverlässiger Transferservice auf Kreta",
     "bookNow": "Jetzt Buchen",
@@ -253,7 +253,7 @@
     "duration": "Dauer",
     "distance": "Entfernung",
     "vehicle": "Fahrzeug",
-    "vehicleDesc": "8-Sitzer Taxi-Van, Klimaanlage, komfortabel",
+    "vehicleDesc": "9-Sitzer Taxi-Van, Klimaanlage, komfortabel",
     "pricing": "Preise",
     "pricingDesc": "Ab {{price}}€ (1-4 Pers.) / {{priceVan}}€ (5-8 Pers.)",
     "minutesApprox": "~{{minutes}} Min",
