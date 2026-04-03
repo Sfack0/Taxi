@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
+import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, rectSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { CarouselImage } from '@cts/shared';
@@ -42,7 +42,7 @@ const SortableImageCard = ({ image, index, onToggle, onDelete }: {
       }`}
     >
       {/* Drag handle - the image itself */}
-      <div className="aspect-square cursor-grab active:cursor-grabbing" {...attributes} {...listeners}>
+      <div className="aspect-square cursor-grab active:cursor-grabbing" style={{ touchAction: 'none' }} {...attributes} {...listeners}>
         <img
           src={image.url}
           alt={image.alt || ''}
@@ -170,8 +170,8 @@ const AdminSettings = () => {
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 5 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 8 } }),
   );
 
   const handleDragEnd = async (event: DragEndEvent) => {
