@@ -23,18 +23,19 @@ const SortableImageCard = ({ image, index, onToggle, onDelete }: {
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: image._id });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
+  const style: React.CSSProperties = {
+    transform: CSS.Translate.toString(transform),
     transition,
     zIndex: isDragging ? 50 : undefined,
+    willChange: isDragging ? 'transform' : undefined,
   };
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative group rounded-xl overflow-hidden border-2 transition-all ${
-        isDragging ? 'shadow-2xl scale-105 opacity-90' : ''
+      className={`relative group rounded-xl overflow-hidden border-2 ${
+        isDragging ? 'shadow-2xl opacity-80' : ''
       } ${
         image.isActive
           ? 'border-green-500/50 dark:border-green-500/30'
