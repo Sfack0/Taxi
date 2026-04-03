@@ -497,13 +497,9 @@ const AdminDashboard = () => {
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-4">
-              <Logo className="h-10 sm:h-12 md:h-16" />
-              <div className="hidden sm:block">
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Admin Dashboard</h1>
-              </div>
-            </div>
+          <div className="relative flex items-center justify-between">
+            <Logo className="h-10 sm:h-12 md:h-16" />
+            <h1 className="absolute left-1/2 -translate-x-1/2 text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 whitespace-nowrap">Dashboard</h1>
             {/* Desktop nav */}
             <div className="hidden sm:flex items-center gap-2 sm:gap-3">
               <button
@@ -543,8 +539,6 @@ const AdminDashboard = () => {
               </button>
             </div>
           </div>
-          {/* Mobile title */}
-          <h1 className="sm:hidden text-lg font-bold text-gray-900 dark:text-gray-100 mt-2">Admin Dashboard</h1>
         </div>
       </header>
 

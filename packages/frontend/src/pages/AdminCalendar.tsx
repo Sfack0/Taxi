@@ -297,16 +297,11 @@ const AdminCalendar = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-4">
-            <button onClick={() => navigate('/')}>
-              <Logo className="h-10 sm:h-12 md:h-14" />
-            </button>
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Ημερολόγιο</h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">Διαχείριση κρατήσεων</p>
-            </div>
-          </div>
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 relative flex items-center justify-between">
+          <button onClick={() => navigate('/')}>
+            <Logo className="h-10 sm:h-12 md:h-14" />
+          </button>
+          <h1 className="absolute left-1/2 -translate-x-1/2 text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Ημερολόγιο</h1>
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
