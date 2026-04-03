@@ -1,8 +1,17 @@
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import * as carouselService from '../../services/carousel.service';
 import VanCoverflow from './VanCoverflow';
 
 const VehicleInfo = () => {
   const { t } = useTranslation();
+  const [vanImages, setVanImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    carouselService.getActiveImages('van')
+      .then((imgs) => setVanImages(imgs.map((img) => img.url)))
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="py-16 sm:py-20 bg-white dark:bg-gray-800">
@@ -10,7 +19,7 @@ const VehicleInfo = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* 3D Coverflow Gallery */}
           <div className="py-4">
-            <VanCoverflow />
+            <VanCoverflow images={vanImages} />
           </div>
 
           {/* Info */}

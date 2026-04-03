@@ -52,7 +52,7 @@ const TrackRide = () => {
       <header className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
           <button onClick={() => navigate('/')}>
-            <Logo className="h-12 sm:h-16 md:h-20" />
+            <Logo className="h-10 sm:h-12 md:h-16" />
           </button>
           <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
             Αρχική

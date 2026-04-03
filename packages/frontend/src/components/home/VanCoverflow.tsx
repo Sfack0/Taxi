@@ -1,26 +1,31 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-const VAN_IMAGES: { src: string; position: string }[] = [
-  { src: '/images/van/van-1.jpeg', position: 'center 60%' },   // landscape, van is lower half
-  { src: '/images/van/van-2.jpeg', position: 'center 95%' },   // portrait, van in middle-lower
-  { src: '/images/van/van-3.jpeg', position: 'center 60%' },   // landscape, van/interior lower half
-  { src: '/images/van/van-4.jpeg', position: 'center 45%' },   // portrait, seats centered
+const FALLBACK_IMAGES = [
+  '/images/van/van-1.jpeg',
+  '/images/van/van-2.jpeg',
+  '/images/van/van-3.jpeg',
+  '/images/van/van-4.jpeg',
 ];
 
 const SWIPE_THRESHOLD = 40;
 
-const VanCoverflow = () => {
+interface VanCoverflowProps {
+  images?: string[];
+}
+
+const VanCoverflow = ({ images }: VanCoverflowProps) => {
+  const IMAGES = images && images.length > 0 ? images : FALLBACK_IMAGES;
   const [current, setCurrent] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const touchStartX = useRef(0);
   const dragOffset = useRef(0);
 
   const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % VAN_IMAGES.length);
+    setCurrent((prev) => (prev + 1) % IMAGES.length);
   }, []);
 
   const prev = useCallback(() => {
-    setCurrent((p) => (p - 1 + VAN_IMAGES.length) % VAN_IMAGES.length);
+    setCurrent((p) => (p - 1 + IMAGES.length) % IMAGES.length);
   }, []);
 
   useEffect(() => {
@@ -58,7 +63,7 @@ const VanCoverflow = () => {
     >
       {/* Image container */}
       <div className="relative w-full overflow-hidden rounded-2xl shadow-lg" style={{ paddingBottom: '75%' }}>
-        {VAN_IMAGES.map(({ src, position }, i) => {
+        {IMAGES.map((src, i) => {
           const isActive = i === current;
           return (
             <img
@@ -69,7 +74,6 @@ const VanCoverflow = () => {
               style={{
                 opacity: isActive ? 1 : 0,
                 transform: isActive ? 'scale(1)' : 'scale(1.05)',
-                objectPosition: position,
               }}
               loading={i === 0 ? 'eager' : 'lazy'}
               draggable={false}
@@ -99,13 +103,13 @@ const VanCoverflow = () => {
 
         {/* Counter */}
         <div className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-full bg-black/50 text-white text-xs font-medium backdrop-blur-sm">
-          {current + 1} / {VAN_IMAGES.length}
+          {current + 1} / {IMAGES.length}
         </div>
       </div>
 
       {/* Dot indicators */}
       <div className="flex justify-center gap-2.5 mt-4">
-        {VAN_IMAGES.map((_, i) => (
+        {IMAGES.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}

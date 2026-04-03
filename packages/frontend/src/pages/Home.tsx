@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
+import * as carouselService from '../services/carousel.service';
 import Button from '../components/common/Button';
 import LanguageSelector from '../components/common/LanguageSelector';
 import ThemeToggle from '../components/common/ThemeToggle';
@@ -18,6 +20,13 @@ const Home = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { user, isAuthenticated, logout } = useAuth();
+  const [carouselImages, setCarouselImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    carouselService.getActiveImages()
+      .then((images) => setCarouselImages(images.map((img) => img.url)))
+      .catch(() => {/* fallback images will be used */});
+  }, []);
 
   // Check if user is admin (role === 'admin' or email matches admin email)
   const isAdmin = user?.role === 'admin' || user?.email === 'giannis2001.gs@gmail.com';
@@ -28,7 +37,7 @@ const Home = () => {
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
         <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
           {/* Logo */}
-          <Logo className="h-14 sm:h-16 md:h-20" />
+          <Logo className="h-10 sm:h-12 md:h-16" />
 
           {/* Nav */}
           <div className="flex items-center gap-1 sm:gap-2">
@@ -59,7 +68,7 @@ const Home = () => {
       </header>
 
       {/* Hero Section with Carousel */}
-      <HeroCarousel>
+      <HeroCarousel images={carouselImages}>
         <h1 className="font-heading text-white font-bold mb-3 sm:mb-4 drop-shadow-lg text-center">
           <span className="block text-3xl sm:text-4xl md:text-5xl">{t('home.tagline')}</span>
           <span className="block text-base sm:text-lg md:text-xl mt-1 tracking-widest uppercase text-white/80">Heraklion · Crete</span>

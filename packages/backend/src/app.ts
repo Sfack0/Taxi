@@ -26,8 +26,8 @@ app.use(helmet({
 app.use(cors(corsOptions));
 
 // Body parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request logging
 const SENSITIVE_KEYS = new Set(['password', 'token', 'refreshToken', 'accessToken', 'otp']);

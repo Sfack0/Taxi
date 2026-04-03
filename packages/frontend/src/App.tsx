@@ -11,6 +11,7 @@ import TrackRide from './pages/TrackRide';
 import RideHistory from './pages/RideHistory';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminCalendar from './pages/AdminCalendar';
+import AdminSettings from './pages/AdminSettings';
 import TransfersIndex from './pages/TransfersIndex';
 import TransferRoute from './pages/TransferRoute';
 import Destinations from './pages/Destinations';
@@ -101,6 +102,14 @@ function AppRoutes() {
         element={
           <AdminRoute>
             <AdminCalendar />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/settings"
+        element={
+          <AdminRoute>
+            <AdminSettings />
           </AdminRoute>
         }
       />

@@ -56,7 +56,7 @@ const ToursPage = () => {
         <header className="sticky top-0 z-40 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
           <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
             <button onClick={() => navigate('/')}>
-              <Logo className="h-14 sm:h-16 md:h-20" />
+              <Logo className="h-10 sm:h-12 md:h-16" />
             </button>
             <div className="flex items-center gap-2 sm:gap-4">
               <ThemeToggle />

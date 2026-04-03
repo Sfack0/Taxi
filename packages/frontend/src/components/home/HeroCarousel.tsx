@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const IMAGES = [
+const FALLBACK_IMAGES = [
   '/images/elafonisi-13.jpg',
   '/images/chania-old-port-5.jpg',
   '/images/heraklio1.jpg',
@@ -20,22 +20,30 @@ const SWIPE_THRESHOLD = 50;
 
 interface HeroCarouselProps {
   children: React.ReactNode;
+  images?: string[];
 }
 
-const HeroCarousel = ({ children }: HeroCarouselProps) => {
+const HeroCarousel = ({ children, images }: HeroCarouselProps) => {
+  const IMAGES = images && images.length > 0 ? images : FALLBACK_IMAGES;
+  const imageCount = IMAGES.length;
   const [current, setCurrent] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const touchStartX = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Reset current if it exceeds the new image count
+  useEffect(() => {
+    if (current >= imageCount) setCurrent(0);
+  }, [imageCount, current]);
+
   const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % IMAGES.length);
-  }, []);
+    setCurrent((prev) => (prev + 1) % imageCount);
+  }, [imageCount]);
 
   const prev = useCallback(() => {
-    setCurrent((p) => (p - 1 + IMAGES.length) % IMAGES.length);
-  }, []);
+    setCurrent((p) => (p - 1 + imageCount) % imageCount);
+  }, [imageCount]);
 
   useEffect(() => {
     if (isDragging) return;

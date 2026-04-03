@@ -232,3 +232,20 @@ export interface PaginationParams {
   page?: number;
   limit?: number;
 }
+
+// ============================================================================
+// CAROUSEL TYPES
+// ============================================================================
+
+export type CarouselCategory = 'hero' | 'van';
+
+export interface CarouselImage {
+  _id: string;
+  category: CarouselCategory;
+  url: string;
+  alt?: string;
+  order: number;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}

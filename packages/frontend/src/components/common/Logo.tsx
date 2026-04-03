@@ -11,7 +11,7 @@ const Logo = ({ className = 'h-14 sm:h-16 md:h-20' }: LogoProps) => {
     <img
       src={theme === 'dark' ? '/cts-logo-white.png' : '/cts-logo-blue.png'}
       alt="Comfort Transfer Services"
-      className={`${className} rounded-full object-cover aspect-square`}
+      className={`${className} rounded-full object-cover`}
     />
   );
 };
