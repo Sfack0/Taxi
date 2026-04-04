@@ -1,21 +1,17 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TOURS, Tour, TourCategory, TOUR_CATEGORIES } from '../data/tours';
 import TourCard from '../components/tours/TourCard';
 import DIYTourBuilder from '../components/tours/DIYTourBuilder';
 import TourBookingModal from '../components/tours/TourBookingModal';
-import ThemeToggle from '../components/common/ThemeToggle';
-import LanguageSelector from '../components/common/LanguageSelector';
-import Button from '../components/common/Button';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 type TabType = 'popular' | 'diy';
 
 const ToursPage = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('popular');
   const [selectedCategory, setSelectedCategory] = useState<TourCategory | 'all'>('all');
   const [bookingTour, setBookingTour] = useState<Tour | undefined>();
@@ -52,21 +48,7 @@ const ToursPage = () => {
       </Helmet>
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        {/* Header */}
-        <header className="sticky top-0 z-40 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
-          <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
-            <button onClick={() => navigate('/')}>
-              <Logo className="h-10 sm:h-12 md:h-16" />
-            </button>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <ThemeToggle />
-              <LanguageSelector />
-              <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-                {t('common.home')}
-              </Button>
-            </div>
-          </div>
-        </header>
+        <PublicHeader />
 
         {/* Hero */}
         <section className="relative overflow-hidden bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 py-16 sm:py-24">

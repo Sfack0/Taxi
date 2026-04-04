@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import type { Ride, RideStatus, StatusCounts } from '@cts/shared';
@@ -10,15 +9,12 @@ import * as bookingService from '../services/booking.service';
 import * as authService from '../services/auth.service';
 import { useAuth } from '../contexts/AuthContext';
 import Card from '../components/common/Card';
-import Button from '../components/common/Button';
 import Spinner from '../components/common/Spinner';
-import LanguageSelector from '../components/common/LanguageSelector';
-import ThemeToggle from '../components/common/ThemeToggle';
 import { LOCATIONS_DATA } from '../data/locations';
 import { estimateRoadDistance } from '../utils/distance';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import SortDropdown from '../components/common/SortDropdown';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 registerLocale('el', el);
 
@@ -58,7 +54,6 @@ const getLastDayOfWeek = () => {
 };
 
 const RideHistory = () => {
-  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { user, refreshUser } = useAuth();
   const isAdmin = user?.role === 'admin' || user?.email === 'giannis2001.gs@gmail.com';
@@ -356,42 +351,7 @@ const RideHistory = () => {
     <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-4">
-              <button onClick={() => navigate('/')}>
-                <Logo className="h-10 sm:h-12 md:h-16" />
-              </button>
-              <div className="hidden sm:block">
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">{t('history.title')}</h1>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <button
-                onClick={openProfileModal}
-                className="p-2 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors"
-                title={isAdmin ? t('auth.changePassword') : t('auth.editProfile')}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {isAdmin ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  )}
-                </svg>
-              </button>
-              <ThemeToggle />
-              <LanguageSelector />
-              <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-                ← {t('common.back')}
-              </Button>
-            </div>
-          </div>
-          {/* Mobile title */}
-          <h1 className="sm:hidden text-lg font-bold text-gray-900 dark:text-gray-100 mt-2">{t('history.title')}</h1>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">

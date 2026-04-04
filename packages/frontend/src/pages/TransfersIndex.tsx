@@ -4,10 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { TRANSFER_ROUTES } from '../data/transferRoutes';
 import { calculatePrice } from '../utils/pricing';
 import Footer from '../components/home/Footer';
-import LanguageSelector from '../components/common/LanguageSelector';
-import ThemeToggle from '../components/common/ThemeToggle';
 import Button from '../components/common/Button';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 const ORIGIN_ICONS: Record<string, React.ReactNode> = {
   heraklionAirport: (
@@ -62,21 +60,7 @@ const TransfersIndex = () => {
         <meta property="og:description" content={t('transfers.indexDescription')} />
       </Helmet>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
-        <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
-          <button onClick={() => navigate('/')}>
-            <Logo className="h-10 sm:h-12 md:h-16" />
-          </button>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <ThemeToggle />
-            <LanguageSelector />
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-              {t('common.home')}
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Hero + Booking Form */}
       <section className="relative bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 dark:from-gray-800 dark:via-gray-900 dark:to-black text-white py-10 sm:py-16 overflow-hidden">

@@ -1,6 +1,7 @@
 {
   "common": {
     "home": "Startseite",
+    "menu": "Menü",
     "login": "Anmelden",
     "register": "Registrieren",
     "logout": "Abmelden",

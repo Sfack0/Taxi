@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { getRouteBySlug } from '../data/transferRoutes';
@@ -12,15 +12,11 @@ import TransferRouteInfo from '../components/transfers/TransferRouteInfo';
 import DestinationDescription from '../components/transfers/DestinationDescription';
 import ContactSection from '../components/home/ContactSection';
 import Footer from '../components/home/Footer';
-import LanguageSelector from '../components/common/LanguageSelector';
-import ThemeToggle from '../components/common/ThemeToggle';
-import Button from '../components/common/Button';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 const TransferRoute = () => {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
@@ -102,21 +98,7 @@ const TransferRoute = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
-        <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
-          <button onClick={() => navigate('/')}>
-            <Logo className="h-10 sm:h-12 md:h-16" />
-          </button>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <ThemeToggle />
-            <LanguageSelector />
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-              {t('common.home')}
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       <TransferHero fromName={fromName} toName={toName} bookingUrl={bookingUrl} />
       <TransferRouteInfo

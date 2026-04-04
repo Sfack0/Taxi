@@ -1,6 +1,7 @@
 {
   "common": {
     "home": "Home",
+    "menu": "Menu",
     "login": "Login",
     "register": "Register",
     "logout": "Logout",

@@ -1,15 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { Region, Category, DESTINATIONS } from '../data/destinations';
 import DestinationCard from '../components/destinations/DestinationCard';
 import ContactSection from '../components/home/ContactSection';
 import Footer from '../components/home/Footer';
-import LanguageSelector from '../components/common/LanguageSelector';
-import ThemeToggle from '../components/common/ThemeToggle';
-import Button from '../components/common/Button';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 function FilterDropdown<T>({ value, onChange, options }: {
   value: T;
@@ -68,7 +64,6 @@ function FilterDropdown<T>({ value, onChange, options }: {
 
 const Destinations = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [selectedRegion, setSelectedRegion] = useState<Region | undefined>(undefined);
   const [selectedCategory, setSelectedCategory] = useState<Category | undefined>(undefined);
 
@@ -86,21 +81,7 @@ const Destinations = () => {
         <link rel="canonical" href="https://crete-taxivan.gr/destinations" />
       </Helmet>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
-        <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
-          <button onClick={() => navigate('/')}>
-            <Logo className="h-10 sm:h-12 md:h-16" />
-          </button>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <ThemeToggle />
-            <LanguageSelector />
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-              {t('common.home')}
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Hero */}
       <section className="relative py-16 sm:py-24 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800">

@@ -1,6 +1,7 @@
 {
   "common": {
     "home": "Inicio",
+    "menu": "Menú",
     "login": "Iniciar sesión",
     "register": "Registrarse",
     "logout": "Cerrar sesión",

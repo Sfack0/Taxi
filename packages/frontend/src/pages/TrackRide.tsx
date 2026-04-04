@@ -4,7 +4,7 @@ import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import Spinner from '../components/common/Spinner';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 const TrackRide = () => {
   const navigate = useNavigate();
@@ -48,17 +48,7 @@ const TrackRide = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          <button onClick={() => navigate('/')}>
-            <Logo className="h-10 sm:h-12 md:h-16" />
-          </button>
-          <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-            Αρχική
-          </Button>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Main Content */}
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 sm:py-12">

@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import * as carouselService from '../services/carousel.service';
 import Button from '../components/common/Button';
-import LanguageSelector from '../components/common/LanguageSelector';
-import ThemeToggle from '../components/common/ThemeToggle';
 import HeroCarousel from '../components/home/HeroCarousel';
 import ServicesSection from '../components/home/ServicesSection';
 import AboutSection from '../components/home/AboutSection';
@@ -13,13 +11,13 @@ import VehicleInfo from '../components/home/VehicleInfo';
 import ContactSection from '../components/home/ContactSection';
 import PopularDestinations from '../components/home/PopularDestinations';
 import Footer from '../components/home/Footer';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 
 const Home = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user } = useAuth();
   const [carouselImages, setCarouselImages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -33,39 +31,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
-        <div className="container-custom py-3 sm:py-4 flex items-center justify-between">
-          {/* Logo */}
-          <Logo className="h-10 sm:h-12 md:h-16" />
-
-          {/* Nav */}
-          <div className="flex items-center gap-1 sm:gap-2">
-            <ThemeToggle />
-            <LanguageSelector />
-            {isAuthenticated ? (
-              <>
-                {isAdmin ? (
-                  <Button className="bg-amber-500 hover:bg-amber-600 text-xs sm:text-sm" size="sm" onClick={() => navigate('/admin')}>
-                    Admin
-                  </Button>
-                ) : (
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/rides')}>
-                    {t('common.myRides')}
-                  </Button>
-                )}
-                <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={logout}>
-                  {t('common.logout')}
-                </Button>
-              </>
-            ) : (
-              <Button size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/login')}>
-                {t('common.login')}
-              </Button>
-            )}
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Hero Section with Carousel */}
       <HeroCarousel images={carouselImages}>

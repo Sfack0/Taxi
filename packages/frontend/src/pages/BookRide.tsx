@@ -7,10 +7,7 @@ import LocationPicker from '../components/booking/LocationPicker';
 import CustomerInfo from '../components/booking/CustomerInfo';
 import BookingConfirmation from '../components/booking/BookingConfirmation';
 import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import LanguageSelector from '../components/common/LanguageSelector';
-import ThemeToggle from '../components/common/ThemeToggle';
-import Logo from '../components/common/Logo';
+import PublicHeader from '../components/common/PublicHeader';
 
 
 const BookRideContent = () => {
@@ -85,21 +82,7 @@ const BookRideContent = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          <button onClick={() => navigate('/')}>
-            <Logo className="h-10 sm:h-12 md:h-16" />
-          </button>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <LanguageSelector />
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm" onClick={() => navigate('/')}>
-              {t('common.home')}
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Main Content */}
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-8">

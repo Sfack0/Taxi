@@ -1,6 +1,7 @@
 {
   "common": {
     "home": "Accueil",
+    "menu": "Menu",
     "login": "Connexion",
     "register": "Inscription",
     "logout": "Déconnexion",
