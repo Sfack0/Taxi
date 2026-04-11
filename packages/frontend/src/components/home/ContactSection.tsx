@@ -97,7 +97,7 @@ const ContactSection = () => {
             </a>
           </div>
           <a
-            href="https://search.google.com/local/writereview?placeid=ChIJPUGE6uwAbAIR5hKKuhfjNrM"
+            href="https://g.page/r/CWYiwVG_prseEAE/review"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Rate us on Google"
