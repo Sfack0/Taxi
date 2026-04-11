@@ -16,7 +16,7 @@ import { el } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/calendar-custom.css';
 import { estimateRoadDistance } from '../utils/distance';
-import { calculatePrice } from '../utils/pricing';
+import { calculatePrice, loadPricing } from '../utils/pricing';
 import { isAirportAddress, isTransportHub } from '../utils/airport';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import SortDropdown from '../components/common/SortDropdown';
@@ -257,6 +257,7 @@ const AdminDashboard = () => {
 
   // Reset and load page 1 when filters change
   useEffect(() => {
+    loadPricing();
     loadRides(1, true);
   }, [loadRides]);
 

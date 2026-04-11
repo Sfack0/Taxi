@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BookingProvider, useBooking } from '../contexts/BookingContext';
 import { useAuth } from '../contexts/AuthContext';
+import { loadPricing } from '../utils/pricing';
 import LocationPicker from '../components/booking/LocationPicker';
 import CustomerInfo from '../components/booking/CustomerInfo';
 import BookingConfirmation from '../components/booking/BookingConfirmation';
@@ -41,8 +42,9 @@ const BookRideContent = () => {
   const toLngParam = searchParams.get('toLng');
   const distanceParam = searchParams.get('distance');
 
-  // Push URL params into BookingContext (for later steps like confirmation)
+  // Load pricing + push URL params into BookingContext
   useEffect(() => {
+    loadPricing();
     if (fromParam) setPickupAddress(fromParam);
     if (toParam) setDropoffAddress(toParam);
     if (fromLatParam && fromLngParam) setPickupCoordinates({ lat: Number(fromLatParam), lng: Number(fromLngParam) });

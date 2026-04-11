@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { getRouteBySlug } from '../data/transferRoutes';
 import { LOCATIONS_DATA } from '../data/locations';
-import { calculatePrice } from '../utils/pricing';
+import { calculatePrice, loadPricing } from '../utils/pricing';
 
 import TransferHero from '../components/transfers/TransferHero';
 import TransferRouteInfo from '../components/transfers/TransferRouteInfo';
@@ -18,7 +18,8 @@ const TransferRoute = () => {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useTranslation();
 
-  useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+  const [, setReady] = useState(false);
+  useEffect(() => { window.scrollTo(0, 0); loadPricing().then(() => setReady(true)); }, [slug]);
 
   const route = slug ? getRouteBySlug(slug) : undefined;
   if (!route) return <Navigate to="/transfers" replace />;

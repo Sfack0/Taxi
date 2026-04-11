@@ -2,7 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { TRANSFER_ROUTES } from '../data/transferRoutes';
-import { calculatePrice } from '../utils/pricing';
+import { calculatePrice, loadPricing } from '../utils/pricing';
+import { useEffect, useState } from 'react';
 import Footer from '../components/home/Footer';
 import Button from '../components/common/Button';
 import PublicHeader from '../components/common/PublicHeader';
@@ -42,6 +43,9 @@ const getOriginIcon = (fromKey: string) => {
 const TransfersIndex = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [, setReady] = useState(false);
+
+  useEffect(() => { loadPricing().then(() => setReady(true)); }, []);
 
   // Group routes by origin, keeping the fromKey for icons
   const grouped = TRANSFER_ROUTES.reduce<Record<string, { fromKey: string; routes: typeof TRANSFER_ROUTES }>>((acc, route) => {
