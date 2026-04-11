@@ -2,20 +2,32 @@ import mongoose from 'mongoose';
 import config from './environment';
 import logger from '../utils/logger';
 
+const MAX_RETRIES = 5;
+const RETRY_DELAY_MS = 5000;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const connectDatabase = async (): Promise<void> => {
-  try {
-    await mongoose.connect(config.mongodb.uri);
-    logger.success('MongoDB connected successfully');
-    logger.info(`Database: ${mongoose.connection.name}`);
-  } catch (error) {
-    logger.error('MongoDB connection error:', error);
-    process.exit(1);
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      await mongoose.connect(config.mongodb.uri);
+      logger.success('MongoDB connected successfully');
+      logger.info(`Database: ${mongoose.connection.name}`);
+      return;
+    } catch (error) {
+      logger.error(`MongoDB connection attempt ${attempt}/${MAX_RETRIES} failed:`, error);
+      if (attempt === MAX_RETRIES) {
+        logger.fatal('All MongoDB connection attempts failed');
+        process.exit(1);
+      }
+      await sleep(RETRY_DELAY_MS);
+    }
   }
 };
 
 // Handle connection events
 mongoose.connection.on('disconnected', () => {
-  logger.warn('MongoDB disconnected');
+  logger.warn('MongoDB disconnected — Mongoose will attempt to reconnect automatically');
 });
 
 mongoose.connection.on('error', (error) => {
