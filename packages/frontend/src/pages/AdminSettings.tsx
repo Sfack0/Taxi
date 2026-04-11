@@ -161,7 +161,7 @@ const AdminSettings = () => {
     }
   };
 
-  const handlePricingChange = (index: number, field: keyof PricingEntry, value: number) => {
+  const handlePricingChange = (index: number, field: keyof PricingEntry, value: number | string) => {
     setPricingEntries((prev) =>
       prev.map((entry, i) => (i === index ? { ...entry, [field]: value } : entry))
     );
@@ -171,7 +171,7 @@ const AdminSettings = () => {
     const lastEntry = pricingEntries[pricingEntries.length - 1];
     setPricingEntries((prev) => [
       ...prev,
-      { maxKm: lastEntry ? lastEntry.maxKm + 5 : 5, normalPrice: 0, vanPrice: 0 },
+      { maxKm: lastEntry ? lastEntry.maxKm + 5 : 5, normalPrice: '' as any, vanPrice: '' as any },
     ]);
     // Scroll to new row and focus
     setTimeout(() => {
@@ -461,8 +461,9 @@ const AdminSettings = () => {
                           step="0.1"
                           min="0"
                           value={entry.maxKm}
-                          onChange={(e) => handlePricingChange(index, 'maxKm', parseFloat(e.target.value) || 0)}
-                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          onChange={(e) => handlePricingChange(index, 'maxKm', e.target.value === '' ? '' : parseFloat(e.target.value))}
+                          onBlur={(e) => { if (e.target.value === '') handlePricingChange(index, 'maxKm', 0); }}
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0"
                         />
                       </div>
                       <div className="relative">
@@ -471,8 +472,9 @@ const AdminSettings = () => {
                           step="1"
                           min="0"
                           value={entry.normalPrice}
-                          onChange={(e) => handlePricingChange(index, 'normalPrice', parseFloat(e.target.value) || 0)}
-                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          onChange={(e) => handlePricingChange(index, 'normalPrice', e.target.value === '' ? '' : parseFloat(e.target.value))}
+                          onBlur={(e) => { if (e.target.value === '') handlePricingChange(index, 'normalPrice', 0); }}
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0"
                         />
                         <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">&euro;</span>
                       </div>
@@ -482,8 +484,9 @@ const AdminSettings = () => {
                           step="1"
                           min="0"
                           value={entry.vanPrice}
-                          onChange={(e) => handlePricingChange(index, 'vanPrice', parseFloat(e.target.value) || 0)}
-                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          onChange={(e) => handlePricingChange(index, 'vanPrice', e.target.value === '' ? '' : parseFloat(e.target.value))}
+                          onBlur={(e) => { if (e.target.value === '') handlePricingChange(index, 'vanPrice', 0); }}
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0"
                         />
                         <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">&euro;</span>
                       </div>
