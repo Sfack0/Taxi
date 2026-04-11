@@ -249,3 +249,13 @@ export interface CarouselImage {
   createdAt: Date;
   updatedAt: Date;
 }
+
+// ============================================================================
+// PRICING TYPES
+// ============================================================================
+
+export interface PricingEntry {
+  maxKm: number;
+  normalPrice: number;
+  vanPrice: number;
+}

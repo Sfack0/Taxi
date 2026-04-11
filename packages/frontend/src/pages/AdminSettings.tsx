@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { SortableContext, rectSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { CarouselImage } from '@cts/shared';
+import type { CarouselImage, PricingEntry } from '@cts/shared';
 import * as carouselService from '../services/carousel.service';
+import * as pricingService from '../services/pricing.service';
+import { setPricingCache } from '../utils/pricing';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import Button from '../components/common/Button';
@@ -101,7 +103,10 @@ const AdminSettings = () => {
   const { logout } = useAuth();
   const { showToast } = useToast();
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [menuOpen, setMenuOpen] = useState(false);
+  const settingsTab = (searchParams.get('tab') === 'pricing' ? 'pricing' : 'images') as 'images' | 'pricing';
+  const setSettingsTab = (tab: 'images' | 'pricing') => setSearchParams({ tab });
   const [activeTab, setActiveTab] = useState<'hero' | 'van'>('hero');
   const [images, setImages] = useState<CarouselImage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -111,6 +116,11 @@ const AdminSettings = () => {
   const [adding, setAdding] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
+
+  // Pricing state
+  const [pricingEntries, setPricingEntries] = useState<PricingEntry[]>([]);
+  const [pricingLoading, setPricingLoading] = useState(true);
+  const [pricingSaving, setPricingSaving] = useState(false);
 
   const fetchImages = useCallback(async () => {
     setLoading(true);
@@ -127,6 +137,61 @@ const AdminSettings = () => {
   useEffect(() => {
     fetchImages();
   }, [fetchImages]);
+
+  // Fetch pricing on mount
+  useEffect(() => {
+    pricingService.getPricing()
+      .then((entries) => setPricingEntries(entries))
+      .catch(() => {/* handled by interceptor */})
+      .finally(() => setPricingLoading(false));
+  }, []);
+
+  const handleSavePricing = async () => {
+    setPricingSaving(true);
+    try {
+      const sorted = [...pricingEntries].sort((a, b) => a.maxKm - b.maxKm);
+      const saved = await pricingService.updatePricing(sorted);
+      setPricingEntries(saved);
+      setPricingCache(saved);
+      showToast('Οι τιμές αποθηκεύτηκαν', 'success');
+    } catch {
+      // error toast handled by api interceptor
+    } finally {
+      setPricingSaving(false);
+    }
+  };
+
+  const handlePricingChange = (index: number, field: keyof PricingEntry, value: number) => {
+    setPricingEntries((prev) =>
+      prev.map((entry, i) => (i === index ? { ...entry, [field]: value } : entry))
+    );
+  };
+
+  const handleAddPricingRow = () => {
+    const lastEntry = pricingEntries[pricingEntries.length - 1];
+    setPricingEntries((prev) => [
+      ...prev,
+      { maxKm: lastEntry ? lastEntry.maxKm + 5 : 5, normalPrice: 0, vanPrice: 0 },
+    ]);
+    // Scroll to new row and focus
+    setTimeout(() => {
+      const container = document.getElementById('pricing-rows');
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+        const inputs = container.querySelectorAll('input[type="number"]');
+        const lastInput = inputs[inputs.length - 3]; // first input of last row
+        if (lastInput) (lastInput as HTMLInputElement).focus();
+      }
+    }, 50);
+  };
+
+  const [deletePricingIndex, setDeletePricingIndex] = useState<number | null>(null);
+
+  const handleDeletePricingRow = () => {
+    if (deletePricingIndex === null) return;
+    setPricingEntries((prev) => prev.filter((_, i) => i !== deletePricingIndex));
+    setDeletePricingIndex(null);
+  };
 
   const handleAdd = async () => {
     if (!newUrl.trim()) return;
@@ -274,15 +339,33 @@ const AdminSettings = () => {
 
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-          {/* Carousel Images Section */}
-          <Card className="p-4 sm:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Εικόνες</h2>
-              <Button size="sm" onClick={() => setAddModalOpen(true)}>
-                + Προσθήκη
-              </Button>
-            </div>
+          {/* Top-level tabs */}
+          <div className="flex gap-1 mb-5 border-b border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setSettingsTab('images')}
+              className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors ${
+                settingsTab === 'images'
+                  ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              Εικόνες
+            </button>
+            <button
+              onClick={() => setSettingsTab('pricing')}
+              className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors ${
+                settingsTab === 'pricing'
+                  ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              Τιμές
+            </button>
+          </div>
 
+          {/* Images Tab */}
+          {settingsTab === 'images' && (
+          <Card className="p-4 sm:p-6">
             {/* Tabs */}
             <div className="flex gap-2 mb-4 sm:mb-6">
               <button
@@ -312,9 +395,16 @@ const AdminSettings = () => {
                 <Spinner size="lg" />
               </div>
             ) : images.length === 0 ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 py-8">
-                Δεν υπάρχουν εικόνες. Προσθέστε μία για να ξεκινήσετε.
-              </p>
+              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
+                <button
+                  onClick={() => setAddModalOpen(true)}
+                  className="aspect-square rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-primary-400 dark:hover:border-primary-500 flex flex-col items-center justify-center gap-2 text-gray-400 dark:text-gray-500 hover:text-primary-500 dark:hover:text-primary-400 transition-all"
+                >
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
+              </div>
             ) : (
               <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
                 <SortableContext items={images.map((img) => img._id)} strategy={rectSortingStrategy}>
@@ -328,11 +418,107 @@ const AdminSettings = () => {
                         onDelete={setDeleteId}
                       />
                     ))}
+                    {/* Add image card */}
+                    <button
+                      onClick={() => setAddModalOpen(true)}
+                      className="aspect-square rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-primary-400 dark:hover:border-primary-500 flex flex-col items-center justify-center gap-2 text-gray-400 dark:text-gray-500 hover:text-primary-500 dark:hover:text-primary-400 transition-all"
+                    >
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </button>
                   </div>
                 </SortableContext>
               </DndContext>
             )}
           </Card>
+          )}
+
+          {/* Pricing Tab */}
+          {settingsTab === 'pricing' && (
+          <div>
+            {pricingLoading ? (
+              <div className="flex justify-center py-12">
+                <Spinner size="lg" />
+              </div>
+            ) : (
+              <>
+                {/* Header row */}
+                <div className="grid grid-cols-[1fr_1fr_1fr_2rem] gap-2 mb-2 px-1">
+                  <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Km</span>
+                  <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">1-4 άτομα</span>
+                  <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">5+ άτομα</span>
+                  <span />
+                </div>
+
+                {/* Rows */}
+                <div id="pricing-rows" className="space-y-1.5 max-h-[60vh] overflow-y-auto pr-1">
+                  {pricingEntries.map((entry, index) => (
+                    <div key={index} className="grid grid-cols-[1fr_1fr_1fr_2rem] gap-2 items-center">
+                      <div className="relative">
+                        <input
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          value={entry.maxKm}
+                          onChange={(e) => handlePricingChange(index, 'maxKm', parseFloat(e.target.value) || 0)}
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="number"
+                          step="1"
+                          min="0"
+                          value={entry.normalPrice}
+                          onChange={(e) => handlePricingChange(index, 'normalPrice', parseFloat(e.target.value) || 0)}
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        />
+                        <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">&euro;</span>
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="number"
+                          step="1"
+                          min="0"
+                          value={entry.vanPrice}
+                          onChange={(e) => handlePricingChange(index, 'vanPrice', parseFloat(e.target.value) || 0)}
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        />
+                        <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">&euro;</span>
+                      </div>
+                      <button
+                        onClick={() => setDeletePricingIndex(index)}
+                        className="p-1.5 text-gray-400 hover:text-red-500 transition-colors rounded"
+                        title="Διαγραφή"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Actions */}
+                <div className="grid grid-cols-2 gap-3 mt-5">
+                  <button
+                    onClick={handleAddPricingRow}
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Νέα τιμή
+                  </button>
+                  <Button className="w-full" onClick={handleSavePricing} isLoading={pricingSaving} disabled={pricingEntries.length === 0}>
+                    Αποθήκευση
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+          )}
         </div>
       </div>
 
@@ -403,7 +589,7 @@ const AdminSettings = () => {
         </div>
       </Modal>
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Image Confirmation Modal */}
       <Modal isOpen={!!deleteId} onClose={() => setDeleteId(null)} title="Επιβεβαίωση Διαγραφής" size="sm">
         <div className="space-y-4">
           <p className="text-gray-700 dark:text-gray-300">
@@ -414,6 +600,23 @@ const AdminSettings = () => {
               Ακύρωση
             </Button>
             <Button variant="danger" size="sm" onClick={handleDelete} isLoading={deleting}>
+              Διαγραφή
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Delete Pricing Row Confirmation Modal */}
+      <Modal isOpen={deletePricingIndex !== null} onClose={() => setDeletePricingIndex(null)} title="Επιβεβαίωση Διαγραφής" size="sm">
+        <div className="space-y-4">
+          <p className="text-gray-700 dark:text-gray-300">
+            Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή τη γραμμή τιμής;
+          </p>
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" size="sm" onClick={() => setDeletePricingIndex(null)}>
+              Ακύρωση
+            </Button>
+            <Button variant="danger" size="sm" onClick={handleDeletePricingRow}>
               Διαγραφή
             </Button>
           </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import * as carouselService from '../services/carousel.service';
+import { loadPricing } from '../utils/pricing';
 import Button from '../components/common/Button';
 import HeroCarousel from '../components/home/HeroCarousel';
 import ServicesSection from '../components/home/ServicesSection';
@@ -24,6 +25,7 @@ const Home = () => {
     carouselService.getActiveImages()
       .then((images) => setCarouselImages(images.map((img) => img.url)))
       .catch(() => {/* fallback images will be used */});
+    loadPricing();
   }, []);
 
   // Check if user is admin (role === 'admin' or email matches admin email)

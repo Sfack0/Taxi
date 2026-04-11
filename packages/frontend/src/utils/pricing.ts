@@ -1,8 +1,11 @@
+import type { PricingEntry } from '@cts/shared';
+import { getPricing } from '../services/pricing.service';
+
 /**
  * Pricing table based on km ranges.
  * Each entry: [maxKm, normalPrice (1-4 people), vanPrice (5+ people)]
  */
-const PRICING_TABLE: [number, number, number][] = [
+const DEFAULT_PRICING_TABLE: [number, number, number][] = [
   [3.4, 18, 25],
   [7, 20, 28],
   [10, 27, 35],
@@ -55,6 +58,28 @@ const PRICING_TABLE: [number, number, number][] = [
   [245, 305, 396],
 ];
 
+let cachedPricing: [number, number, number][] | null = null;
+
+/**
+ * Load pricing from the API and cache it.
+ * Falls back silently to the default table on error.
+ */
+export async function loadPricing(): Promise<void> {
+  try {
+    const entries = await getPricing();
+    cachedPricing = entries.map((e) => [e.maxKm, e.normalPrice, e.vanPrice] as [number, number, number]);
+  } catch {
+    // silently fall back to default pricing
+  }
+}
+
+/**
+ * Update the cached pricing from PricingEntry[] (e.g. after admin save).
+ */
+export function setPricingCache(entries: PricingEntry[]): void {
+  cachedPricing = entries.map((e) => [e.maxKm, e.normalPrice, e.vanPrice] as [number, number, number]);
+}
+
 /**
  * Calculate price based on distance and number of people.
  * - 1-4 people → normal rate
@@ -64,8 +89,9 @@ const PRICING_TABLE: [number, number, number][] = [
 export function calculatePrice(distanceKm: number, people: number): number | null {
   if (distanceKm <= 0) return null;
 
-  const entry = PRICING_TABLE.find(([maxKm]) => distanceKm <= maxKm)
-    ?? PRICING_TABLE[PRICING_TABLE.length - 1];
+  const table = cachedPricing ?? DEFAULT_PRICING_TABLE;
+  const entry = table.find(([maxKm]) => distanceKm <= maxKm)
+    ?? table[table.length - 1];
 
   return people >= 5 ? entry[2] : entry[1];
 }
