@@ -10,6 +10,21 @@ import {
 import * as rideService from '../services/ride.service';
 import logger from '../utils/logger';
 
+// Greece is UTC+2 (winter) / UTC+3 (summer EEST). Offset the date-only filter
+// strings so that "2026-06-04" means 00:00–23:59 Greek local time, not UTC.
+const GREECE_OFFSET_HOURS = 3; // EEST (summer); conservative — errs toward inclusion
+
+const parseDateFilter = (dateStr: string, isEnd: boolean): Date => {
+  // dateStr is "YYYY-MM-DD" sent by the frontend's toLocalDateString()
+  const [y, m, d] = dateStr.split('-').map(Number);
+  if (isEnd) {
+    // End of that day in Greek time = 23:59:59 EEST → UTC: subtract offset
+    return new Date(Date.UTC(y, m - 1, d, 23 - GREECE_OFFSET_HOURS, 59, 59, 999));
+  }
+  // Start of that day in Greek time = 00:00:00 EEST → UTC: subtract offset
+  return new Date(Date.UTC(y, m - 1, d, -GREECE_OFFSET_HOURS, 0, 0, 0));
+};
+
 export const createRide = async (
   req: Request<{}, {}, CreateRideRequest>,
   res: Response<ApiResponse<{ ride: Ride }>>,
@@ -113,8 +128,8 @@ export const getUserRides = async (
 
     const filters = {
       status: status as any,
-      startDate: startDate ? new Date(startDate as string) : undefined,
-      endDate: endDate ? new Date(endDate as string) : undefined,
+      startDate: startDate ? parseDateFilter(startDate as string, false) : undefined,
+      endDate: endDate ? parseDateFilter(endDate as string, true) : undefined,
       search: search as string | undefined,
     };
 
@@ -209,8 +224,8 @@ export const getAllRides = async (
 
     const filters = {
       status: status as any,
-      startDate: startDate ? new Date(startDate as string) : undefined,
-      endDate: endDate ? new Date(endDate as string) : undefined,
+      startDate: startDate ? parseDateFilter(startDate as string, false) : undefined,
+      endDate: endDate ? parseDateFilter(endDate as string, true) : undefined,
       customer: customer as string | undefined,
     };
 

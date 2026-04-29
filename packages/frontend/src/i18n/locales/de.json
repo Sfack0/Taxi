@@ -299,6 +299,10 @@
     "lasithi": "Lasithi",
     "beach": "Strand",
     "historical": "Historisch",
+    "archaeological": "Archäologische Stätte",
+    "museum": "Museum",
+    "monastery": "Kloster",
+    "cave": "Höhle",
     "popularTitle": "Beliebte Reiseziele",
     "popularSubtitle": "Top-Orte auf Kreta zu besuchen",
     "viewAll": "Alle Reiseziele Anzeigen",
@@ -308,7 +312,7 @@
     },
     "agiaPelagia": {
       "name": "Agia Pelagia",
-      "description": "Der Strand von Agia Pelagia liegt in einer wunderschönen, geschützten Bucht, etwa 20 km westlich von Heraklion. Ruhiges, kristallklares Wasser und weicher goldener Sand — perfekt zum Schwimmen, Schnorcheln und Entspannen."
+      "description": "Der Strand von Agia Pelagia liegt in einer wunderschönen, geschützten Bucht, etwa 20 km westlich von Heraklion. Ruhiges, kristallklares Wasser und weicher goldener Sand. Ideal zum Schwimmen und Entspannen."
     },
     "paliokastro": {
       "name": "Paliokastro",
@@ -328,7 +332,7 @@
     },
     "threeChurches": {
       "name": "Drei Kirchen",
-      "description": "Drei Kirchen ist ein kleiner, abgelegener Küstenort im Süden Kretas — ein verstecktes Juwel mit atemberaubender Naturschönheit, abgeschiedenen Stränden und friedlicher Atmosphäre."
+      "description": "Drei Kirchen ist ein kleiner, abgelegener Küstenort im Süden Kretas. Ein verstecktes Juwel mit atemberaubender Naturschönheit, abgeschiedenen Stränden und friedlicher Atmosphäre."
     },
     "tsoutsouros": {
       "name": "Tsoutsouros",
@@ -392,11 +396,71 @@
     },
     "vai": {
       "name": "Vai Palmenstrand",
-      "description": "Der Strand von Vai ist berühmt für seinen riesigen natürlichen Palmenwald — den größten Europas. Goldener Sand, türkisfarbenes Wasser und tropisch-exotisches Flair. Ein gut organisierter Strand, der dennoch natürlich und besonders wirkt."
+      "description": "Der Strand von Vai ist berühmt für seinen riesigen natürlichen Palmenwald, den größten Europas. Goldener Sand, türkisfarbenes Wasser und tropisch-exotisches Flair. Ein gut organisierter Strand, der dennoch natürlich und besonders wirkt."
     },
     "makrigialos": {
       "name": "Makrigialos",
       "description": "Makrigialos ist ein friedliches Küstendorf an der Südostküste Kretas. Bekannt für seinen langen Sandstrand, ruhiges flaches Wasser und entspannte, familienfreundliche Atmosphäre. Der Name bedeutet auf Griechisch 'langer Strand'!"
+    },
+    "phaistos": {
+      "name": "Palast von Phaistos",
+      "description": "Der Palast von Phaistos ist einer der bedeutendsten minoischen Paläste Kretas und liegt im Süden der Insel mit Blick auf die Messara-Ebene. Er wurde um 1900 v. Chr. erbaut und war ein wichtiges Verwaltungs-, Wirtschafts- und Kulturzentrum der minoischen Zivilisation. Wie andere minoische Paläste verfügte er über einen großen zentralen Hof, Lager, Werkstätten und Wohnräume."
+    },
+    "maliaPalace": {
+      "name": "Palast von Malia",
+      "description": "Malia ist eine minoische und mykenische Ausgrabungsstätte an der Nordküste Kretas, in der Region Heraklion. Sie liegt etwa 35 Kilometer östlich des antiken Knossos und 40 Kilometer östlich der modernen Stadt Heraklion."
+    },
+    "kotsanasMuseum": {
+      "name": "Kotsanas Museum für Altgriechische Technologie",
+      "description": "Eine einzigartige Kultureinrichtung, die die technologischen und wissenschaftlichen Errungenschaften der antiken griechischen Zivilisation hervorhebt. Es beherbergt über 500 funktionsfähige Nachbildungen antiker Erfindungen, die alle von Kostas Kotsanas selbst entworfen und gebaut wurden."
+    },
+    "historicalMuseumHeraklion": {
+      "name": "Historisches Museum Kreta",
+      "description": "Das Historische Museum Kretas in Heraklion bietet einen umfassenden Einblick in die Geschichte der Insel von den ersten christlichen Jahrhunderten bis zur Moderne. 1953 gegründet und in einem beeindruckenden neoklassizistischen Gebäude untergebracht."
+    },
+    "eleftherna": {
+      "name": "Antikes Eleftherna",
+      "description": "Das antike Eleftherna ist eine der bedeutendsten archäologischen Stätten Kretas und bietet einen seltenen Einblick in die homerische Welt der Insel. Es liegt in den nordwestlichen Ausläufern des Psiloritis, etwa 24-30 km östlich von Rethymno, auf einer Höhe von 380 Metern."
+    },
+    "arkadiMonastery": {
+      "name": "Kloster Arkadi",
+      "description": "Das Heilige Kloster Arkadi ist das bedeutendste nationale Denkmal Kretas und ein Symbol der Freiheit, weltweit bekannt für den Holocaust von 1866. Es liegt auf einem fruchtbaren Plateau, 23 km südöstlich von Rethymno."
+    },
+    "aptera": {
+      "name": "Archäologische Stätte Aptera",
+      "description": "Die archäologische Stätte von Aptera befindet sich an einer strategischen Lage oberhalb der Souda-Bucht in der großen Ebene von Chania und ist einer der wichtigsten antiken Stadtstaaten Kretas. Der Legende nach geht der Name auf den Kampf zwischen den Musen und den Sirenen zurück."
+    },
+    "zakrosPalace": {
+      "name": "Minoischer Palast von Zakros",
+      "description": "Der Minoische Palast von Zakros ist der viertgrößte Palast im minoischen Kreta und der einzige, der unberührt von Grabräubern gefunden wurde. Er liegt an der südöstlichen Spitze der Insel in Kato Zakros und fungierte als Handelstor nach Ägypten und in den Orient."
+    },
+    "spinalonga": {
+      "name": "Spinalonga",
+      "description": "Spinalonga (offiziell Kalydon) ist ein kleines befestigtes Inselchen in der Bucht von Elounda, im Lasithi, Kreta. Es ist einer der bedeutendsten historischen und touristischen Orte Griechenlands, weltweit bekannt für seine venezianische Festung und seine Rolle als letzte offizielle Leprakolonie Europas."
+    },
+    "skotinosCave": {
+      "name": "Skotinos-Höhle",
+      "description": "Die Skotinos-Höhle (auch als Agia-Paraskevi-Höhle bekannt) ist eine der größten und bedeutendsten Höhlen Kretas mit enormer archäologischer und speläologischer Bedeutung."
+    },
+    "sfendoniCave": {
+      "name": "Sfendoni-Höhle",
+      "description": "Die Sfendoni-Höhle in Zoniana gilt als eine der beeindruckendsten Höhlen Griechenlands, bekannt für ihre reiche und farbenfrohe Dekoration aus Stalaktiten und Stalagmiten. Sie befindet sich an den Südhängen des Halepa-Hügels auf 630 Metern Höhe und ist Teil des Psiloritis Naturparks unter der Schirmherrschaft der UNESCO."
+    },
+    "melidoniCave": {
+      "name": "Melidoni-Höhle",
+      "description": "Die Melidoni-Höhle (oder Gerontospilios) ist einer der bedeutendsten historischen und archäologischen Orte Kretas, bekannt sowohl für ihre beeindruckende natürliche Schönheit als auch für ihre tragische Geschichte. Der Mythologie zufolge war die Höhle die Residenz von Talos, dem bronzenen Riesen-Wächter, der Kreta beschützte."
+    },
+    "agiaSophiaCave": {
+      "name": "Agia-Sophia-Höhle",
+      "description": "Die Agia-Sophia-Höhle befindet sich an den westlichen Wänden der Topolia-Schlucht, etwa 47-50 km südwestlich von Chania, auf dem Weg nach Elafonisi. Der Zugang erfordert das Besteigen von etwa 250 Stufen und bietet beeindruckende Ausblicke auf die Schlucht."
+    },
+    "diktaionAndron": {
+      "name": "Diktaion Andron (Zeushöhle)",
+      "description": "Das Diktaion Andron (auch als Psychro-Höhle oder Zeushöhle bekannt) ist eine der bedeutendsten und beeindruckendsten Höhlen Kretas, weltweit bekannt als mythologischer Geburtsort des Zeus. Der Legende nach floh Rhea hierher, um Zeus heimlich vor Kronos zu gebären."
+    },
+    "milatosCave": {
+      "name": "Milatos-Höhle",
+      "description": "Die Milatos-Höhle liegt in der Präfektur Lasithi, nahe dem gleichnamigen Dorf, und ist einer der bedeutendsten historischen Orte Kretas. Sie ist hauptsächlich für die tragische Belagerung von 1823 bekannt, als etwa 2.000 Zivilisten, die dort Zuflucht gesucht hatten, von der türkisch-ägyptischen Armee Hassan Paschas massakriert oder gefangen genommen wurden."
     }
   },
   "locations": {

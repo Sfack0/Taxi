@@ -11,7 +11,7 @@ const PORTS = [
 ];
 
 const AIRPORT_RADIUS = 0.03; // ~3 km
-const PORT_RADIUS = 0.02;   // ~2 km
+const PORT_RADIUS = 0.008;  // ~800 m
 
 const isNearPoints = (coords: unknown, points: { lng: number; lat: number }[], radius: number): boolean => {
   // Handle GeoJSON format: coordinates.coordinates = [lng, lat]

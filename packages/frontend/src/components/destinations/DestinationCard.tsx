@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Destination, getDestinationImage } from '../../data/destinations';
@@ -18,23 +18,31 @@ const DestinationDetail = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const skipBackOnUnmount = useRef(false);
 
   // Handle Android back button
   useEffect(() => {
-    const closedByBack = { current: false };
-    history.pushState(null, '');
+    let cancelled = false;
+    let pushed = false;
+
+    // Defer pushState so React StrictMode's mount→cleanup→mount cycle
+    // doesn't trigger a spurious popstate that closes the modal immediately.
+    const timeoutId = setTimeout(() => {
+      if (cancelled) return;
+      history.pushState(null, '');
+      pushed = true;
+    }, 0);
 
     const handlePopState = () => {
-      closedByBack.current = true;
       onClose();
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
       window.removeEventListener('popstate', handlePopState);
-      if (!closedByBack.current) {
-        history.back();
-      }
+      if (pushed && !skipBackOnUnmount.current) history.back();
     };
   }, [onClose]);
 
@@ -45,6 +53,7 @@ const DestinationDetail = ({
   const regionLabel = t(`destinations.${destination.region}`);
 
   const handleBook = () => {
+    skipBackOnUnmount.current = true;
     const params = new URLSearchParams();
     params.set('to', name);
     params.set('toLat', String(destination.lat));

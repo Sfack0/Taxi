@@ -299,6 +299,10 @@
     "lasithi": "Lasithi",
     "beach": "Beach",
     "historical": "Historical",
+    "archaeological": "Archaeological site",
+    "museum": "Museum",
+    "monastery": "Monastery",
+    "cave": "Cave",
     "popularTitle": "Popular Destinations",
     "popularSubtitle": "Top places to visit in Crete",
     "viewAll": "View All Destinations",
@@ -308,11 +312,11 @@
     },
     "agiaPelagia": {
       "name": "Agia Pelagia",
-      "description": "Agia Pelagia Beach is a popular seaside spot located about 20 km west of Heraklion. It's set in a beautiful, sheltered bay, with calm, crystal-clear waters and soft golden sand — perfect for swimming, snorkeling, and relaxing. The beach is well-organized with sunbeds, umbrellas, and lots of cafes and tavernas."
+      "description": "Agia Pelagia Beach is set in a beautiful, sheltered bay, about 20 km west of Heraklion. Calm, crystal-clear waters and soft golden sand. Perfect for swimming and relaxing."
     },
     "paliokastro": {
       "name": "Paliokastro",
-      "description": "Paliokastro is a small coastal area located about 15 km west of Heraklion. It's known for its rocky landscape, small pebbly beach, and the ruins of a Venetian fortress. The beach has deep, clear waters — great for swimming, snorkeling, and diving — but it's wilder and more natural compared to organized tourist beaches."
+      "description": "Paliokastro is a small coastal area located about 15 km west of Heraklion. It's known for its rocky landscape, small pebbly beach, and the ruins of a Venetian fortress. The beach has deep, clear waters, great for swimming, snorkeling, and diving, but wilder and more natural compared to organized tourist beaches."
     },
     "sisi": {
       "name": "Sissi",
@@ -328,7 +332,7 @@
     },
     "threeChurches": {
       "name": "Three Churches",
-      "description": "Three Churches is a small, remote coastal area in southern Crete — a hidden gem offering stunning natural beauty, secluded beaches, and a peaceful atmosphere. The landscaped surroundings make it a perfect spot for those looking to escape the urban environment."
+      "description": "Three Churches is a small, remote coastal area in southern Crete. A hidden gem offering stunning natural beauty, secluded beaches, and a peaceful atmosphere."
     },
     "tsoutsouros": {
       "name": "Tsoutsouros",
@@ -352,7 +356,7 @@
     },
     "bali": {
       "name": "Bali",
-      "description": "Bali is a charming seaside village on the north coast of Crete, known for its beautiful beaches with calm, clear waters, ideal for swimming and relaxing. Surrounded by hills and olive groves, it offers a blend of nature and tradition — great for families, couples, and anyone seeking a quiet beach getaway."
+      "description": "Bali is a charming seaside village on the north coast of Crete, known for its beautiful beaches with calm, clear waters, ideal for swimming and relaxing. Surrounded by hills and olive groves, it offers a blend of nature and tradition, great for families, couples, and anyone seeking a quiet beach getaway."
     },
     "georgioupoli": {
       "name": "Georgioupoli",
@@ -368,7 +372,7 @@
     },
     "elafonisi": {
       "name": "Elafonisi",
-      "description": "Elafonisi is a small island and beach on the southwest coast of Crete, famous for its pink sand and crystal-clear, shallow waters. The sand gets its pink color from crushed seashells. You can walk through the shallow water to reach the island — one of the most beautiful beaches in Greece."
+      "description": "Elafonisi is a small island and beach on the southwest coast of Crete, famous for its pink sand and crystal-clear, shallow waters. The sand gets its pink color from crushed seashells. You can walk through the shallow water to reach the island, one of the most beautiful beaches in Greece."
     },
     "balos": {
       "name": "Balos Lagoon",
@@ -392,11 +396,71 @@
     },
     "vai": {
       "name": "Vai Palm Beach",
-      "description": "Vai Beach is famous for its huge natural palm forest — the largest in Europe. The beach has golden sand, clear turquoise waters, and a tropical, exotic feel. A well-organized beach that still feels natural and special thanks to the impressive palm forest surrounding it."
+      "description": "Vai Beach is famous for its huge natural palm forest, the largest in Europe. The beach has golden sand, clear turquoise waters, and a tropical, exotic feel. A well-organized beach that still feels natural and special thanks to the impressive palm forest surrounding it."
     },
     "makrigialos": {
       "name": "Makrigialos",
       "description": "Makrigialos is a peaceful seaside village on the southeast coast of Crete. It's known for its long sandy beach, calm shallow waters, and relaxed, family-friendly atmosphere. The name means \"long beach\" in Greek! It has a charming harbor and seafront tavernas."
+    },
+    "phaistos": {
+      "name": "Palace of Phaistos",
+      "description": "The Palace of Phaistos is one of the most important Minoan palaces of Crete and is located on the south side of the island, overlooking Messara. It was built around 1900 BC and was an important administrative, economic and cultural center of the Minoan civilization. Like other Minoan palaces, it had a large central courtyard, warehouses, workshops and living spaces."
+    },
+    "maliaPalace": {
+      "name": "Palace of Malia",
+      "description": "Malia is a Minoan and Mycenaean archaeological site located on the northern coast of Crete, in the Heraklion region. It lies approximately 35 kilometres east of ancient Knossos and 40 kilometres east of the modern city of Heraklion."
+    },
+    "kotsanasMuseum": {
+      "name": "Kotsanas Museum of Ancient Greek Technology",
+      "description": "A unique cultural institution highlighting the technological and scientific achievements of ancient Greek civilization. It hosts over 500 functional replicas of ancient inventions, all designed and constructed by Kostas Kotsanas himself."
+    },
+    "historicalMuseumHeraklion": {
+      "name": "Historical Museum of Crete",
+      "description": "The Historical Museum of Crete in Heraklion offers a comprehensive look at the island's history from the first Christian centuries to the modern era. Founded in 1953 and housed in an impressive neoclassical building, the old Kalokerinos house."
+    },
+    "eleftherna": {
+      "name": "Ancient Eleftherna",
+      "description": "Ancient Eleftherna is one of the most important archaeological sites in Crete, offering a rare glimpse into the Homeric world of the island. Located in the northwestern foothills of Psiloritis, approximately 24-30 km east of Rethymno, at an altitude of 380 meters."
+    },
+    "arkadiMonastery": {
+      "name": "Arkadi Monastery",
+      "description": "The Holy Monastery of Arkadi is the most important national monument of Crete and a symbol of freedom, known worldwide for the Holocaust of 1866. It is located on a fertile plateau, 23 km southeast of Rethymno."
+    },
+    "aptera": {
+      "name": "Archaeological Site of Aptera",
+      "description": "The Archaeological Site of Aptera is located in a strategic location above Souda Bay, in the Great Plains of Chania, and is one of the most important ancient city-states of Crete. According to legend, the name comes from the fight between the Muses and the Sirens."
+    },
+    "zakrosPalace": {
+      "name": "Minoan Palace of Zakros",
+      "description": "The Minoan Palace of Zakros is the fourth largest palace in Minoan Crete and the only one found unspoiled by tomb robbers. Located on the southeastern tip of the island, in Kato Zakros, it functioned as a trade gateway with Egypt and the East."
+    },
+    "spinalonga": {
+      "name": "Spinalonga",
+      "description": "Spinalonga (officially Kalydon) is a small fortified islet in the bay of Elounda, in Lasithi, Crete. It is one of the most important historical and tourist sites in Greece, known worldwide for its Venetian fortress and its role as the last official leper colony in Europe."
+    },
+    "skotinosCave": {
+      "name": "Cave of Skotinos",
+      "description": "The Cave of Skotinos (also known as the Cave of Agia Paraskevi) is one of the largest and most important caves in Crete, with enormous archaeological and speleological significance."
+    },
+    "sfendoniCave": {
+      "name": "Sfendoni Cave",
+      "description": "Sfendoni Cave in Zoniana is considered one of the most impressive caves in Greece, known for its rich and colorful decoration of stalactites and stalagmites. It is located on the southern slopes of Halepa Hill at an altitude of 630 meters, and is part of the Psiloritis Natural Park under the auspices of UNESCO."
+    },
+    "melidoniCave": {
+      "name": "Melidoni Cave",
+      "description": "The Melidoni Cave (or Gerontospilios) is one of the most important historical and archaeological sites in Crete, known both for its impressive natural beauty and its tragic history. According to mythology, the cave was the residence of Talos, the bronze giant-guardian who protected Crete."
+    },
+    "agiaSophiaCave": {
+      "name": "Cave of Agia Sophia",
+      "description": "The Cave of Agia Sophia is located on the western walls of the Topolia Gorge, approximately 47-50 km southwest of Chania, on the road to Elafonisi. It requires climbing approximately 250 steps, offering impressive views of the gorge."
+    },
+    "diktaionAndron": {
+      "name": "Diktaion Andron (Cave of Zeus)",
+      "description": "Diktaion Andron (also known as the Cave of Psychro or Cave of Zeus) is one of the most important and impressive caves of Crete, known worldwide as the mythological birthplace of Zeus. According to legend, Rhea fled here to give birth to Zeus secretly from Cronus, who swallowed his children."
+    },
+    "milatosCave": {
+      "name": "Milatos Cave",
+      "description": "The Milatos Cave is located in the Lasithi Prefecture, near the village of the same name, and is one of the most important historical sites in Crete. It is known mainly for the tragic siege of 1823, when approximately 2,000 civilians who had found refuge there were massacred or captured by the Turkish-Egyptian army of Hassan Pasha."
     }
   },
   "locations": {

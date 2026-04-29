@@ -114,7 +114,7 @@ const Destinations = () => {
             onChange={setSelectedCategory}
             options={[
               { value: undefined, label: t('destinations.allCategories') },
-              ...(['beach', 'historical'] as Category[]).map((c) => ({
+              ...(['beach', 'historical', 'archaeological', 'cave', 'museum', 'monastery'] as Category[]).map((c) => ({
                 value: c, label: t(`destinations.${c}`),
               })),
             ]}

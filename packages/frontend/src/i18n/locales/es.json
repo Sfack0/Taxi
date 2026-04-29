@@ -299,6 +299,10 @@
     "lasithi": "Lasithi",
     "beach": "Playa",
     "historical": "Histórico",
+    "archaeological": "Sitio arqueológico",
+    "museum": "Museo",
+    "monastery": "Monasterio",
+    "cave": "Cueva",
     "popularTitle": "Destinos Populares",
     "popularSubtitle": "Los mejores lugares para visitar en Creta",
     "viewAll": "Ver Todos los Destinos",
@@ -308,7 +312,7 @@
     },
     "agiaPelagia": {
       "name": "Agia Pelagia",
-      "description": "La playa de Agia Pelagia está situada en una hermosa bahía protegida, a unos 20 km al oeste de Heraklion. Aguas tranquilas y cristalinas con arena dorada — perfecta para nadar, hacer snorkel y relajarse."
+      "description": "La playa de Agia Pelagia está situada en una hermosa bahía protegida, a unos 20 km al oeste de Heraklion. Aguas tranquilas y cristalinas con arena dorada. Perfecta para nadar y relajarse."
     },
     "paliokastro": {
       "name": "Paliokastro",
@@ -328,7 +332,7 @@
     },
     "threeChurches": {
       "name": "Tres Iglesias",
-      "description": "Tres Iglesias es una pequeña zona costera aislada en el sur de Creta — una joya oculta que ofrece una belleza natural impresionante, playas aisladas y una atmósfera tranquila."
+      "description": "Tres Iglesias es una pequeña zona costera aislada en el sur de Creta. Una joya oculta que ofrece una belleza natural impresionante, playas aisladas y una atmósfera tranquila."
     },
     "tsoutsouros": {
       "name": "Tsoutsouros",
@@ -392,11 +396,71 @@
     },
     "vai": {
       "name": "Playa de Palmeras de Vai",
-      "description": "La playa de Vai es famosa por su enorme bosque natural de palmeras — el más grande de Europa. Arena dorada, aguas turquesas y un ambiente tropical y exótico. Una playa bien organizada que sigue siendo natural y especial."
+      "description": "La playa de Vai es famosa por su enorme bosque natural de palmeras, el más grande de Europa. Arena dorada, aguas turquesas y un ambiente tropical y exótico. Una playa bien organizada que sigue siendo natural y especial."
     },
     "makrigialos": {
       "name": "Makrigialos",
       "description": "Makrigialos es un tranquilo pueblo costero en la costa sureste de Creta. Conocido por su larga playa de arena, aguas tranquilas y poco profundas y un ambiente relajado y familiar. ¡El nombre significa \"playa larga\" en griego!"
+    },
+    "phaistos": {
+      "name": "Palacio de Festo",
+      "description": "El Palacio de Festo es uno de los palacios minoicos más importantes de Creta y se encuentra en el lado sur de la isla, con vistas a la llanura de Messara. Fue construido alrededor del 1900 a.C. y fue un importante centro administrativo, económico y cultural de la civilización minoica. Como otros palacios minoicos, contaba con un gran patio central, almacenes, talleres y zonas de vivienda."
+    },
+    "maliaPalace": {
+      "name": "Palacio de Malia",
+      "description": "Malia es un yacimiento arqueológico minoico y micénico situado en la costa norte de Creta, en la región de Heraklion. Se encuentra a unos 35 kilómetros al este de la antigua Cnosos y a 40 kilómetros al este de la ciudad moderna de Heraklion."
+    },
+    "kotsanasMuseum": {
+      "name": "Museo Kotsanas de Tecnología Griega Antigua",
+      "description": "Una institución cultural única que destaca los logros tecnológicos y científicos de la civilización griega antigua. Alberga más de 500 réplicas funcionales de inventos antiguos, todos diseñados y construidos por el propio Kostas Kotsanas."
+    },
+    "historicalMuseumHeraklion": {
+      "name": "Museo Histórico de Creta",
+      "description": "El Museo Histórico de Creta en Heraklion ofrece una visión completa de la historia de la isla desde los primeros siglos cristianos hasta la era moderna. Fundado en 1953 y alojado en un impresionante edificio neoclásico, la antigua casa Kalokerinos."
+    },
+    "eleftherna": {
+      "name": "Antigua Eleftherna",
+      "description": "La antigua Eleftherna es uno de los sitios arqueológicos más importantes de Creta, ofreciendo una rara visión del mundo homérico de la isla. Se encuentra en las estribaciones noroccidentales del Psiloritis, a unos 24-30 km al este de Rethymno, a una altitud de 380 metros."
+    },
+    "arkadiMonastery": {
+      "name": "Monasterio de Arkadi",
+      "description": "El Santo Monasterio de Arkadi es el monumento nacional más importante de Creta y un símbolo de libertad, conocido mundialmente por el Holocausto de 1866. Se encuentra en una fértil meseta, a 23 km al sureste de Rethymno."
+    },
+    "aptera": {
+      "name": "Sitio Arqueológico de Aptera",
+      "description": "El sitio arqueológico de Aptera está situado en una ubicación estratégica sobre la bahía de Souda, en las grandes llanuras de Chania, y es una de las ciudades-estado antiguas más importantes de Creta. Según la leyenda, el nombre proviene de la lucha entre las Musas y las Sirenas."
+    },
+    "zakrosPalace": {
+      "name": "Palacio Minoico de Zakros",
+      "description": "El Palacio Minoico de Zakros es el cuarto palacio más grande de la Creta minoica y el único encontrado intacto por los saqueadores de tumbas. Ubicado en el extremo sureste de la isla, en Kato Zakros, funcionaba como puerta comercial con Egipto y Oriente."
+    },
+    "spinalonga": {
+      "name": "Spinalonga",
+      "description": "Spinalonga (oficialmente Kalydon) es un pequeño islote fortificado en la bahía de Elounda, en Lasithi, Creta. Es uno de los sitios históricos y turísticos más importantes de Grecia, conocido mundialmente por su fortaleza veneciana y su papel como última colonia de leprosos oficial de Europa."
+    },
+    "skotinosCave": {
+      "name": "Cueva de Skotinos",
+      "description": "La Cueva de Skotinos (también conocida como Cueva de Agia Paraskevi) es una de las cuevas más grandes e importantes de Creta, con una enorme importancia arqueológica y espeleológica."
+    },
+    "sfendoniCave": {
+      "name": "Cueva Sfendoni",
+      "description": "La Cueva Sfendoni en Zoniana está considerada como una de las cuevas más impresionantes de Grecia, conocida por su rica y colorida decoración de estalactitas y estalagmitas. Se encuentra en las laderas sur de la colina Halepa, a 630 metros de altitud, y forma parte del Parque Natural del Psiloritis bajo los auspicios de la UNESCO."
+    },
+    "melidoniCave": {
+      "name": "Cueva de Melidoni",
+      "description": "La Cueva de Melidoni (o Gerontospilios) es uno de los sitios históricos y arqueológicos más importantes de Creta, conocida tanto por su impresionante belleza natural como por su trágica historia. Según la mitología, la cueva era la residencia de Talos, el gigante de bronce guardián que protegía Creta."
+    },
+    "agiaSophiaCave": {
+      "name": "Cueva de Agia Sophia",
+      "description": "La Cueva de Agia Sophia está ubicada en las paredes occidentales del Desfiladero de Topolia, a aproximadamente 47-50 km al suroeste de Chania, en la carretera a Elafonisi. Requiere subir aproximadamente 250 escalones, ofreciendo impresionantes vistas del desfiladero."
+    },
+    "diktaionAndron": {
+      "name": "Diktaion Andron (Cueva de Zeus)",
+      "description": "El Diktaion Andron (también conocido como Cueva de Psychro o Cueva de Zeus) es una de las cuevas más importantes e impresionantes de Creta, conocida mundialmente como el lugar de nacimiento mitológico de Zeus. Según la leyenda, Rea huyó aquí para dar a luz a Zeus en secreto de Cronos."
+    },
+    "milatosCave": {
+      "name": "Cueva de Milatos",
+      "description": "La Cueva de Milatos está ubicada en la Prefectura de Lasithi, cerca del pueblo del mismo nombre, y es uno de los sitios históricos más importantes de Creta. Es conocida principalmente por el trágico asedio de 1823, cuando aproximadamente 2.000 civiles que habían encontrado refugio allí fueron masacrados o capturados por el ejército turco-egipcio de Hassan Pachá."
     }
   },
   "locations": {

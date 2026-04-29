@@ -299,6 +299,10 @@
     "lasithi": "Lassithi",
     "beach": "Plage",
     "historical": "Historique",
+    "archaeological": "Site archéologique",
+    "museum": "Musée",
+    "monastery": "Monastère",
+    "cave": "Grotte",
     "popularTitle": "Destinations Populaires",
     "popularSubtitle": "Les meilleurs endroits à visiter en Crète",
     "viewAll": "Voir Toutes les Destinations",
@@ -308,7 +312,7 @@
     },
     "agiaPelagia": {
       "name": "Agia Pelagia",
-      "description": "La plage d'Agia Pelagia est située dans une belle baie protégée, à environ 20 km à l'ouest d'Héraklion. Des eaux calmes et cristallines avec du sable doré — parfait pour la baignade, le snorkeling et la détente."
+      "description": "La plage d'Agia Pelagia est située dans une belle baie protégée, à environ 20 km à l'ouest d'Héraklion. Des eaux calmes et cristallines avec du sable doré. Idéale pour la baignade et la détente."
     },
     "paliokastro": {
       "name": "Paliokastro",
@@ -328,7 +332,7 @@
     },
     "threeChurches": {
       "name": "Trois Églises",
-      "description": "Trois Églises est une zone côtière isolée dans le sud de la Crète — un joyau caché offrant une beauté naturelle époustouflante, des plages isolées et une atmosphère paisible."
+      "description": "Trois Églises est une zone côtière isolée dans le sud de la Crète. Un joyau caché offrant une beauté naturelle époustouflante, des plages isolées et une atmosphère paisible."
     },
     "tsoutsouros": {
       "name": "Tsoutsouros",
@@ -392,11 +396,71 @@
     },
     "vai": {
       "name": "Plage de Palmiers de Vaï",
-      "description": "La plage de Vaï est célèbre pour son immense forêt naturelle de palmiers — la plus grande d'Europe. Sable doré, eaux turquoise et ambiance tropicale exotique. Une plage bien organisée qui reste naturelle et spéciale."
+      "description": "La plage de Vaï est célèbre pour son immense forêt naturelle de palmiers, la plus grande d'Europe. Sable doré, eaux turquoise et ambiance tropicale exotique. Une plage bien organisée qui reste naturelle et spéciale."
     },
     "makrigialos": {
       "name": "Makrigialos",
       "description": "Makrigialos est un village balnéaire paisible sur la côte sud-est de la Crète. Connu pour sa longue plage de sable, ses eaux calmes et peu profondes et son atmosphère familiale et détendue. Le nom signifie « longue plage » en grec !"
+    },
+    "phaistos": {
+      "name": "Palais de Phaistos",
+      "description": "Le Palais de Phaistos est l'un des plus importants palais minoens de Crète, situé sur la côte sud de l'île, surplombant la plaine de Messara. Construit vers 1900 av. J.-C., il fut un centre administratif, économique et culturel majeur de la civilisation minoenne. Comme les autres palais minoens, il possédait une vaste cour centrale, des entrepôts, des ateliers et des espaces de vie."
+    },
+    "maliaPalace": {
+      "name": "Palais de Malia",
+      "description": "Malia est un site archéologique minoen et mycénien situé sur la côte nord de la Crète, dans la région d'Héraklion. Il se trouve à environ 35 kilomètres à l'est de l'antique Knossos et à 40 kilomètres à l'est de la ville moderne d'Héraklion."
+    },
+    "kotsanasMuseum": {
+      "name": "Musée Kotsanas de la Technologie Grecque Antique",
+      "description": "Institution culturelle unique qui met en lumière les réalisations technologiques et scientifiques de la civilisation grecque antique. Il accueille plus de 500 répliques fonctionnelles d'inventions antiques, toutes conçues et construites par Kostas Kotsanas lui-même."
+    },
+    "historicalMuseumHeraklion": {
+      "name": "Musée Historique de Crète",
+      "description": "Le Musée Historique de Crète à Héraklion offre un aperçu complet de l'histoire de l'île depuis les premiers siècles chrétiens jusqu'à l'époque moderne. Fondé en 1953 et abrité dans un impressionnant bâtiment néoclassique, l'ancienne maison Kalokerinos."
+    },
+    "eleftherna": {
+      "name": "Ancienne Eleftherna",
+      "description": "L'ancienne Eleftherna est l'un des sites archéologiques les plus importants de Crète, offrant un aperçu rare du monde homérique de l'île. Située dans les contreforts nord-ouest du Psiloritis, à environ 24-30 km à l'est de Réthymnon, à une altitude de 380 mètres."
+    },
+    "arkadiMonastery": {
+      "name": "Monastère d'Arkadi",
+      "description": "Le Saint Monastère d'Arkadi est le monument national le plus important de Crète et un symbole de liberté, connu dans le monde entier pour l'Holocauste de 1866. Il est situé sur un plateau fertile, à 23 km au sud-est de Réthymnon."
+    },
+    "aptera": {
+      "name": "Site Archéologique d'Aptère",
+      "description": "Le site archéologique d'Aptère est situé dans un emplacement stratégique au-dessus de la baie de Souda, dans les grandes plaines de La Canée, et est l'une des cités-états antiques les plus importantes de Crète. Selon la légende, le nom vient du combat entre les Muses et les Sirènes."
+    },
+    "zakrosPalace": {
+      "name": "Palais Minoen de Zakros",
+      "description": "Le Palais Minoen de Zakros est le quatrième plus grand palais de la Crète minoenne et le seul trouvé intact par des pilleurs de tombes. Situé à la pointe sud-est de l'île, à Kato Zakros, il fonctionnait comme une porte commerciale avec l'Égypte et l'Orient."
+    },
+    "spinalonga": {
+      "name": "Spinalonga",
+      "description": "Spinalonga (officiellement Kalydon) est un petit îlot fortifié dans la baie d'Élounda, dans le Lasithi, en Crète. C'est l'un des sites historiques et touristiques les plus importants de Grèce, connu dans le monde entier pour sa forteresse vénitienne et son rôle de dernière léproserie officielle d'Europe."
+    },
+    "skotinosCave": {
+      "name": "Grotte de Skotinos",
+      "description": "La grotte de Skotinos (également connue sous le nom de grotte d'Agia Paraskevi) est l'une des plus grandes et des plus importantes grottes de Crète, avec une immense signification archéologique et spéléologique."
+    },
+    "sfendoniCave": {
+      "name": "Grotte Sfendoni",
+      "description": "La grotte Sfendoni à Zoniana est considérée comme l'une des grottes les plus impressionnantes de Grèce, connue pour sa riche et colorée décoration de stalactites et stalagmites. Elle est située sur les pentes sud de la colline Halepa à 630 mètres d'altitude, et fait partie du Parc Naturel du Psiloritis sous les auspices de l'UNESCO."
+    },
+    "melidoniCave": {
+      "name": "Grotte de Melidoni",
+      "description": "La grotte de Melidoni (ou Gerontospilios) est l'un des sites historiques et archéologiques les plus importants de Crète, connue à la fois pour sa beauté naturelle impressionnante et son histoire tragique. Selon la mythologie, la grotte était la résidence de Talos, le géant de bronze gardien qui protégeait la Crète."
+    },
+    "agiaSophiaCave": {
+      "name": "Grotte d'Agia Sophia",
+      "description": "La grotte d'Agia Sophia est située sur les parois occidentales des gorges de Topolia, à environ 47-50 km au sud-ouest de La Canée, sur la route d'Elafonisi. Elle nécessite de gravir environ 250 marches, offrant des vues impressionnantes sur les gorges."
+    },
+    "diktaionAndron": {
+      "name": "Diktaion Andron (Grotte de Zeus)",
+      "description": "Le Diktaion Andron (également connu sous le nom de Grotte de Psychro ou Grotte de Zeus) est l'une des grottes les plus importantes et impressionnantes de Crète, connue mondialement comme lieu de naissance mythologique de Zeus. Selon la légende, Rhéa s'y réfugia pour donner naissance à Zeus secrètement de Cronos."
+    },
+    "milatosCave": {
+      "name": "Grotte de Milatos",
+      "description": "La grotte de Milatos est située dans la préfecture du Lasithi, près du village du même nom, et est l'un des sites historiques les plus importants de Crète. Elle est connue principalement pour le tragique siège de 1823, lorsqu'environ 2 000 civils qui y avaient trouvé refuge furent massacrés ou capturés par l'armée turco-égyptienne de Hassan Pacha."
     }
   },
   "locations": {
