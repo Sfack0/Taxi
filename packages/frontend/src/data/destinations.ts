@@ -30,9 +30,9 @@ export const DESTINATIONS: Destination[] = [
   { id: 'tsoutsouros', region: 'heraklion', category: 'beach', lat: 34.9865, lng: 25.2882, image: '/images/tsoutsouros-beach.jpg' },
 
   // Heraklion — Historical
-  { id: 'knossosPalace', region: 'heraklion', category: 'historical', lat: 35.2980, lng: 25.1630, locationKey: 'knossos', image: '/images/knossos-pptx.png' },
+  { id: 'knossosPalace', region: 'heraklion', category: 'archaeological', lat: 35.2980, lng: 25.1630, locationKey: 'knossos', image: '/images/knossos-pptx.png' },
   { id: 'koulesForetress', region: 'heraklion', category: 'historical', lat: 35.3446, lng: 25.1369, image: '/images/koules-pptx2.png' },
-  { id: 'archaeologicalMuseum', region: 'heraklion', category: 'historical', lat: 35.3395, lng: 25.1375, image: '/images/archaeological-museum.jpg' },
+  { id: 'archaeologicalMuseum', region: 'heraklion', category: 'museum', lat: 35.3395, lng: 25.1375, image: '/images/archaeological-museum.jpg' },
   { id: 'agiosTitos', region: 'heraklion', category: 'historical', lat: 35.3401, lng: 25.1347, image: '/images/agios-titos-pptx.jpg' },
 
   // Heraklion — Archaeological
@@ -53,7 +53,7 @@ export const DESTINATIONS: Destination[] = [
   { id: 'aptera', region: 'chania', category: 'archaeological', lat: 35.4629, lng: 24.1420, image: '/images/aptera.jpg' },
 
   // Lasithi — Archaeological
-  { id: 'zakrosPalace', region: 'lasithi', category: 'archaeological', lat: 35.0981, lng: 26.2611 },
+  { id: 'zakrosPalace', region: 'lasithi', category: 'archaeological', lat: 35.0981, lng: 26.2611, image: '/images/zakros-palace.jpg' },
 
   // Lasithi — Historical
   { id: 'spinalonga', region: 'lasithi', category: 'historical', lat: 35.2975, lng: 25.7381, image: '/images/spinalonga.jpg' },
