@@ -9,6 +9,10 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # VITE_GOOGLE_MAPS_API_KEY is a public, domain-restricted client key that is
+  # intentionally embedded in the frontend bundle. Exclude it from Netlify's
+  # secrets scanning so the build doesn't fail on a "leaked secret" false positive.
+  SECRETS_SCAN_OMIT_KEYS = "VITE_GOOGLE_MAPS_API_KEY"
 
 [functions]
   node_bundler = "esbuild"
