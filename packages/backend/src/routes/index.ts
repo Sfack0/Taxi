@@ -13,9 +13,4 @@ router.use('/rides', rideRoutes);
 router.use('/carousel', carouselRoutes);
 router.use('/pricing', pricingRoutes);
 
-// TEMP: deploy marker so the test-booking flow can detect when this build is live.
-router.get('/version', (_req, res) => {
-  res.json({ v: 'test-suppress-1' });
-});
-
 export default router;
