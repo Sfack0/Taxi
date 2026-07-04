@@ -10,8 +10,9 @@ import logger from './utils/logger';
 
 const app: Application = express();
 
-// Serve frontend static files FIRST (before CORS/helmet) in production
-if (config.env === 'production') {
+// Serve frontend static files FIRST (before CORS/helmet) when this app is the
+// single service for both API and frontend. Disabled on Netlify (CDN serves it).
+if (config.serveStatic) {
   const frontendPath = path.join(process.cwd(), 'packages/frontend/dist');
   logger.info('Serving frontend from:', frontendPath);
   app.use(express.static(frontendPath));
@@ -81,8 +82,10 @@ app.get('/health', (_req, res) => {
 // API routes
 app.use(`/api/${config.apiVersion}`, routes);
 
-// Serve frontend catch-all in production
-if (config.env === 'production') {
+// Serve frontend catch-all when this app also serves the frontend.
+// On Netlify the function only handles /api/*, so unmatched routes should
+// return a JSON 404 instead of trying to send index.html.
+if (config.serveStatic) {
   const frontendPath = path.join(process.cwd(), 'packages/frontend/dist');
   app.get('*', (_req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));

@@ -8,6 +8,11 @@ interface Config {
   env: string;
   port: number;
   apiVersion: string;
+  // Whether the Express app should also serve the built frontend + SPA
+  // catch-all. True for a single-service deploy (old Render setup) or local
+  // preview; false on Netlify where the CDN serves the frontend and the
+  // function only handles /api/*.
+  serveStatic: boolean;
   mongodb: {
     uri: string;
   };
@@ -29,6 +34,7 @@ const config: Config = {
   env: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '5000', 10),
   apiVersion: process.env.API_VERSION || 'v1',
+  serveStatic: process.env.SERVE_STATIC === 'true',
   mongodb: {
     uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/cts',
   },

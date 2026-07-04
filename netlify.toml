@@ -1,0 +1,28 @@
+# Netlify deploy config for the CTS taxi-van platform.
+# Frontend (static SPA) is served from the CDN; the Express backend runs as a
+# single serverless function under /api/*.
+
+[build]
+  command = "npm run build:production"
+  publish = "packages/frontend/dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  node_bundler = "esbuild"
+
+# API → serverless Express function (rewrite, keeps the URL in the browser).
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# SPA fallback: every other path serves the built index.html so client-side
+# routing (React Router) works on direct hits / refreshes.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

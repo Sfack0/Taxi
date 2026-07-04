@@ -1,12 +1,12 @@
 import app from './app';
 import config from './config/environment';
-import { connectDatabase } from './config/database';
+import { connectDatabaseWithRetry } from './config/database';
 import logger from './utils/logger';
 
 const startServer = async () => {
   try {
-    // Connect to database
-    await connectDatabase();
+    // Connect to database (blocking, with retries — long-running server)
+    await connectDatabaseWithRetry();
 
     // Start server
     app.listen(config.port, () => {
