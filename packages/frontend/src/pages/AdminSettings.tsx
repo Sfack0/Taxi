@@ -463,7 +463,7 @@ const AdminSettings = () => {
                           value={entry.maxKm}
                           onChange={(e) => handlePricingChange(index, 'maxKm', e.target.value === '' ? '' : parseFloat(e.target.value))}
                           onBlur={(e) => { if (e.target.value === '') handlePricingChange(index, 'maxKm', 0); }}
-                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0"
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                         />
                       </div>
                       <div className="relative">
@@ -474,7 +474,7 @@ const AdminSettings = () => {
                           value={entry.normalPrice}
                           onChange={(e) => handlePricingChange(index, 'normalPrice', e.target.value === '' ? '' : parseFloat(e.target.value))}
                           onBlur={(e) => { if (e.target.value === '') handlePricingChange(index, 'normalPrice', 0); }}
-                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0"
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                         />
                         <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">&euro;</span>
                       </div>
@@ -486,7 +486,7 @@ const AdminSettings = () => {
                           value={entry.vanPrice}
                           onChange={(e) => handlePricingChange(index, 'vanPrice', e.target.value === '' ? '' : parseFloat(e.target.value))}
                           onBlur={(e) => { if (e.target.value === '') handlePricingChange(index, 'vanPrice', 0); }}
-                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0"
+                          className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:border-gray-400 dark:focus:border-gray-500 focus:outline-none focus:ring-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                         />
                         <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">&euro;</span>
                       </div>
