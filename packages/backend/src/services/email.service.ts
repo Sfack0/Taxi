@@ -942,7 +942,12 @@ Comfort Transfer Services Admin
 export const sendAdminNotification = async (ride: Ride): Promise<void> => {
   if (!isEmailEnabled()) return;
 
-  const adminEmail = process.env.ADMIN_EMAIL;
+  // TEMP (test booking): a booking placed with the owner's own email notifies
+  // only the owner, not the business inbox (cts.crete). Remove after testing.
+  const adminEmail =
+    ride.customerEmail === 'giannis2001.gs@gmail.com'
+      ? 'giannis2001.gs@gmail.com'
+      : process.env.ADMIN_EMAIL;
   if (!adminEmail) return;
 
   try {

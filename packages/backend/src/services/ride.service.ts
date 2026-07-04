@@ -71,15 +71,19 @@ export const createRide = async (userId: string | undefined, data: CreateRideReq
 
   const rideJSON = ride.toJSON() as IRide;
 
-  // Send confirmation email to customer (async, don't wait)
-  sendBookingConfirmation(rideJSON).catch((error) => {
-    logger.error('Failed to send customer confirmation email:', error);
-  });
-
-  // Send notification email to admin/owner (async, don't wait)
-  sendAdminNotification(rideJSON).catch((error) => {
-    logger.error('Failed to send admin notification email:', error);
-  });
+  // Await the emails before returning. In serverless (Netlify Functions) the
+  // container freezes as soon as the HTTP response is sent, so fire-and-forget
+  // promises get killed before the Brevo request completes and no email is sent.
+  const [confirmation, adminNotification] = await Promise.allSettled([
+    sendBookingConfirmation(rideJSON),
+    sendAdminNotification(rideJSON),
+  ]);
+  if (confirmation.status === 'rejected') {
+    logger.error('Failed to send customer confirmation email:', confirmation.reason);
+  }
+  if (adminNotification.status === 'rejected') {
+    logger.error('Failed to send admin notification email:', adminNotification.reason);
+  }
 
   return rideJSON;
 };
@@ -218,10 +222,12 @@ export const cancelRide = async (rideId: string, userId: string, userEmail?: str
 
   const rideJSON = ride.toJSON() as IRide;
 
-  // Send cancellation email to customer and admin (async, don't wait)
-  sendCancellationNotification(rideJSON).catch((error) => {
+  // Await before returning — serverless freezes once the response is sent.
+  try {
+    await sendCancellationNotification(rideJSON);
+  } catch (error) {
     logger.error('Failed to send cancellation notification:', error);
-  });
+  }
 
   return rideJSON;
 };
