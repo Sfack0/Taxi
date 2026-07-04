@@ -5,6 +5,7 @@ const FALLBACK_IMAGES = [
   '/images/van/van-2.jpeg',
   '/images/van/van-3.jpeg',
   '/images/van/van-4.jpeg',
+  '/images/van/van-5.jpeg',
 ];
 
 const SWIPE_THRESHOLD = 40;
@@ -22,11 +23,11 @@ const VanCoverflow = ({ images }: VanCoverflowProps) => {
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % IMAGES.length);
-  }, []);
+  }, [IMAGES.length]);
 
   const prev = useCallback(() => {
     setCurrent((p) => (p - 1 + IMAGES.length) % IMAGES.length);
-  }, []);
+  }, [IMAGES.length]);
 
   useEffect(() => {
     if (isDragging) return;
