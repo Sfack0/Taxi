@@ -763,7 +763,7 @@ const AdminDashboard = () => {
                         </button>
                       )}
                       <span className="text-[9px] text-gray-400">
-                        {isTour ? 'Tour: ' : 'Κράτηση: '}{new Date(ride.createdAt).toLocaleDateString('el-GR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        {isTour ? 'Tour: ' : 'Κράτηση: '}{new Date(ride.createdAt).toLocaleDateString('el-GR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
                       </span>
                     </div>
 
@@ -920,8 +920,8 @@ const AdminDashboard = () => {
                                   <p className="text-xs text-amber-700 dark:text-amber-400 font-medium">{ride.isRoundtrip ? 'Μετάβαση' : 'Ημερομηνία'}</p>
                                   <p className="text-sm font-semibold text-amber-900 dark:text-amber-300">
                                     {ride.scheduledFor
-                                      ? new Date(ride.scheduledFor).toLocaleString('el-GR')
-                                      : new Date(ride.createdAt).toLocaleString('el-GR')}
+                                      ? new Date(ride.scheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
+                                      : new Date(ride.createdAt).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
                                   </p>
                                   {ride.people && <p className="text-xs text-amber-700 dark:text-amber-400">{ride.people} {ride.people === 1 ? 'άτομο' : 'άτομα'}</p>}
                                 </div>
@@ -934,7 +934,7 @@ const AdminDashboard = () => {
                                   <div>
                                     <p className="text-xs text-purple-700 dark:text-purple-400 font-medium">Επιστροφή</p>
                                     <p className="text-sm font-semibold text-purple-900 dark:text-purple-300">
-                                      {new Date(ride.returnScheduledFor).toLocaleString('el-GR')}
+                                      {new Date(ride.returnScheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
                                     </p>
                                     {ride.returnPeople && <p className="text-xs text-purple-700 dark:text-purple-400">{ride.returnPeople} {ride.returnPeople === 1 ? 'άτομο' : 'άτομα'}</p>}
                                   </div>
@@ -1107,8 +1107,8 @@ const AdminDashboard = () => {
               </p>
               <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
                 {selectedRide.scheduledFor
-                  ? new Date(selectedRide.scheduledFor).toLocaleString('el-GR')
-                  : new Date(selectedRide.createdAt).toLocaleString('el-GR')
+                  ? new Date(selectedRide.scheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
+                  : new Date(selectedRide.createdAt).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
                 }
               </p>
             </div>
