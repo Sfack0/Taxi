@@ -221,7 +221,7 @@ const LocationPicker = ({
       <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-3 items-center">
         {/* Pickup Location */}
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
             {t('booking.pickupLocation')}
           </label>
@@ -244,7 +244,7 @@ const LocationPicker = ({
         </button>
 
         {/* Dropoff Location */}
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
             {t('booking.dropoffLocation')}
           </label>
