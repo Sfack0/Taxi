@@ -436,7 +436,7 @@ const AdminSettings = () => {
 
           {/* Pricing Tab */}
           {settingsTab === 'pricing' && (
-          <div>
+          <div className="max-w-2xl mx-auto">
             {pricingLoading ? (
               <div className="flex justify-center py-12">
                 <Spinner size="lg" />
