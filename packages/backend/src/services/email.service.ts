@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import type { Ride, SupportedLanguage } from '@cts/shared';
 import logger from '../utils/logger';
+import { EmailLog, EmailLogStatus } from '../models/EmailLog.model';
 
 // Check if emails are enabled
 const isEmailEnabled = () => process.env.EMAIL_ENABLED === 'true';
@@ -31,41 +32,101 @@ const createTransporter = () => {
 
 const transporter = createTransporter();
 
+// Records every email attempt in MongoDB; must never break the sending flow
+const logEmail = async (entry: {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+  type: string;
+  provider: 'brevo' | 'smtp' | 'none';
+  status: EmailLogStatus;
+  error?: string;
+  rideId?: string;
+}) => {
+  try {
+    await EmailLog.create({
+      to: entry.to,
+      subject: entry.subject,
+      text: entry.text,
+      html: entry.html,
+      type: entry.type,
+      provider: entry.provider,
+      status: entry.status,
+      error: entry.error,
+      ride: entry.rideId || undefined,
+    });
+  } catch (error) {
+    logger.error('Failed to write email log:', error);
+  }
+};
+
 // Unified email sender - uses Brevo HTTP API or nodemailer SMTP
 // `to` can be a single email or comma-separated list
-const sendEmail = async (options: { from: string; to: string; subject: string; text: string; html: string }) => {
+const sendEmail = async (options: {
+  from: string;
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+  type?: string;
+  rideId?: string;
+}) => {
   const recipients = options.to.split(',').map((e) => e.trim()).filter(Boolean);
+  const provider: 'brevo' | 'smtp' | 'none' = isBrevoEnabled() ? 'brevo' : transporter ? 'smtp' : 'none';
+  const logBase = {
+    to: recipients.join(', '),
+    subject: options.subject,
+    text: options.text,
+    html: options.html,
+    type: options.type || 'other',
+    provider,
+    rideId: options.rideId,
+  };
 
-  if (isBrevoEnabled()) {
-    const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@crete-taxivan.gr';
-    const replyToEmail = process.env.EMAIL_USER || senderEmail;
-    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'api-key': process.env.BREVO_API_KEY!,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sender: { name: 'Comfort Transfer Services', email: senderEmail },
-        to: recipients.map((email) => ({ email })),
-        replyTo: { email: replyToEmail },
-        subject: options.subject,
-        htmlContent: options.html,
-        textContent: options.text,
-      }),
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(`Brevo error: ${JSON.stringify(error)}`);
+  try {
+    let result = null;
+
+    if (provider === 'brevo') {
+      const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@crete-taxivan.gr';
+      const replyToEmail = process.env.EMAIL_USER || senderEmail;
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'api-key': process.env.BREVO_API_KEY!,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sender: { name: 'Comfort Transfer Services', email: senderEmail },
+          to: recipients.map((email) => ({ email })),
+          replyTo: { email: replyToEmail },
+          subject: options.subject,
+          htmlContent: options.html,
+          textContent: options.text,
+        }),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`Brevo error: ${JSON.stringify(error)}`);
+      }
+      result = await response.json();
+    } else if (provider === 'smtp') {
+      result = await transporter!.sendMail({ ...options, to: recipients.join(', ') });
+    } else {
+      await logEmail({ ...logBase, status: 'skipped' });
+      return null;
     }
-    return response.json();
-  }
 
-  if (transporter) {
-    return transporter.sendMail({ ...options, to: recipients.join(', ') });
+    await logEmail({ ...logBase, status: 'sent' });
+    return result;
+  } catch (error) {
+    await logEmail({
+      ...logBase,
+      status: 'failed',
+      error: error instanceof Error ? error.message : String(error),
+    });
+    throw error;
   }
-
-  return null;
 };
 
 // ============================================================================
@@ -556,7 +617,7 @@ const getBookingConfirmationHTML = (ride: Ride) => {
         ${ride.notes ? `
         <tr>
           <td style="padding: 6px 0; color: #666; vertical-align: top;">${t.notes}</td>
-          <td style="padding: 6px 0; color: #333; font-weight: 500; text-align: right;">${ride.notes}</td>
+          <td style="padding: 6px 0; color: #333; font-weight: 500; text-align: right;">${ride.notes.replace(/\n/g, '<br>')}</td>
         </tr>
         ` : ''}
       </table>
@@ -666,6 +727,8 @@ export const sendBookingConfirmation = async (ride: Ride): Promise<void> => {
       subject: t.subject,
       text: getBookingConfirmationText(ride),
       html: getBookingConfirmationHTML(ride),
+      type: 'booking_confirmation',
+      rideId: String(ride._id),
     });
   } catch (error) {
     logger.error('Failed to send booking confirmation email:', error);
@@ -795,6 +858,7 @@ export const sendOtpEmail = async (email: string, otp: string, firstName: string
       subject: t.subject,
       text: `${t.greeting} ${firstName},\n\n${t.message}\n\n${otp}\n\n${t.expiresIn}\n\n${t.ignore}\n\nComfort Transfer Services`,
       html: getOtpEmailHTML(otp, firstName, lang),
+      type: 'otp',
     });
   } catch (error) {
     logger.error('Failed to send OTP email:', error);
@@ -880,7 +944,7 @@ const getAdminNotificationHTML = (ride: Ride) => {
         <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #fcd34d;">
           <div>Πληρωμή: <strong>${ride.paymentMethod === 'card' ? 'Κάρτα' : 'Μετρητά'}</strong></div>
           ${ride.childSeat ? '<div>Παιδικό Κάθισμα: <strong>Ναι</strong></div>' : ''}
-          ${ride.notes ? `<div style="margin-top: 4px;">Σημειώσεις: <strong>${ride.notes}</strong></div>` : ''}
+          ${ride.notes ? `<div style="margin-top: 4px;">Σημειώσεις: <strong>${ride.notes.replace(/\n/g, '<br>')}</strong></div>` : ''}
         </div>
       </div>
     </div>
@@ -952,6 +1016,8 @@ export const sendAdminNotification = async (ride: Ride): Promise<void> => {
       subject: `Νέα Κράτηση`,
       text: getAdminNotificationText(ride),
       html: getAdminNotificationHTML(ride),
+      type: 'admin_notification',
+      rideId: String(ride._id),
     });
   } catch (error) {
     logger.error('Failed to send admin notification email:', error);
@@ -1170,6 +1236,8 @@ export const sendCancellationNotification = async (ride: Ride): Promise<void> =>
     subject: ct.subject,
     text: `${ct.title}\n\n${ct.message}\n\n${ride.pickup.address} → ${ride.dropoff.address}\n\nComfort Transfer Services`,
     html: getCancellationCustomerHTML(ride),
+    type: 'cancellation_customer',
+    rideId: String(ride._id),
   }).catch((error) => {
     logger.error('Failed to send cancellation email to customer:', error);
   });
@@ -1183,6 +1251,8 @@ export const sendCancellationNotification = async (ride: Ride): Promise<void> =>
       subject: `Ακύρωση Κράτησης — ${ride.customerName}`,
       text: `Ακύρωση Κράτησης\n\nΟ πελάτης ${ride.customerName} ακύρωσε την κράτησή του.\n${ride.pickup.address} → ${ride.dropoff.address}\nΤηλ: ${ride.customerPhone}\nEmail: ${ride.customerEmail}\n\nComfort Transfer Services Admin`,
       html: getCancellationAdminHTML(ride),
+      type: 'cancellation_admin',
+      rideId: String(ride._id),
     }).catch((error) => {
       logger.error('Failed to send cancellation email to admin:', error);
     });
@@ -1203,6 +1273,8 @@ export const sendRideStatusUpdate = async (
       from: `"Comfort Transfer Services" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
       to: ride.customerEmail,
       subject: `Ενημέρωση Κράτησης`,
+      type: 'status_update',
+      rideId: String(ride._id),
       text: `
 Comfort Transfer Services - Ενημέρωση Κράτησης
 

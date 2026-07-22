@@ -337,7 +337,7 @@ const AdminDashboard = () => {
     setRejectReason('');
     if (action === 'complete') {
       const basePrice = ride.price ?? (() => {
-        if (ride.pickup.address.startsWith('TOUR:')) return null;
+        if (ride.pickup.address.startsWith('TOUR:') || ride.dropoff.address.startsWith('TOUR:')) return null;
         const dist = estimateRoadDistance(ride.pickup.address, ride.dropoff.address);
         return dist ? calculatePrice(dist, ride.people ?? 1) : null;
       })();
@@ -728,9 +728,13 @@ const AdminDashboard = () => {
                 </Card>
               ) : (
                 filteredRides.map((ride) => {
-                  const isTour = ride.pickup.address.startsWith('TOUR:');
-                  const tourName = isTour ? ride.pickup.address.replace('TOUR: ', '') : '';
-                  const tourStops = isTour ? ride.dropoff.address.split(' -> ') : [];
+                  // Legacy tours: "TOUR:" prefix on pickup; new tours: real pickup + "TOUR:" prefix on dropoff
+                  const isLegacyTour = ride.pickup.address.startsWith('TOUR:');
+                  const isTour = isLegacyTour || ride.dropoff.address.startsWith('TOUR:');
+                  const tourName = isLegacyTour ? ride.pickup.address.replace('TOUR: ', '') : '';
+                  const tourStops = isTour
+                    ? (isLegacyTour ? ride.dropoff.address : ride.dropoff.address.replace('TOUR: ', '')).split(' -> ')
+                    : [];
 
                   // Show stored price, or calculate from distance
                   const displayPrice = ride.price ?? (() => {
@@ -806,7 +810,18 @@ const AdminDashboard = () => {
                           {isTour ? (
                           <div>
                             <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Tour</p>
-                            <p className="text-sm sm:text-base font-bold text-amber-700 dark:text-amber-400 mb-2">{tourName}</p>
+                            {tourName && (
+                              <p className="text-sm sm:text-base font-bold text-amber-700 dark:text-amber-400 mb-2">{tourName}</p>
+                            )}
+                            {!isLegacyTour && (
+                              <div className="flex items-start gap-2 mb-2">
+                                <div className="w-2 h-2 rounded-full bg-primary-500 mt-1.5 flex-shrink-0"></div>
+                                <div className="min-w-0">
+                                  <p className="text-xs font-medium">Παραλαβή</p>
+                                  <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 break-words">{ride.pickup.address}</p>
+                                </div>
+                              </div>
+                            )}
                             <div className="space-y-1">
                               {tourStops.map((stop, i) => (
                                 <div key={i} className="flex items-center gap-2">
@@ -1018,7 +1033,17 @@ const AdminDashboard = () => {
                         {ride.notes && (() => {
                           // For tour rides, strip auto-generated prefix and only show user notes
                           const displayNotes = isTour
-                            ? ride.notes.replace(/^\[TOUR\].*\n.*Στάσεις:.*\n?/i, '').replace(/^\[TOUR\].*\n.*Stops:.*\n?/i, '').trim()
+                            ? ride.notes
+                                // Legacy multiline format: "[TOUR]\nΣτάσεις:\n1. …\n——————————\ncomment" (must run before the single-line legacy patterns)
+                                .replace(/^\[TOUR\]\n(?:(?:Στάσεις|Stops|Arrêts|Stopps|Tappe|Paradas):\n(?:\d+\.\s.*(?:\n|$))*)?(?:[-—]{3,}\n?)?/i, '')
+                                // Legacy format: "[TOUR] name\nΣτάσεις: A -> B"
+                                .replace(/^\[TOUR\].*\n.*Στάσεις:.*\n?/i, '')
+                                .replace(/^\[TOUR\].*\n.*Stops:.*\n?/i, '')
+                                // Current format: "[TOUR] comment (Στάσεις: 1. …)" — strip prefix and parenthesized route
+                                .replace(/^\[TOUR\]\s*/i, '')
+                                .replace(/\s*\((?:Στάσεις|Stops|Arrêts|Stopps|Tappe|Paradas):[^)]*\)\s*$/i, '')
+                                .replace(/^(?:Στάσεις|Stops|Arrêts|Stopps|Tappe|Paradas):.*$/i, '')
+                                .trim()
                             : ride.notes;
                           return displayNotes ? (
                             <div className="mt-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2">

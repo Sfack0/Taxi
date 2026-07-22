@@ -247,7 +247,7 @@
     "metaDescription": "Reserve un traslado privado en taxi de {{from}} a {{to}} en Creta. {{km}} km, aprox. {{minutes}} min. Desde {{price}}€. Servicio puerta a puerta, furgoneta 9 plazas, cancelación gratuita.",
     "heroTitle": "Traslado de {{from}} a {{to}}",
     "heroSubtitle": "Servicio de traslado cómodo y fiable en Creta",
-    "bookNow": "Reservar Ahora",
+    "bookNow": "Reservar",
     "routeDetails": "Detalles de la Ruta",
     "from": "Desde",
     "to": "Hasta",
@@ -280,7 +280,6 @@
     "fixedPrices": "Precios fijos",
     "freeCancellation": "Cancelación gratuita",
     "fromPrice": "desde",
-    "bookNow": "Reservar",
     "customRoute": "¿No encuentras tu ruta?",
     "customRouteDescription": "Ofrecemos traslados a cualquier destino en Creta. Reserve un traslado personalizado.",
     "bookCustom": "Reservar Traslado"
@@ -512,38 +511,21 @@
     "metaDescription": "Descubre Creta con los mejores tours. Tours populares o crea tu propio itinerario.",
     "heroTitle": "Explora Creta",
     "heroSubtitle": "Descubre los lugares más hermosos de la isla con nuestros tours organizados o crea tu propia ruta",
-    "tabs": { "popular": "Tours Populares", "diy": "Crea el Tuyo" },
-    "popular": "Popular",
-    "fromPrice": "desde {{price}}€",
-    "bookTour": "Reservar Tour",
-    "noTours": "No se encontraron tours en esta categoría",
+    "rateInfo": "50 €/hora hasta 4 personas · 60 €/hora para 5+ personas",
     "bookingStops": "Paradas",
-    "ctaTitle": "¿Buscas algo especial?",
-    "ctaSubtitle": "Llámanos para planificar el tour perfecto para ti",
-    "callUs": "Llámanos",
-    "orBookTransfer": "o Reserva un Transfer",
-    "categories": { "all": "Todos", "beach": "Playas", "culture": "Cultura", "adventure": "Aventura", "nature": "Naturaleza" },
-    "items": {
-      "knossos-heraklion": { "name": "Cnosos y Heraclión", "description": "Sumérgete en la civilización minoica y explora la histórica ciudad de Heraclión" },
-      "elafonisi-falasarna": { "name": "Elafonisi y Falasarna", "description": "Arena rosa y aguas cristalinas en las playas más impresionantes de Creta" },
-      "balos-gramvousa": { "name": "Laguna de Balos y Gramvousa", "description": "La exótica laguna de Balos y la fortaleza veneciana en Gramvousa" },
-      "spinalonga-elounda": { "name": "Spinalonga y Elounda", "description": "La histórica isla de Spinalonga y la cosmopolita bahía de Elounda" },
-      "rethymno-arkadi": { "name": "Rethymno y Monasterio de Arkadi", "description": "Arquitectura veneciana, monasterio histórico y pintoresco puerto antiguo" },
-      "south-coast": { "name": "Costa Sur: Matala y Preveli", "description": "Cuevas hippies, playas escondidas y el bosque de palmeras de Preveli" },
-      "chania-old-town": { "name": "Ciudad Vieja de Chania", "description": "Puerto veneciano, callejones encantadores y el famoso mercado de Chania" },
-      "lasithi-plateau": { "name": "Meseta de Lasithi y Cueva de Zeus", "description": "Cueva mítica, molinos de viento y espectaculares paisajes de montaña" }
+    "customTour": "Tour Personalizado",
+    "placesTitle": "¿A dónde quiere ir?",
+    "placesHint": "Opcional, su conductor conoce los mejores lugares.",
+    "booking": {
+      "specialRequests": "Peticiones especiales",
+      "submit": "Completar Reserva",
+      "success": "¡Tu reserva ha sido registrada!",
+      "successMessage": "Te contactaremos pronto para confirmar tu tour.",
+      "close": "Cerrar",
+      "error": "Algo salió mal. Por favor, inténtalo de nuevo."
     },
-    "stops": {
-      "knossosPalace": "Palacio de Cnosos", "archaeologicalMuseum": "Museo Arqueológico", "heraklionOldTown": "Ciudad Vieja de Heraclión",
-      "elafonisi": "Elafonisi", "falasarna": "Falasarna", "kissamos": "Kissamos", "balos": "Balos", "gramvousa": "Gramvousa",
-      "elounda": "Elounda", "spinalonga": "Spinalonga", "agiosNikolaos": "Agios Nikolaos",
-      "arkadiMonastery": "Monasterio de Arkadi", "rethymnoOldTown": "Ciudad Vieja de Rethymno", "rethymnoHarbor": "Puerto Veneciano de Rethymno",
-      "matala": "Matala", "preveli": "Preveli", "plakias": "Plakias",
-      "chaniaOldTown": "Ciudad Vieja de Chania", "chaniaHarbor": "Puerto Veneciano de Chania", "chaniaMarket": "Mercado de Chania",
-      "lasithiPlateau": "Meseta de Lasithi", "zeusCave": "Cueva de Zeus", "psychro": "Psychro",
-      "knossos": "Cnosos", "rethymno": "Rethymno", "chania": "Chania", "bali": "Bali", "vai": "Vai", "heraklion": "Heraclión", "georgioupoli": "Georgioupoli"
-    },
-    "diy": { "yourItinerary": "Tu Itinerario", "stops": "paradas", "chooseStops": "Elige tus paradas", "bookCustomTour": "Reservar Tour Personalizado", "customTour": "Tour Personalizado" },
-    "booking": { "title": "Reservar Tour", "date": "Fecha", "selectDate": "Selecciona fecha", "people": "Personas", "specialRequests": "Peticiones especiales", "notesPlaceholder": "Hora de recogida, puntos de interés...", "submit": "Completar Reserva", "success": "¡Tu reserva ha sido registrada!", "successMessage": "Te contactaremos pronto para confirmar tu tour.", "close": "Cerrar", "error": "Algo salió mal. Por favor, inténtalo de nuevo." }
+    "addPlace": "Añadir un lugar",
+    "removePlace": "Quitar lugar",
+    "homeCta": "Reservar un tour"
   }
 }

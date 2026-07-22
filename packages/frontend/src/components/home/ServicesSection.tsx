@@ -28,16 +28,6 @@ const services = [
       </svg>
     ),
   },
-  // Tours card hidden until ready
-  // {
-  //   key: 'tours',
-  //   link: '/tours',
-  //   icon: (
-  //     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-  //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  //     </svg>
-  //   ),
-  // },
 ];
 
 const ServicesSection = () => {
@@ -55,27 +45,44 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => {
-            const content = (
-              <Card key={service.key} className="p-6 text-center hover:scale-[1.02] transition-transform">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-4">
-                  {service.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  {t(`home.services.${service.key}.title`)}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t(`home.services.${service.key}.description`)}
-                </p>
-              </Card>
-            );
-            return service.link ? (
-              <Link key={service.key} to={service.link}>{content}</Link>
-            ) : (
-              <div key={service.key}>{content}</div>
-            );
-          })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((service) => (
+            <Card key={service.key} className="p-6 text-center hover:scale-[1.02] transition-transform">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-4">
+                {service.icon}
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                {t(`home.services.${service.key}.title`)}
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {t(`home.services.${service.key}.description`)}
+              </p>
+            </Card>
+          ))}
+
+          {/* Tours — clickable CTA card */}
+          <Link
+            to="/tours"
+            className="block rounded-xl bg-primary-600 hover:bg-primary-700 shadow-md hover:shadow-lg p-6 text-center transition-all hover:scale-[1.02]"
+          >
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/20 text-white mb-4">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-white mb-2">
+              {t('home.services.tours.title')}
+            </h3>
+            <p className="text-sm text-white/80 mb-4">
+              {t('home.services.tours.description')}
+            </p>
+            <span className="inline-flex items-center gap-1.5 text-sm font-bold text-white">
+              {t('tours.homeCta')}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </div>
     </section>

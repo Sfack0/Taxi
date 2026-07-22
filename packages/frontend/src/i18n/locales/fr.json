@@ -247,7 +247,7 @@
     "metaDescription": "Réservez un transfert privé en taxi de {{from}} à {{to}} en Crète. {{km}} km, environ {{minutes}} min. À partir de {{price}}€. Service porte-à-porte, van 9 places, annulation gratuite.",
     "heroTitle": "Transfert de {{from}} à {{to}}",
     "heroSubtitle": "Service de transfert confortable et fiable en Crète",
-    "bookNow": "Réserver Maintenant",
+    "bookNow": "Réserver",
     "routeDetails": "Détails de l'Itinéraire",
     "from": "De",
     "to": "À",
@@ -280,7 +280,6 @@
     "fixedPrices": "Prix fixes",
     "freeCancellation": "Annulation gratuite",
     "fromPrice": "à partir de",
-    "bookNow": "Réserver",
     "customRoute": "Vous ne trouvez pas votre trajet ?",
     "customRouteDescription": "Nous proposons des transferts vers toute destination en Crète. Réservez un transfert personnalisé.",
     "bookCustom": "Réserver un Transfert"
@@ -512,38 +511,21 @@
     "metaDescription": "Découvrez la Crète avec les meilleures excursions. Tours populaires ou créez votre propre itinéraire.",
     "heroTitle": "Explorez la Crète",
     "heroSubtitle": "Découvrez les plus beaux endroits de l'île avec nos excursions organisées ou créez votre propre itinéraire",
-    "tabs": { "popular": "Tours Populaires", "diy": "Créez le Vôtre" },
-    "popular": "Populaire",
-    "fromPrice": "à partir de {{price}}€",
-    "bookTour": "Réserver",
-    "noTours": "Aucune excursion trouvée dans cette catégorie",
+    "rateInfo": "50 €/heure jusqu'à 4 personnes · 60 €/heure pour 5 personnes ou plus",
     "bookingStops": "Arrêts",
-    "ctaTitle": "Vous cherchez quelque chose de spécial ?",
-    "ctaSubtitle": "Appelez-nous pour planifier l'excursion parfaite pour vous",
-    "callUs": "Appelez-nous",
-    "orBookTransfer": "ou Réservez un Transfert",
-    "categories": { "all": "Tous", "beach": "Plages", "culture": "Culture", "adventure": "Aventure", "nature": "Nature" },
-    "items": {
-      "knossos-heraklion": { "name": "Cnossos & Héraklion", "description": "Plongez dans la civilisation minoenne et explorez la ville historique d'Héraklion" },
-      "elafonisi-falasarna": { "name": "Elafonisi & Falasarna", "description": "Sable rose et eaux cristallines sur les plus belles plages de Crète" },
-      "balos-gramvousa": { "name": "Lagon de Balos & Gramvoussa", "description": "Le lagon exotique de Balos et la forteresse vénitienne de Gramvoussa" },
-      "spinalonga-elounda": { "name": "Spinalonga & Elounda", "description": "L'île historique de Spinalonga et la baie cosmopolite d'Elounda" },
-      "rethymno-arkadi": { "name": "Réthymnon & Monastère d'Arkadi", "description": "Architecture vénitienne, monastère historique et vieux port pittoresque" },
-      "south-coast": { "name": "Côte Sud : Matala & Prévéli", "description": "Grottes hippies, plages cachées et la palmeraie de Prévéli" },
-      "chania-old-town": { "name": "Vieille Ville de La Canée", "description": "Port vénitien, ruelles charmantes et le célèbre marché de La Canée" },
-      "lasithi-plateau": { "name": "Plateau du Lassithi & Grotte de Zeus", "description": "Grotte mythique, moulins à vent et paysages montagneux spectaculaires" }
+    "customTour": "Tour Personnalisé",
+    "placesTitle": "Où souhaitez-vous aller ?",
+    "placesHint": "Facultatif, votre chauffeur connaît les meilleurs endroits.",
+    "booking": {
+      "specialRequests": "Demandes spéciales",
+      "submit": "Confirmer la Réservation",
+      "success": "Votre réservation a été enregistrée !",
+      "successMessage": "Nous vous contacterons bientôt pour confirmer votre excursion.",
+      "close": "Fermer",
+      "error": "Une erreur est survenue. Veuillez réessayer."
     },
-    "stops": {
-      "knossosPalace": "Palais de Cnossos", "archaeologicalMuseum": "Musée Archéologique", "heraklionOldTown": "Vieille Ville d'Héraklion",
-      "elafonisi": "Elafonisi", "falasarna": "Falasarna", "kissamos": "Kissamos", "balos": "Balos", "gramvousa": "Gramvoussa",
-      "elounda": "Elounda", "spinalonga": "Spinalonga", "agiosNikolaos": "Agios Nikolaos",
-      "arkadiMonastery": "Monastère d'Arkadi", "rethymnoOldTown": "Vieille Ville de Réthymnon", "rethymnoHarbor": "Port Vénitien de Réthymnon",
-      "matala": "Matala", "preveli": "Prévéli", "plakias": "Plakias",
-      "chaniaOldTown": "Vieille Ville de La Canée", "chaniaHarbor": "Port Vénitien de La Canée", "chaniaMarket": "Marché de La Canée",
-      "lasithiPlateau": "Plateau du Lassithi", "zeusCave": "Grotte de Zeus", "psychro": "Psychro",
-      "knossos": "Cnossos", "rethymno": "Réthymnon", "chania": "La Canée", "bali": "Bali", "vai": "Vaï", "heraklion": "Héraklion", "georgioupoli": "Georgioupoli"
-    },
-    "diy": { "yourItinerary": "Votre Itinéraire", "stops": "arrêts", "chooseStops": "Choisissez vos arrêts", "bookCustomTour": "Réserver Tour Personnalisé", "customTour": "Tour Personnalisé" },
-    "booking": { "title": "Réserver une Excursion", "date": "Date", "selectDate": "Sélectionnez une date", "people": "Personnes", "specialRequests": "Demandes spéciales", "notesPlaceholder": "Heure de prise en charge, points d'intérêt...", "submit": "Confirmer la Réservation", "success": "Votre réservation a été enregistrée !", "successMessage": "Nous vous contacterons bientôt pour confirmer votre excursion.", "close": "Fermer", "error": "Une erreur est survenue. Veuillez réessayer." }
+    "addPlace": "Ajouter un lieu",
+    "removePlace": "Retirer le lieu",
+    "homeCta": "Réserver une excursion"
   }
 }
