@@ -716,17 +716,15 @@ const AdminDashboard = () => {
             {/* Rides List */}
             <div className="space-y-3 sm:space-y-4">
               {(() => {
-                const filteredRides = (hubFilter === 'all'
+                // Order is controlled by the sort dropdown (sent to the backend as
+                // sortBy) — don't re-sort here or it overrides the user's choice.
+                const filteredRides = hubFilter === 'all'
                   ? rides
                   : rides.filter((ride) =>
                       hubFilter === 'arrivals'
                         ? isTransportHub(ride.pickup.address, ride.pickup.coordinates)
                         : isTransportHub(ride.dropoff.address, ride.dropoff.coordinates)
-                    )
-                )
-                  // Newest bookings first (don't mutate the state array)
-                  .slice()
-                  .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                    );
                 return filteredRides.length === 0 ? (
                 <Card className="p-8 sm:p-12 text-center">
                   <p className="text-gray-500 dark:text-gray-400">Δεν βρέθηκαν κρατήσεις</p>
