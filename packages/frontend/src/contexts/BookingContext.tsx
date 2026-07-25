@@ -3,6 +3,7 @@ import type { Ride, CreateRideRequest, SupportedLanguage } from '@cts/shared';
 import * as bookingService from '../services/booking.service';
 import { estimateRoadDistanceFromCoords } from '../utils/distance';
 import { calculatePrice } from '../utils/pricing';
+import { geocodeByAddress } from '../utils/geocode';
 import i18n from '../i18n';
 
 interface BookingState {
@@ -264,10 +265,23 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
         notes: bookingState.notes || undefined,
       };
 
+      // Safety net: if the autocomplete didn't capture coordinates, recover
+      // them from the address so distance/price are never silently lost.
+      let pickupCoords = bookingState.pickupCoordinates;
+      let dropoffCoords = bookingState.dropoffCoordinates;
+      if (!pickupCoords.lat || !pickupCoords.lng) {
+        const g = await geocodeByAddress(bookingState.pickupAddress);
+        if (g) { pickupCoords = g; payload.pickup.coordinates = g; }
+      }
+      if (!dropoffCoords.lat || !dropoffCoords.lng) {
+        const g = await geocodeByAddress(bookingState.dropoffAddress);
+        if (g) { dropoffCoords = g; payload.dropoff.coordinates = g; }
+      }
+
       // Calculate and attach price based on distance (prefer Directions API distance)
       const haversineDist = estimateRoadDistanceFromCoords(
-        bookingState.pickupCoordinates.lat, bookingState.pickupCoordinates.lng,
-        bookingState.dropoffCoordinates.lat, bookingState.dropoffCoordinates.lng,
+        pickupCoords.lat, pickupCoords.lng,
+        dropoffCoords.lat, dropoffCoords.lng,
       );
       const dist = bookingState.directionsDistance ?? haversineDist;
       if (dist) {

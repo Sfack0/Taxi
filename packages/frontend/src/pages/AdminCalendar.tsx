@@ -427,6 +427,7 @@ const AdminCalendar = () => {
               ref={calendarRef}
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
               initialView="listWeek"
+              timeZone="Europe/Athens"
               headerToolbar={{
                 left: 'prev,next today',
                 center: 'title',
@@ -638,8 +639,8 @@ const AdminCalendar = () => {
                 </div>
                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                   {selected.isReturn
-                    ? (selected.ride.returnScheduledFor ? new Date(selected.ride.returnScheduledFor).toLocaleString('el-GR', { day: '2-digit', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }) : '-')
-                    : (selected.ride.scheduledFor ? new Date(selected.ride.scheduledFor).toLocaleString('el-GR', { day: '2-digit', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }) : '-')
+                    ? (selected.ride.returnScheduledFor ? new Date(selected.ride.returnScheduledFor).toLocaleString('el-GR', { day: '2-digit', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' }) : '-')
+                    : (selected.ride.scheduledFor ? new Date(selected.ride.scheduledFor).toLocaleString('el-GR', { day: '2-digit', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' }) : '-')
                   }
                 </p>
               </div>

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGoogleMaps } from './GoogleMapsProvider';
 import MapPicker from './MapPicker';
+import { geocodeByPlaceId, geocodeByAddress } from '../../utils/geocode';
 
 interface PlacesAutocompleteResult {
   address: string;
@@ -155,10 +156,14 @@ const PlacesAutocomplete = ({ value, onChange, placeholder }: PlacesAutocomplete
     };
   }, [search, isLoaded, i18n.language]);
 
-  // Handle selecting a Google suggestion using the NEW API (Place.fetchFields)
+  // Handle selecting a Google suggestion using the NEW API (Place.fetchFields).
+  // If Places doesn't return a location, recover coordinates via the Geocoder
+  // (by placeId, then address) so we never store [0,0] and lose the price.
   const handleSelectGoogle = async (suggestion: GoogleSuggestion) => {
+    const prediction = suggestion.placePrediction;
+    const placeId: string | undefined = prediction?.placeId;
+    const text = prediction?.text?.toString() || '';
     try {
-      const prediction = suggestion.placePrediction;
       const place = prediction.toPlace();
       await place.fetchFields({ fields: ['location', 'formattedAddress'] });
 
@@ -166,19 +171,16 @@ const PlacesAutocomplete = ({ value, onChange, placeholder }: PlacesAutocomplete
       sessionTokenRef.current = new google.maps.places.AutocompleteSessionToken();
 
       const location = place.location;
-      const displayAddress = prediction.text?.toString() || place.formattedAddress || '';
+      const displayAddress = text || place.formattedAddress || '';
       if (location) {
-        onChange({
-          address: displayAddress,
-          lat: location.lat(),
-          lng: location.lng(),
-        });
+        onChange({ address: displayAddress, lat: location.lat(), lng: location.lng() });
       } else {
-        onChange({ address: displayAddress, lat: 0, lng: 0 });
+        const recovered = (await geocodeByPlaceId(placeId)) ?? (await geocodeByAddress(displayAddress));
+        onChange({ address: displayAddress, lat: recovered?.lat ?? 0, lng: recovered?.lng ?? 0 });
       }
     } catch {
-      const text = suggestion.placePrediction?.text?.toString() || '';
-      onChange({ address: text, lat: 0, lng: 0 });
+      const recovered = (await geocodeByPlaceId(placeId)) ?? (await geocodeByAddress(text));
+      onChange({ address: text, lat: recovered?.lat ?? 0, lng: recovered?.lng ?? 0 });
     }
     close();
   };

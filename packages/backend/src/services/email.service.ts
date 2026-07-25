@@ -523,6 +523,10 @@ const formatDate = (date: Date | string, lang: SupportedLanguage = 'el') => {
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
+    // Emails render server-side (UTC on Netlify) — pin to Crete's timezone so
+    // the pickup time matches what the customer picked and what admin sees.
+    timeZone: 'Europe/Athens',
   });
 };
 
@@ -878,6 +882,8 @@ const formatDateGreek = (date: Date | string) => {
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
+    timeZone: 'Europe/Athens',
   });
 };
 

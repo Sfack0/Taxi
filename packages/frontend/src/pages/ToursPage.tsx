@@ -10,6 +10,7 @@ import NumberPicker from '../components/common/NumberPicker';
 import Input from '../components/common/Input';
 import PhoneField from '../components/common/PhoneField';
 import { useAuth } from '../contexts/AuthContext';
+import { combineDateTimeAthens } from '../utils/datetime';
 
 const localeMap: Record<string, Locale> = { el, en: enUS, fr, de, it, es };
 
@@ -74,8 +75,8 @@ const ToursPage = () => {
     setIsSubmitting(true);
     setErrorMsg('');
 
-    const scheduled = new Date(date);
-    scheduled.setHours(time.getHours(), time.getMinutes(), 0, 0);
+    // Interpret the picked time as Crete (Europe/Athens) time, independent of browser TZ.
+    const scheduled = combineDateTimeAthens(date, time);
 
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';

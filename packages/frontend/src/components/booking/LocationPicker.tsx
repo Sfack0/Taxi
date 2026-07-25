@@ -16,6 +16,7 @@ import MobileDatePicker from '../common/MobileDatePicker';
 import NumberPicker from '../common/NumberPicker';
 import { estimateRoadDistanceFromCoords } from '../../utils/distance';
 import { calculatePrice } from '../../utils/pricing';
+import { combineDateTimeAthens } from '../../utils/datetime';
 import { useGoogleMaps } from '../common/GoogleMapsProvider';
 import RouteMap from './RouteMap';
 
@@ -144,9 +145,9 @@ const LocationPicker = ({
   // Combine date + time into a single Date and push to context
   const combineAndSetScheduled = (date: Date | null, time: Date | null) => {
     if (date && time) {
-      const combined = new Date(date);
-      combined.setHours(time.getHours(), time.getMinutes(), 0, 0);
-      setScheduledFor(combined);
+      // Interpret the picked time as Crete (Europe/Athens) time, not the
+      // customer's browser timezone, so bookings from abroad store the intended time.
+      setScheduledFor(combineDateTimeAthens(date, time));
     } else {
       setScheduledFor(null);
     }
@@ -154,9 +155,7 @@ const LocationPicker = ({
 
   const combineAndSetReturn = (date: Date | null, time: Date | null) => {
     if (date && time) {
-      const combined = new Date(date);
-      combined.setHours(time.getHours(), time.getMinutes(), 0, 0);
-      setReturnScheduledFor(combined);
+      setReturnScheduledFor(combineDateTimeAthens(date, time));
     } else {
       setReturnScheduledFor(null);
     }

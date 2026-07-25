@@ -16,6 +16,7 @@ import { el } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/calendar-custom.css';
 import { estimateRoadDistance } from '../utils/distance';
+import { localWallClockToAthens } from '../utils/datetime';
 import { calculatePrice, loadPricing } from '../utils/pricing';
 import { isAirportAddress, isTransportHub } from '../utils/airport';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
@@ -396,10 +397,10 @@ const AdminDashboard = () => {
         customerEmail: editFormData.customerEmail,
         pickup: { address: editFormData.pickupAddress },
         dropoff: { address: editFormData.dropoffAddress },
-        scheduledFor: editFormData.scheduledFor?.toISOString(),
+        scheduledFor: editFormData.scheduledFor ? localWallClockToAthens(editFormData.scheduledFor).toISOString() : undefined,
         people: editFormData.people,
         isRoundtrip: editFormData.isRoundtrip,
-        returnScheduledFor: editFormData.isRoundtrip ? editFormData.returnScheduledFor?.toISOString() : undefined,
+        returnScheduledFor: editFormData.isRoundtrip && editFormData.returnScheduledFor ? localWallClockToAthens(editFormData.returnScheduledFor).toISOString() : undefined,
         returnPeople: editFormData.isRoundtrip ? editFormData.returnPeople : undefined,
         flightNumber: editFormData.flightNumber || undefined,
         flightTime: editFormData.flightTime || undefined,
@@ -715,13 +716,17 @@ const AdminDashboard = () => {
             {/* Rides List */}
             <div className="space-y-3 sm:space-y-4">
               {(() => {
-                const filteredRides = hubFilter === 'all'
+                const filteredRides = (hubFilter === 'all'
                   ? rides
                   : rides.filter((ride) =>
                       hubFilter === 'arrivals'
                         ? isTransportHub(ride.pickup.address, ride.pickup.coordinates)
                         : isTransportHub(ride.dropoff.address, ride.dropoff.coordinates)
-                    );
+                    )
+                )
+                  // Newest bookings first (don't mutate the state array)
+                  .slice()
+                  .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
                 return filteredRides.length === 0 ? (
                 <Card className="p-8 sm:p-12 text-center">
                   <p className="text-gray-500 dark:text-gray-400">Δεν βρέθηκαν κρατήσεις</p>
@@ -767,7 +772,7 @@ const AdminDashboard = () => {
                         </button>
                       )}
                       <span className="text-[9px] text-gray-400">
-                        {isTour ? 'Tour: ' : 'Κράτηση: '}{new Date(ride.createdAt).toLocaleDateString('el-GR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
+                        {isTour ? 'Tour: ' : 'Κράτηση: '}{new Date(ride.createdAt).toLocaleDateString('el-GR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' })}
                       </span>
                     </div>
 
@@ -935,8 +940,8 @@ const AdminDashboard = () => {
                                   <p className="text-xs text-amber-700 dark:text-amber-400 font-medium">{ride.isRoundtrip ? 'Μετάβαση' : 'Ημερομηνία'}</p>
                                   <p className="text-sm font-semibold text-amber-900 dark:text-amber-300">
                                     {ride.scheduledFor
-                                      ? new Date(ride.scheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
-                                      : new Date(ride.createdAt).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
+                                      ? new Date(ride.scheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' })
+                                      : new Date(ride.createdAt).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' })}
                                   </p>
                                   {ride.people && <p className="text-xs text-amber-700 dark:text-amber-400">{ride.people} {ride.people === 1 ? 'άτομο' : 'άτομα'}</p>}
                                 </div>
@@ -949,7 +954,7 @@ const AdminDashboard = () => {
                                   <div>
                                     <p className="text-xs text-purple-700 dark:text-purple-400 font-medium">Επιστροφή</p>
                                     <p className="text-sm font-semibold text-purple-900 dark:text-purple-300">
-                                      {new Date(ride.returnScheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
+                                      {new Date(ride.returnScheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' })}
                                     </p>
                                     {ride.returnPeople && <p className="text-xs text-purple-700 dark:text-purple-400">{ride.returnPeople} {ride.returnPeople === 1 ? 'άτομο' : 'άτομα'}</p>}
                                   </div>
@@ -1132,8 +1137,8 @@ const AdminDashboard = () => {
               </p>
               <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
                 {selectedRide.scheduledFor
-                  ? new Date(selectedRide.scheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
-                  : new Date(selectedRide.createdAt).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
+                  ? new Date(selectedRide.scheduledFor).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' })
+                  : new Date(selectedRide.createdAt).toLocaleString('el-GR', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Athens' })
                 }
               </p>
             </div>
