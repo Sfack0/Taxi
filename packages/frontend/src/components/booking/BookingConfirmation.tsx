@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Card from '../common/Card';
 import Button from '../common/Button';
 import { estimateRoadDistanceFromCoords } from '../../utils/distance';
-import { calculatePrice } from '../../utils/pricing';
+import { calculatePrice, applyCardSurcharge } from '../../utils/pricing';
 import { LOCATIONS_DATA } from '../../data/locations';
 
 interface BookingConfirmationProps {
@@ -69,6 +69,9 @@ const BookingConfirmation = ({
     if (!estimatedDistance) return null;
     return calculatePrice(estimatedDistance, people);
   }, [estimatedDistance, people]);
+
+  // Card payment adds 5% (rounded up) — keep the summary in sync with what's stored.
+  const displayPrice = estimatedPrice !== null ? applyCardSurcharge(estimatedPrice, paymentMethod) : null;
 
   // Translate predefined locations, show Google addresses as-is
   const translateLocation = (address: string) => {
@@ -154,12 +157,12 @@ const BookingConfirmation = ({
                 </svg>
                 ~{estimatedDistance} km
               </div>
-              {estimatedPrice !== null && (
+              {displayPrice !== null && (
                 <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  {t('booking.estimatedPrice')}: {isRoundtrip ? `${estimatedPrice}€ × 2 = ${estimatedPrice * 2}€` : `${estimatedPrice}€`}
+                  {t('booking.estimatedPrice')}: {isRoundtrip ? `${displayPrice}€ × 2 = ${displayPrice * 2}€` : `${displayPrice}€`}
                 </div>
               )}
             </div>

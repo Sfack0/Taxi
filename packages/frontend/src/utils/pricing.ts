@@ -95,3 +95,17 @@ export function calculatePrice(distanceKm: number, people: number): number | nul
 
   return people >= 5 ? entry[2] : entry[1];
 }
+
+/** Card payments carry a 5% surcharge. */
+export const CARD_SURCHARGE_PERCENT = 5;
+
+/**
+ * Apply the card surcharge (+5%), rounded UP to the nearest euro.
+ * Scales to integers before dividing so floating-point drift can't push an
+ * exact result over a euro boundary (e.g. 20 * 1.05 === 21.000000000000004,
+ * which would otherwise ceil to 22).
+ */
+export function applyCardSurcharge(base: number, paymentMethod: 'cash' | 'card'): number {
+  if (paymentMethod !== 'card') return base;
+  return Math.ceil(Math.round(base * (100 + CARD_SURCHARGE_PERCENT)) / 100);
+}

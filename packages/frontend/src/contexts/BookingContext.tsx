@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import type { Ride, CreateRideRequest, SupportedLanguage } from '@cts/shared';
 import * as bookingService from '../services/booking.service';
 import { estimateRoadDistanceFromCoords } from '../utils/distance';
-import { calculatePrice } from '../utils/pricing';
+import { calculatePrice, applyCardSurcharge } from '../utils/pricing';
 import { geocodeByAddress } from '../utils/geocode';
 import i18n from '../i18n';
 
@@ -287,7 +287,8 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
       if (dist) {
         payload.distance = dist;
         payload.estimatedDuration = bookingState.directionsDuration ?? Math.max(30, Math.round((dist / 50) * 60));
-        const price = calculatePrice(dist, bookingState.people);
+        const base = calculatePrice(dist, bookingState.people);
+        const price = base != null ? applyCardSurcharge(base, bookingState.paymentMethod) : null;
         if (price) payload.price = price;
       }
 

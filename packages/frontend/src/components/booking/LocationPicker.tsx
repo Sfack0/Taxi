@@ -15,7 +15,7 @@ import PlacesAutocomplete from '../common/PlacesAutocomplete';
 import MobileDatePicker from '../common/MobileDatePicker';
 import NumberPicker from '../common/NumberPicker';
 import { estimateRoadDistanceFromCoords } from '../../utils/distance';
-import { calculatePrice } from '../../utils/pricing';
+import { calculatePrice, applyCardSurcharge } from '../../utils/pricing';
 import { combineDateTimeAthens } from '../../utils/datetime';
 import { useGoogleMaps } from '../common/GoogleMapsProvider';
 import RouteMap from './RouteMap';
@@ -90,6 +90,9 @@ const LocationPicker = ({
     if (!estimatedDistance) return null;
     return calculatePrice(estimatedDistance, people);
   }, [estimatedDistance, people]);
+
+  // Card payment adds 5% (rounded up) — reflect it in the shown estimate.
+  const displayPrice = estimatedPrice !== null ? applyCardSurcharge(estimatedPrice, paymentMethod) : null;
 
   // Track whether distance was pre-set (e.g. from transfer page URL param)
   const hasPresetDistance = useRef(urlDistance !== null);
@@ -278,8 +281,8 @@ const LocationPicker = ({
           <span>
             ~{estimatedDistance} km
             {estimatedDuration && <> · ~{estimatedDuration}</>}
-            {estimatedPrice !== null && (
-              <> · {t('booking.estimatedPrice')}: {isRoundtrip ? `${estimatedPrice}€ × 2 = ${estimatedPrice * 2}€` : `${estimatedPrice}€`}</>
+            {displayPrice !== null && (
+              <> · {t('booking.estimatedPrice')}: {isRoundtrip ? `${displayPrice}€ × 2 = ${displayPrice * 2}€` : `${displayPrice}€`}</>
             )}
           </span>
         </div>
@@ -449,7 +452,7 @@ const LocationPicker = ({
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
-            {t('booking.card')}
+            {t('booking.card')} <span className="text-[10px] font-normal opacity-70 align-middle">+5%</span>
           </button>
         </div>
       </div>
