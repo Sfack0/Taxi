@@ -6,7 +6,7 @@ import { el, enUS, fr, de, it, es } from 'date-fns/locale';
 import PublicHeader from '../components/common/PublicHeader';
 import PlacesAutocomplete from '../components/common/PlacesAutocomplete';
 import MobileDatePicker from '../components/common/MobileDatePicker';
-import NumberPicker from '../components/common/NumberPicker';
+import Stepper from '../components/common/Stepper';
 import Input from '../components/common/Input';
 import PhoneField from '../components/common/PhoneField';
 import { useAuth } from '../contexts/AuthContext';
@@ -226,17 +226,11 @@ const ToursPage = () => {
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                           {t('booking.people')} *
                         </label>
-                        <NumberPicker
+                        <Stepper
                           value={people}
                           onChange={setPeople}
                           min={1}
                           max={8}
-                          label={t('booking.people')}
-                          icon={
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                          }
                         />
                       </div>
 

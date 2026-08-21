@@ -115,9 +115,13 @@ export interface Ride {
   flightNumber?: string;
   flightTime?: string;
   luggageCount?: number;
+  smallLuggageCount?: number;
+  largeLuggageCount?: number;
   returnFlightNumber?: string;
   returnFlightTime?: string;
   returnLuggageCount?: number;
+  returnSmallLuggageCount?: number;
+  returnLargeLuggageCount?: number;
   price?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -146,9 +150,13 @@ export interface CreateRideRequest {
   flightNumber?: string;
   flightTime?: string;
   luggageCount?: number;
+  smallLuggageCount?: number;
+  largeLuggageCount?: number;
   returnFlightNumber?: string;
   returnFlightTime?: string;
   returnLuggageCount?: number;
+  returnSmallLuggageCount?: number;
+  returnLargeLuggageCount?: number;
   price?: number;
   distance?: number;
   estimatedDuration?: number;

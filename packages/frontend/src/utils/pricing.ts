@@ -81,19 +81,48 @@ export function setPricingCache(entries: PricingEntry[]): void {
 }
 
 /**
- * Calculate price based on distance and number of people.
- * - 1-4 people → normal rate
- * - 5+ people → van rate
+ * Threshold of (effective) large suitcases that forces the van rate.
+ * Luggage fills the van's capacity, so enough bags bump the price to the
+ * van tier even with fewer passengers.
+ */
+export const VAN_LUGGAGE_THRESHOLD = 5;
+
+/**
+ * Effective large-suitcase count for pricing: each large bag counts as one,
+ * every two small bags count as one more (2 small = 1 large).
+ */
+export function effectiveLargeLuggage(smallLuggageCount = 0, largeLuggageCount = 0): number {
+  return largeLuggageCount + Math.floor(smallLuggageCount / 2);
+}
+
+/**
+ * Whether a trip should be charged at the van rate.
+ * True when there are 5+ passengers OR the effective large-luggage count
+ * reaches the van threshold (e.g. 5 large, or 4 large + 2 small).
+ */
+export function isVanTier(people: number, smallLuggageCount = 0, largeLuggageCount = 0): boolean {
+  return people >= 5 || effectiveLargeLuggage(smallLuggageCount, largeLuggageCount) >= VAN_LUGGAGE_THRESHOLD;
+}
+
+/**
+ * Calculate price based on distance, number of people and luggage.
+ * - normal rate for up to 4 people with little luggage
+ * - van rate for 5+ people OR enough luggage (see isVanTier)
  * Returns null if distance exceeds the table range.
  */
-export function calculatePrice(distanceKm: number, people: number): number | null {
+export function calculatePrice(
+  distanceKm: number,
+  people: number,
+  smallLuggageCount = 0,
+  largeLuggageCount = 0,
+): number | null {
   if (distanceKm <= 0) return null;
 
   const table = cachedPricing ?? DEFAULT_PRICING_TABLE;
   const entry = table.find(([maxKm]) => distanceKm <= maxKm)
     ?? table[table.length - 1];
 
-  return people >= 5 ? entry[2] : entry[1];
+  return isVanTier(people, smallLuggageCount, largeLuggageCount) ? entry[2] : entry[1];
 }
 
 /** Card payments carry a 5% surcharge. */

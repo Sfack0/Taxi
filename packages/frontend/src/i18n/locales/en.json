@@ -91,6 +91,7 @@
     "paymentMethod": "Payment",
     "cash": "Cash",
     "card": "Card",
+    "cardSurcharge": "+5% by card",
     "childSeat": "Child Seat",
     "yes": "Yes",
     "notes": "Notes",
@@ -103,7 +104,12 @@
     "returnFlightInfo": "Return Flight Info",
     "flightNumber": "Flight No.",
     "flightTime": "Flight Time",
-    "luggageCount": "Luggage"
+    "luggageCount": "Luggage",
+    "smallLuggage": "Small suitcases",
+    "largeLuggage": "Large suitcases",
+    "luggage": "Luggage",
+    "luggageSmallShort": "Small",
+    "luggageLargeShort": "Large"
   },
   "customerInfo": {
     "title": "Contact Information",

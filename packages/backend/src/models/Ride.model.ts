@@ -168,6 +168,16 @@ const rideSchema = new Schema<RideDocument>(
       default: undefined,
       min: 0,
     },
+    smallLuggageCount: {
+      type: Number,
+      default: undefined,
+      min: 0,
+    },
+    largeLuggageCount: {
+      type: Number,
+      default: undefined,
+      min: 0,
+    },
     returnFlightNumber: {
       type: String,
       default: undefined,
@@ -179,6 +189,16 @@ const rideSchema = new Schema<RideDocument>(
       trim: true,
     },
     returnLuggageCount: {
+      type: Number,
+      default: undefined,
+      min: 0,
+    },
+    returnSmallLuggageCount: {
+      type: Number,
+      default: undefined,
+      min: 0,
+    },
+    returnLargeLuggageCount: {
       type: Number,
       default: undefined,
       min: 0,

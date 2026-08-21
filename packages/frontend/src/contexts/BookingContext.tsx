@@ -24,9 +24,13 @@ interface BookingState {
   flightNumber: string;
   flightTime: string;
   luggageCount: number;
+  smallLuggageCount: number;
+  largeLuggageCount: number;
   returnFlightNumber: string;
   returnFlightTime: string;
   returnLuggageCount: number;
+  returnSmallLuggageCount: number;
+  returnLargeLuggageCount: number;
   directionsDistance: number | null;
   directionsDuration: number | null;
   notes: string;
@@ -51,9 +55,13 @@ interface BookingContextType {
   setFlightNumber: (flightNumber: string) => void;
   setFlightTime: (flightTime: string) => void;
   setLuggageCount: (luggageCount: number) => void;
+  setSmallLuggageCount: (smallLuggageCount: number) => void;
+  setLargeLuggageCount: (largeLuggageCount: number) => void;
   setReturnFlightNumber: (returnFlightNumber: string) => void;
   setReturnFlightTime: (returnFlightTime: string) => void;
   setReturnLuggageCount: (returnLuggageCount: number) => void;
+  setReturnSmallLuggageCount: (returnSmallLuggageCount: number) => void;
+  setReturnLargeLuggageCount: (returnLargeLuggageCount: number) => void;
   setDirectionsDistance: (distance: number | null) => void;
   setDirectionsDuration: (duration: number | null) => void;
   setNotes: (notes: string) => void;
@@ -97,9 +105,13 @@ const initialState: BookingState = {
   flightNumber: '',
   flightTime: '',
   luggageCount: 0,
+  smallLuggageCount: 0,
+  largeLuggageCount: 0,
   returnFlightNumber: '',
   returnFlightTime: '',
   returnLuggageCount: 0,
+  returnSmallLuggageCount: 0,
+  returnLargeLuggageCount: 0,
   directionsDistance: null,
   directionsDuration: null,
   notes: '',
@@ -161,6 +173,16 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
     setError(null);
   };
 
+  const setSmallLuggageCount = (smallLuggageCount: number) => {
+    setBookingState((prev) => ({ ...prev, smallLuggageCount }));
+    setError(null);
+  };
+
+  const setLargeLuggageCount = (largeLuggageCount: number) => {
+    setBookingState((prev) => ({ ...prev, largeLuggageCount }));
+    setError(null);
+  };
+
   const setReturnFlightNumber = (returnFlightNumber: string) => {
     setBookingState((prev) => ({ ...prev, returnFlightNumber }));
     setError(null);
@@ -173,6 +195,16 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
 
   const setReturnLuggageCount = (returnLuggageCount: number) => {
     setBookingState((prev) => ({ ...prev, returnLuggageCount }));
+    setError(null);
+  };
+
+  const setReturnSmallLuggageCount = (returnSmallLuggageCount: number) => {
+    setBookingState((prev) => ({ ...prev, returnSmallLuggageCount }));
+    setError(null);
+  };
+
+  const setReturnLargeLuggageCount = (returnLargeLuggageCount: number) => {
+    setBookingState((prev) => ({ ...prev, returnLargeLuggageCount }));
     setError(null);
   };
 
@@ -259,9 +291,13 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
         flightNumber: bookingState.flightNumber || undefined,
         flightTime: bookingState.flightTime || undefined,
         luggageCount: bookingState.luggageCount || undefined,
+        smallLuggageCount: bookingState.smallLuggageCount || undefined,
+        largeLuggageCount: bookingState.largeLuggageCount || undefined,
         returnFlightNumber: bookingState.returnFlightNumber || undefined,
         returnFlightTime: bookingState.returnFlightTime || undefined,
         returnLuggageCount: bookingState.returnLuggageCount || undefined,
+        returnSmallLuggageCount: bookingState.returnSmallLuggageCount || undefined,
+        returnLargeLuggageCount: bookingState.returnLargeLuggageCount || undefined,
         notes: bookingState.notes || undefined,
       };
 
@@ -287,7 +323,7 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
       if (dist) {
         payload.distance = dist;
         payload.estimatedDuration = bookingState.directionsDuration ?? Math.max(30, Math.round((dist / 50) * 60));
-        const base = calculatePrice(dist, bookingState.people);
+        const base = calculatePrice(dist, bookingState.people, bookingState.smallLuggageCount, bookingState.largeLuggageCount);
         const price = base != null ? applyCardSurcharge(base, bookingState.paymentMethod) : null;
         if (price) payload.price = price;
       }
@@ -353,9 +389,13 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
     setFlightNumber,
     setFlightTime,
     setLuggageCount,
+    setSmallLuggageCount,
+    setLargeLuggageCount,
     setReturnFlightNumber,
     setReturnFlightTime,
     setReturnLuggageCount,
+    setReturnSmallLuggageCount,
+    setReturnLargeLuggageCount,
     setDirectionsDistance,
     setDirectionsDuration,
     setNotes,

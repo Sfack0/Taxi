@@ -13,8 +13,7 @@ import '../../styles/calendar-custom.css';
 import { useBooking } from '../../contexts/BookingContext';
 import PlacesAutocomplete from '../common/PlacesAutocomplete';
 import MobileDatePicker from '../common/MobileDatePicker';
-import NumberPicker from '../common/NumberPicker';
-import { estimateRoadDistanceFromCoords } from '../../utils/distance';
+import Stepper from '../common/Stepper';
 import { calculatePrice, applyCardSurcharge } from '../../utils/pricing';
 import { combineDateTimeAthens } from '../../utils/datetime';
 import { useGoogleMaps } from '../common/GoogleMapsProvider';
@@ -44,8 +43,8 @@ const LocationPicker = ({
   initialDropoff,
 }: LocationPickerProps) => {
   const { t, i18n } = useTranslation();
-  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, setDirectionsDistance: setContextDirectionsDistance, setDirectionsDuration: setContextDirectionsDuration, bookingState } = useBooking();
-  const { isRoundtrip, returnPeople, paymentMethod, childSeat, pickupCoordinates, dropoffCoordinates, scheduledFor, returnScheduledFor } = bookingState;
+  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, setSmallLuggageCount, setLargeLuggageCount, setReturnSmallLuggageCount, setReturnLargeLuggageCount, setDirectionsDistance: setContextDirectionsDistance, setDirectionsDuration: setContextDirectionsDuration, bookingState } = useBooking();
+  const { isRoundtrip, returnPeople, paymentMethod, childSeat, smallLuggageCount, largeLuggageCount, returnSmallLuggageCount, returnLargeLuggageCount, pickupCoordinates, dropoffCoordinates, scheduledFor, returnScheduledFor } = bookingState;
   const { isLoaded } = useGoogleMaps();
 
   const [pickupAddress, setPickupAddress] = useState(initialPickup || '');
@@ -85,11 +84,11 @@ const LocationPicker = ({
   // Use Directions API distance for display; no haversine fallback to avoid flickering
   const estimatedDistance = directionsDistance;
 
-  // Estimated price based on distance and people
+  // Estimated price based on distance, people and luggage
   const estimatedPrice = useMemo(() => {
     if (!estimatedDistance) return null;
-    return calculatePrice(estimatedDistance, people);
-  }, [estimatedDistance, people]);
+    return calculatePrice(estimatedDistance, people, smallLuggageCount, largeLuggageCount);
+  }, [estimatedDistance, people, smallLuggageCount, largeLuggageCount]);
 
   // Card payment adds 5% (rounded up) — reflect it in the shown estimate.
   const displayPrice = estimatedPrice !== null ? applyCardSurcharge(estimatedPrice, paymentMethod) : null;
@@ -414,22 +413,54 @@ const LocationPicker = ({
           <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
             {t('booking.people')}
           </label>
-          <NumberPicker
+          <Stepper
             value={people}
             onChange={setPeople}
-            icon={
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            }
+            min={1}
+            max={8}
           />
+        </div>
+      </div>
+
+      {/* Luggage: small & large */}
+      <div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('booking.luggage')}</span>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
+              {t('booking.luggageSmallShort')}
+            </label>
+            <Stepper
+              value={smallLuggageCount}
+              onChange={setSmallLuggageCount}
+              min={0}
+              max={15}
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
+              {t('booking.luggageLargeShort')}
+            </label>
+            <Stepper
+              value={largeLuggageCount}
+              onChange={setLargeLuggageCount}
+              min={0}
+              max={15}
+            />
+          </div>
         </div>
       </div>
 
       {/* Payment Method */}
       <div>
         <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
-          {t('booking.paymentMethod')}
+          {t('booking.paymentMethod')}{' '}
+          <span className="font-normal text-[11px] text-gray-600 dark:text-gray-400">({t('booking.cardSurcharge')})</span>
         </label>
         <div className="flex rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
           <button
@@ -452,7 +483,7 @@ const LocationPicker = ({
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
-            {t('booking.card')} <span className="text-[10px] font-normal opacity-70 align-middle">+5%</span>
+            {t('booking.card')}
           </button>
         </div>
       </div>
@@ -520,15 +551,48 @@ const LocationPicker = ({
             <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
               {t('booking.people')}
             </label>
-            <NumberPicker
+            <Stepper
               value={returnPeople}
               onChange={setReturnPeople}
-              icon={
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              }
+              min={1}
+              max={8}
             />
+          </div>
+        </div>
+      )}
+
+      {/* Return Luggage: small & large */}
+      {isRoundtrip && (
+        <div>
+          <div className="flex items-center gap-1.5 mb-2">
+            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('booking.luggage')} · {t('booking.returnTime')}</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
+                {t('booking.luggageSmallShort')}
+              </label>
+              <Stepper
+                value={returnSmallLuggageCount}
+                onChange={setReturnSmallLuggageCount}
+                min={0}
+                max={15}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
+                {t('booking.luggageLargeShort')}
+              </label>
+              <Stepper
+                value={returnLargeLuggageCount}
+                onChange={setReturnLargeLuggageCount}
+                min={0}
+                max={15}
+              />
+            </div>
           </div>
         </div>
       )}

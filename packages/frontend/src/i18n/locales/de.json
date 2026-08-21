@@ -91,6 +91,7 @@
     "paymentMethod": "Zahlung",
     "cash": "Bargeld",
     "card": "Karte",
+    "cardSurcharge": "+5% mit Karte",
     "childSeat": "Kindersitz",
     "yes": "Ja",
     "notes": "Anmerkungen",
@@ -103,7 +104,12 @@
     "returnFlightInfo": "Rückflugdaten",
     "flightNumber": "Flugnr.",
     "flightTime": "Flugzeit",
-    "luggageCount": "Gepäck"
+    "luggageCount": "Gepäck",
+    "smallLuggage": "Kleine Koffer",
+    "largeLuggage": "Große Koffer",
+    "luggage": "Gepäck",
+    "luggageSmallShort": "Klein",
+    "luggageLargeShort": "Groß"
   },
   "customerInfo": {
     "title": "Kontaktdaten",

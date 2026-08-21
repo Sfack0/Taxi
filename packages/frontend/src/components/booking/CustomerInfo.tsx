@@ -4,7 +4,6 @@ import Input from '../common/Input';
 import Button from '../common/Button';
 import PhoneField from '../common/PhoneField';
 import MobileDatePicker from '../common/MobileDatePicker';
-import NumberPicker from '../common/NumberPicker';
 import { useBooking } from '../../contexts/BookingContext';
 import { isAirportAddress } from '../../utils/airport';
 
@@ -30,8 +29,8 @@ const CustomerInfo = ({
   onNotesChange,
 }: CustomerInfoProps) => {
   const { t, i18n } = useTranslation();
-  const { setFlightNumber, setFlightTime, setLuggageCount, setReturnFlightNumber, setReturnFlightTime, setReturnLuggageCount, bookingState } = useBooking();
-  const { flightNumber, flightTime, luggageCount, returnFlightNumber, returnFlightTime, returnLuggageCount, pickupCoordinates, dropoffCoordinates, pickupAddress, dropoffAddress, isRoundtrip } = bookingState;
+  const { setFlightNumber, setFlightTime, setReturnFlightNumber, setReturnFlightTime, bookingState } = useBooking();
+  const { flightNumber, flightTime, returnFlightNumber, returnFlightTime, pickupCoordinates, dropoffCoordinates, pickupAddress, dropoffAddress, isRoundtrip } = bookingState;
 
   const [name, setName] = useState(initialName || '');
   const [phone, setPhone] = useState(initialPhone || '');
@@ -153,7 +152,7 @@ const CustomerInfo = ({
               </svg>
               <span className="text-xs font-semibold uppercase">{t('booking.flightInfo')}</span>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
                   {t('booking.flightNumber')}
@@ -206,23 +205,6 @@ const CustomerInfo = ({
                   }
                 />
               </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
-                  {t('booking.luggageCount')}
-                </label>
-                <NumberPicker
-                  value={luggageCount}
-                  onChange={setLuggageCount}
-                  min={0}
-                  max={15}
-                  label={t('booking.luggageCount')}
-                  icon={
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                  }
-                />
-              </div>
             </div>
           </div>
         )}
@@ -237,7 +219,7 @@ const CustomerInfo = ({
               <span className="text-xs font-semibold uppercase">{t('booking.returnFlightInfo')}</span>
               <span className="text-xs font-normal text-amber-600 dark:text-amber-500">({t('common.optional')})</span>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
                   {t('booking.flightNumber')}
@@ -286,23 +268,6 @@ const CustomerInfo = ({
                   icon={
                     <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  }
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
-                  {t('booking.luggageCount')}
-                </label>
-                <NumberPicker
-                  value={returnLuggageCount}
-                  onChange={setReturnLuggageCount}
-                  min={0}
-                  max={15}
-                  label={t('booking.luggageCount')}
-                  icon={
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
                   }
                 />

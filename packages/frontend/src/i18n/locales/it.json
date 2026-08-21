@@ -91,6 +91,7 @@
     "paymentMethod": "Pagamento",
     "cash": "Contanti",
     "card": "Carta",
+    "cardSurcharge": "+5% con carta",
     "childSeat": "Seggiolino",
     "yes": "Sì",
     "notes": "Note",
@@ -103,7 +104,12 @@
     "returnFlightInfo": "Info Volo Ritorno",
     "flightNumber": "N° Volo",
     "flightTime": "Ora del Volo",
-    "luggageCount": "Bagagli"
+    "luggageCount": "Bagagli",
+    "smallLuggage": "Valigie piccole",
+    "largeLuggage": "Valigie grandi",
+    "luggage": "Bagagli",
+    "luggageSmallShort": "Piccole",
+    "luggageLargeShort": "Grandi"
   },
   "customerInfo": {
     "title": "Informazioni di Contatto",

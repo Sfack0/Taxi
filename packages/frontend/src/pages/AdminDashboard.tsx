@@ -21,6 +21,7 @@ import { calculatePrice, loadPricing } from '../utils/pricing';
 import { isAirportAddress, isTransportHub } from '../utils/airport';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import SortDropdown from '../components/common/SortDropdown';
+import Stepper from '../components/common/Stepper';
 import Logo from '../components/common/Logo';
 
 type ConfirmAction = 'accept' | 'reject' | 'complete' | null;
@@ -38,7 +39,10 @@ interface EditFormData {
   returnPeople: number;
   flightNumber: string;
   flightTime: string;
-  luggageCount: number;
+  smallLuggageCount: number;
+  largeLuggageCount: number;
+  returnSmallLuggageCount: number;
+  returnLargeLuggageCount: number;
   notes: string;
 }
 
@@ -127,7 +131,10 @@ const AdminDashboard = () => {
     returnPeople: 1,
     flightNumber: '',
     flightTime: '',
-    luggageCount: 0,
+    smallLuggageCount: 0,
+    largeLuggageCount: 0,
+    returnSmallLuggageCount: 0,
+    returnLargeLuggageCount: 0,
     notes: '',
   });
 
@@ -340,7 +347,7 @@ const AdminDashboard = () => {
       const basePrice = ride.price ?? (() => {
         if (ride.pickup.address.startsWith('TOUR:') || ride.dropoff.address.startsWith('TOUR:')) return null;
         const dist = estimateRoadDistance(ride.pickup.address, ride.dropoff.address);
-        return dist ? calculatePrice(dist, ride.people ?? 1) : null;
+        return dist ? calculatePrice(dist, ride.people ?? 1, ride.smallLuggageCount ?? 0, ride.largeLuggageCount ?? 0) : null;
       })();
       const totalPrice = basePrice != null && ride.isRoundtrip ? basePrice * 2 : basePrice;
       setCompletePrice(totalPrice != null ? String(totalPrice) : '');
@@ -372,7 +379,10 @@ const AdminDashboard = () => {
       returnPeople: ride.returnPeople || 1,
       flightNumber: ride.flightNumber || '',
       flightTime: ride.flightTime || '',
-      luggageCount: ride.luggageCount || 0,
+      smallLuggageCount: ride.smallLuggageCount || 0,
+      largeLuggageCount: ride.largeLuggageCount || 0,
+      returnSmallLuggageCount: ride.returnSmallLuggageCount || 0,
+      returnLargeLuggageCount: ride.returnLargeLuggageCount || 0,
       notes: ride.notes || '',
     });
     setIsEditModalOpen(true);
@@ -404,7 +414,10 @@ const AdminDashboard = () => {
         returnPeople: editFormData.isRoundtrip ? editFormData.returnPeople : undefined,
         flightNumber: editFormData.flightNumber || undefined,
         flightTime: editFormData.flightTime || undefined,
-        luggageCount: editFormData.luggageCount || undefined,
+        smallLuggageCount: editFormData.smallLuggageCount || undefined,
+        largeLuggageCount: editFormData.largeLuggageCount || undefined,
+        returnSmallLuggageCount: editFormData.returnSmallLuggageCount || undefined,
+        returnLargeLuggageCount: editFormData.returnLargeLuggageCount || undefined,
         notes: editFormData.notes,
       });
       // In-place update
@@ -743,7 +756,7 @@ const AdminDashboard = () => {
                   const displayPrice = ride.price ?? (() => {
                     if (isTour) return null;
                     const dist = estimateRoadDistance(ride.pickup.address, ride.dropoff.address);
-                    return dist ? calculatePrice(dist, ride.people ?? 1) : null;
+                    return dist ? calculatePrice(dist, ride.people ?? 1, ride.smallLuggageCount ?? 0, ride.largeLuggageCount ?? 0) : null;
                   })();
 
                   return (
@@ -978,6 +991,30 @@ const AdminDashboard = () => {
                                 <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800">
                                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" /></svg>
                                   Παιδικό Κάθισμα
+                                </span>
+                              )}
+                              {ride.smallLuggageCount != null && ride.smallLuggageCount > 0 && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg font-medium bg-gray-50 dark:bg-gray-700/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                  {ride.smallLuggageCount} μικρές{ride.isRoundtrip ? ' (μετ.)' : ''}
+                                </span>
+                              )}
+                              {ride.largeLuggageCount != null && ride.largeLuggageCount > 0 && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg font-medium bg-gray-50 dark:bg-gray-700/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                  {ride.largeLuggageCount} μεγάλες{ride.isRoundtrip ? ' (μετ.)' : ''}
+                                </span>
+                              )}
+                              {ride.isRoundtrip && ride.returnSmallLuggageCount != null && ride.returnSmallLuggageCount > 0 && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg font-medium bg-gray-50 dark:bg-gray-700/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                  {ride.returnSmallLuggageCount} μικρές (επιστ.)
+                                </span>
+                              )}
+                              {ride.isRoundtrip && ride.returnLargeLuggageCount != null && ride.returnLargeLuggageCount > 0 && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg font-medium bg-gray-50 dark:bg-gray-700/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                  {ride.returnLargeLuggageCount} μεγάλες (επιστ.)
                                 </span>
                               )}
                             </div>
@@ -1296,13 +1333,11 @@ const AdminDashboard = () => {
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Άτομα</label>
-                <input
-                  type="number"
+                <Stepper
+                  value={editFormData.people}
+                  onChange={(v) => setEditFormData({ ...editFormData, people: v })}
                   min={1}
                   max={10}
-                  value={editFormData.people}
-                  onChange={(e) => setEditFormData({ ...editFormData, people: parseInt(e.target.value) || 1 })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -1339,13 +1374,11 @@ const AdminDashboard = () => {
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Επιστροφή - Άτομα</label>
-                  <input
-                    type="number"
+                  <Stepper
+                    value={editFormData.returnPeople}
+                    onChange={(v) => setEditFormData({ ...editFormData, returnPeople: v })}
                     min={1}
                     max={10}
-                    value={editFormData.returnPeople}
-                    onChange={(e) => setEditFormData({ ...editFormData, returnPeople: parseInt(e.target.value) || 1 })}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                 </div>
               </div>
@@ -1356,7 +1389,7 @@ const AdminDashboard = () => {
           {isAirportAddress(editFormData.pickupAddress) && (
             <div className="space-y-3">
               <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Στοιχεία Πτήσης</h3>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Αρ. Πτήσης</label>
                   <input
@@ -1376,19 +1409,59 @@ const AdminDashboard = () => {
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Αποσκευές</label>
-                  <input
-                    type="number"
-                    min={0}
-                    value={editFormData.luggageCount}
-                    onChange={(e) => setEditFormData({ ...editFormData, luggageCount: parseInt(e.target.value) || 0 })}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                </div>
               </div>
             </div>
           )}
+
+          {/* Luggage Section (always shown) */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Αποσκευές{editFormData.isRoundtrip ? ' - Μετάβαση' : ''}</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Μικρές</label>
+                <Stepper
+                  value={editFormData.smallLuggageCount}
+                  onChange={(v) => setEditFormData({ ...editFormData, smallLuggageCount: v })}
+                  min={0}
+                  max={15}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Μεγάλες</label>
+                <Stepper
+                  value={editFormData.largeLuggageCount}
+                  onChange={(v) => setEditFormData({ ...editFormData, largeLuggageCount: v })}
+                  min={0}
+                  max={15}
+                />
+              </div>
+            </div>
+            {editFormData.isRoundtrip && (
+              <>
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Αποσκευές - Επιστροφή</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Μικρές</label>
+                    <Stepper
+                      value={editFormData.returnSmallLuggageCount}
+                      onChange={(v) => setEditFormData({ ...editFormData, returnSmallLuggageCount: v })}
+                      min={0}
+                      max={15}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Μεγάλες</label>
+                    <Stepper
+                      value={editFormData.returnLargeLuggageCount}
+                      onChange={(v) => setEditFormData({ ...editFormData, returnLargeLuggageCount: v })}
+                      min={0}
+                      max={15}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
 
           {/* Notes Section */}
           <div>

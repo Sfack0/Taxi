@@ -61,9 +61,13 @@ export const createRide = async (userId: string | undefined, data: CreateRideReq
     flightNumber: data.flightNumber || undefined,
     flightTime: data.flightTime || undefined,
     luggageCount: data.luggageCount != null ? data.luggageCount : undefined,
+    smallLuggageCount: data.smallLuggageCount != null ? data.smallLuggageCount : undefined,
+    largeLuggageCount: data.largeLuggageCount != null ? data.largeLuggageCount : undefined,
     returnFlightNumber: data.returnFlightNumber || undefined,
     returnFlightTime: data.returnFlightTime || undefined,
     returnLuggageCount: data.returnLuggageCount != null ? data.returnLuggageCount : undefined,
+    returnSmallLuggageCount: data.returnSmallLuggageCount != null ? data.returnSmallLuggageCount : undefined,
+    returnLargeLuggageCount: data.returnLargeLuggageCount != null ? data.returnLargeLuggageCount : undefined,
     price: data.price != null ? data.price : undefined,
     distance: data.distance != null ? data.distance : undefined,
     estimatedDuration: data.estimatedDuration != null ? data.estimatedDuration : undefined,
@@ -427,6 +431,10 @@ export const updateRide = async (
     flightNumber?: string;
     flightTime?: string;
     luggageCount?: number;
+    smallLuggageCount?: number;
+    largeLuggageCount?: number;
+    returnSmallLuggageCount?: number;
+    returnLargeLuggageCount?: number;
   }
 ): Promise<IRide> => {
   const ride = await Ride.findById(rideId);
@@ -456,6 +464,10 @@ export const updateRide = async (
   if (updateData.flightNumber !== undefined) ride.flightNumber = updateData.flightNumber;
   if (updateData.flightTime !== undefined) ride.flightTime = updateData.flightTime;
   if (updateData.luggageCount !== undefined) ride.luggageCount = updateData.luggageCount;
+  if (updateData.smallLuggageCount !== undefined) ride.smallLuggageCount = updateData.smallLuggageCount;
+  if (updateData.largeLuggageCount !== undefined) ride.largeLuggageCount = updateData.largeLuggageCount;
+  if (updateData.returnSmallLuggageCount !== undefined) ride.returnSmallLuggageCount = updateData.returnSmallLuggageCount;
+  if (updateData.returnLargeLuggageCount !== undefined) ride.returnLargeLuggageCount = updateData.returnLargeLuggageCount;
 
   await ride.save();
 

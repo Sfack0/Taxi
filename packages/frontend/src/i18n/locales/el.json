@@ -91,6 +91,7 @@
     "paymentMethod": "Πληρωμή",
     "cash": "Μετρητά",
     "card": "Κάρτα",
+    "cardSurcharge": "+5% με κάρτα",
     "childSeat": "Παιδικό Κάθισμα",
     "yes": "Ναι",
     "notes": "Σημειώσεις",
@@ -103,7 +104,12 @@
     "returnFlightInfo": "Στοιχεία Πτήσης Επιστροφής",
     "flightNumber": "Αρ. Πτήσης",
     "flightTime": "Ώρα Πτήσης",
-    "luggageCount": "Αποσκευές"
+    "luggageCount": "Αποσκευές",
+    "smallLuggage": "Μικρές αποσκευές",
+    "largeLuggage": "Μεγάλες αποσκευές",
+    "luggage": "Αποσκευές",
+    "luggageSmallShort": "Μικρές",
+    "luggageLargeShort": "Μεγάλες"
   },
   "customerInfo": {
     "title": "Στοιχεία Επικοινωνίας",

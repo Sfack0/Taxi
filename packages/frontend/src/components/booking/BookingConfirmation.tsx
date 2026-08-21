@@ -22,10 +22,12 @@ interface BookingConfirmationProps {
   childSeat: boolean;
   flightNumber: string;
   flightTime: string;
-  luggageCount: number;
+  smallLuggageCount: number;
+  largeLuggageCount: number;
   returnFlightNumber: string;
   returnFlightTime: string;
-  returnLuggageCount: number;
+  returnSmallLuggageCount: number;
+  returnLargeLuggageCount: number;
   notes: string;
   onConfirm: () => void;
   onBack: () => void;
@@ -47,10 +49,12 @@ const BookingConfirmation = ({
   childSeat,
   flightNumber,
   flightTime,
-  luggageCount,
+  smallLuggageCount,
+  largeLuggageCount,
   returnFlightNumber,
   returnFlightTime,
-  returnLuggageCount,
+  returnSmallLuggageCount,
+  returnLargeLuggageCount,
   notes,
   onConfirm,
   onBack,
@@ -67,8 +71,8 @@ const BookingConfirmation = ({
 
   const estimatedPrice = useMemo(() => {
     if (!estimatedDistance) return null;
-    return calculatePrice(estimatedDistance, people);
-  }, [estimatedDistance, people]);
+    return calculatePrice(estimatedDistance, people, smallLuggageCount, largeLuggageCount);
+  }, [estimatedDistance, people, smallLuggageCount, largeLuggageCount]);
 
   // Card payment adds 5% (rounded up) — keep the summary in sync with what's stored.
   const displayPrice = estimatedPrice !== null ? applyCardSurcharge(estimatedPrice, paymentMethod) : null;
@@ -188,11 +192,22 @@ const BookingConfirmation = ({
             </svg>
             {people} {t('history.people')}
           </div>
+          {(smallLuggageCount > 0 || largeLuggageCount > 0) && (
+            <div className="flex items-center gap-1.5 mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+              {[
+                smallLuggageCount > 0 ? `${smallLuggageCount} ${t('booking.smallLuggage')}` : null,
+                largeLuggageCount > 0 ? `${largeLuggageCount} ${t('booking.largeLuggage')}` : null,
+              ].filter(Boolean).join(' · ')}
+            </div>
+          )}
 
           {/* Outbound Flight Info */}
           {flightNumber && (
             <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
-              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-1 mb-1">
                     <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -210,15 +225,6 @@ const BookingConfirmation = ({
                     <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">{t('booking.flightTime')}</span>
                   </div>
                   <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-gray-100">{flightTime}</span>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 mb-1">
-                    <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                    <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">{t('booking.luggageCount')}</span>
-                  </div>
-                  <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-gray-100">{luggageCount}</span>
                 </div>
               </div>
             </div>
@@ -241,11 +247,22 @@ const BookingConfirmation = ({
               </svg>
               {returnPeople} {t('history.people')}
             </div>
+            {(returnSmallLuggageCount > 0 || returnLargeLuggageCount > 0) && (
+              <div className="flex items-center gap-1.5 mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                {[
+                  returnSmallLuggageCount > 0 ? `${returnSmallLuggageCount} ${t('booking.smallLuggage')}` : null,
+                  returnLargeLuggageCount > 0 ? `${returnLargeLuggageCount} ${t('booking.largeLuggage')}` : null,
+                ].filter(Boolean).join(' · ')}
+              </div>
+            )}
 
             {/* Return Flight Info */}
             {returnFlightNumber && (
               <div className="mt-3 pt-3 border-t border-amber-200 dark:border-amber-700">
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-1 mb-1">
                       <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,17 +281,6 @@ const BookingConfirmation = ({
                         <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">{t('booking.flightTime')}</span>
                       </div>
                       <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-gray-100">{returnFlightTime}</span>
-                    </div>
-                  )}
-                  {returnLuggageCount > 0 && (
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-1 mb-1">
-                        <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                        </svg>
-                        <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">{t('booking.luggageCount')}</span>
-                      </div>
-                      <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-gray-100">{returnLuggageCount}</span>
                     </div>
                   )}
                 </div>

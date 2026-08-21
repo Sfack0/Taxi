@@ -178,7 +178,7 @@ const AdminCalendar = () => {
           {isTour ? (
             <span className="fc-tour-badge">TOUR</span>
           ) : ride.flightNumber ? (
-            <span className="fc-flight-badge">✈ {ride.flightNumber}{ride.flightTime ? ` · ${ride.flightTime}` : ''}{ride.luggageCount ? ` · ${ride.luggageCount} αποσκ.` : ''}</span>
+            <span className="fc-flight-badge">✈ {ride.flightNumber}{ride.flightTime ? ` · ${ride.flightTime}` : ''}{(() => { const lug = isReturn ? (ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) : (ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0); return lug ? ` · ${lug} βαλ.` : (ride.luggageCount ? ` · ${ride.luggageCount} αποσκ.` : ''); })()}</span>
           ) : (isAirportPickup || isAirportDropoff) ? (
             <span className="fc-airport-badge">{(() => {
               const hubAddress = isReturn ? ride.pickup.address : ride.dropoff.address;
@@ -694,6 +694,32 @@ const AdminCalendar = () => {
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-100 dark:bg-red-800/40 text-sm font-medium text-red-800 dark:text-red-300">
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                         {lc} αποσκ.
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Luggage — small & large, independent of flight */}
+            {(() => {
+              const small = selected.isReturn ? selected.ride.returnSmallLuggageCount : selected.ride.smallLuggageCount;
+              const large = selected.isReturn ? selected.ride.returnLargeLuggageCount : selected.ride.largeLuggageCount;
+              if ((small == null || small <= 0) && (large == null || large <= 0)) return null;
+              return (
+                <div className="rounded-xl bg-gray-50 dark:bg-gray-700/40 border border-gray-200 dark:border-gray-600 p-3.5">
+                  <p className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-2">Αποσκευές</p>
+                  <div className="flex flex-wrap gap-2">
+                    {small != null && small > 0 && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-600/50 text-sm font-medium text-gray-800 dark:text-gray-200">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                        {small} μικρές
+                      </span>
+                    )}
+                    {large != null && large > 0 && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-600/50 text-sm font-medium text-gray-800 dark:text-gray-200">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                        {large} μεγάλες
                       </span>
                     )}
                   </div>

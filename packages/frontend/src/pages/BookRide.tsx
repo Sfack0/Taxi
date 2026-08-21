@@ -171,10 +171,12 @@ const BookRideContent = () => {
                 childSeat={bookingState.childSeat}
                 flightNumber={bookingState.flightNumber}
                 flightTime={bookingState.flightTime}
-                luggageCount={bookingState.luggageCount}
+                smallLuggageCount={bookingState.smallLuggageCount}
+                largeLuggageCount={bookingState.largeLuggageCount}
                 returnFlightNumber={bookingState.returnFlightNumber}
                 returnFlightTime={bookingState.returnFlightTime}
-                returnLuggageCount={bookingState.returnLuggageCount}
+                returnSmallLuggageCount={bookingState.returnSmallLuggageCount}
+                returnLargeLuggageCount={bookingState.returnLargeLuggageCount}
                 notes={bookingState.notes}
                 onConfirm={handleConfirmBooking}
                 onBack={prevStep}
