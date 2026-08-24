@@ -21,6 +21,7 @@ interface BookingState {
   returnPeople: number;
   paymentMethod: 'cash' | 'card';
   childSeat: boolean;
+  babySeat: boolean;
   flightNumber: string;
   flightTime: string;
   luggageCount: number;
@@ -52,6 +53,7 @@ interface BookingContextType {
   setReturnPeople: (people: number) => void;
   setPaymentMethod: (method: 'cash' | 'card') => void;
   setChildSeat: (value: boolean) => void;
+  setBabySeat: (value: boolean) => void;
   setFlightNumber: (flightNumber: string) => void;
   setFlightTime: (flightTime: string) => void;
   setLuggageCount: (luggageCount: number) => void;
@@ -102,6 +104,7 @@ const initialState: BookingState = {
   returnPeople: 2,
   paymentMethod: 'cash',
   childSeat: false,
+  babySeat: false,
   flightNumber: '',
   flightTime: '',
   luggageCount: 0,
@@ -155,6 +158,11 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
 
   const setChildSeat = (childSeat: boolean) => {
     setBookingState((prev) => ({ ...prev, childSeat }));
+    setError(null);
+  };
+
+  const setBabySeat = (babySeat: boolean) => {
+    setBookingState((prev) => ({ ...prev, babySeat }));
     setError(null);
   };
 
@@ -288,6 +296,7 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
         people: bookingState.people,
         paymentMethod: bookingState.paymentMethod,
         childSeat: bookingState.childSeat,
+        babySeat: bookingState.babySeat,
         flightNumber: bookingState.flightNumber || undefined,
         flightTime: bookingState.flightTime || undefined,
         luggageCount: bookingState.luggageCount || undefined,
@@ -386,6 +395,7 @@ const BookingProvider = ({ children }: BookingProviderProps) => {
     setReturnPeople,
     setPaymentMethod,
     setChildSeat,
+    setBabySeat,
     setFlightNumber,
     setFlightTime,
     setLuggageCount,

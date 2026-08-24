@@ -109,7 +109,8 @@
     "largeLuggage": "Maletas grandes",
     "luggage": "Equipaje",
     "luggageSmallShort": "Pequeñas",
-    "luggageLargeShort": "Grandes"
+    "luggageLargeShort": "Grandes",
+    "babySeat": "Silla de Bebé"
   },
   "customerInfo": {
     "title": "Información de Contacto",

@@ -109,7 +109,8 @@
     "largeLuggage": "Grandes valises",
     "luggage": "Bagages",
     "luggageSmallShort": "Petites",
-    "luggageLargeShort": "Grandes"
+    "luggageLargeShort": "Grandes",
+    "babySeat": "Siège Bébé"
   },
   "customerInfo": {
     "title": "Coordonnées",

@@ -43,8 +43,8 @@ const LocationPicker = ({
   initialDropoff,
 }: LocationPickerProps) => {
   const { t, i18n } = useTranslation();
-  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setPeople: setPeopleContext, setSmallLuggageCount, setLargeLuggageCount, setReturnSmallLuggageCount, setReturnLargeLuggageCount, setDirectionsDistance: setContextDirectionsDistance, setDirectionsDuration: setContextDirectionsDuration, bookingState } = useBooking();
-  const { isRoundtrip, returnPeople, paymentMethod, childSeat, smallLuggageCount, largeLuggageCount, returnSmallLuggageCount, returnLargeLuggageCount, pickupCoordinates, dropoffCoordinates, scheduledFor, returnScheduledFor } = bookingState;
+  const { setScheduledFor, setIsRoundtrip, setReturnScheduledFor, setReturnPeople, setPickupCoordinates, setDropoffCoordinates, setPaymentMethod, setChildSeat, setBabySeat, setPeople: setPeopleContext, setSmallLuggageCount, setLargeLuggageCount, setReturnSmallLuggageCount, setReturnLargeLuggageCount, setDirectionsDistance: setContextDirectionsDistance, setDirectionsDuration: setContextDirectionsDuration, bookingState } = useBooking();
+  const { isRoundtrip, returnPeople, paymentMethod, childSeat, babySeat, smallLuggageCount, largeLuggageCount, returnSmallLuggageCount, returnLargeLuggageCount, pickupCoordinates, dropoffCoordinates, scheduledFor, returnScheduledFor } = bookingState;
   const { isLoaded } = useGoogleMaps();
 
   const [pickupAddress, setPickupAddress] = useState(initialPickup || '');
@@ -325,6 +325,24 @@ const LocationPicker = ({
           />
         </button>
         <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('booking.childSeat')}</span>
+      </div>
+
+      {/* Baby Seat Toggle */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setBabySeat(!babySeat)}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${
+            babySeat ? 'bg-primary-500' : 'bg-gray-300 dark:bg-gray-600'
+          }`}
+        >
+          <span
+            className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${
+              babySeat ? 'translate-x-5' : 'translate-x-0'
+            }`}
+          />
+        </button>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('booking.babySeat')}</span>
       </div>
 
       {/* Roundtrip Toggle */}

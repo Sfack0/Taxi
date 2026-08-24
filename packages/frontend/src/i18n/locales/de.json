@@ -109,7 +109,8 @@
     "largeLuggage": "Große Koffer",
     "luggage": "Gepäck",
     "luggageSmallShort": "Klein",
-    "luggageLargeShort": "Groß"
+    "luggageLargeShort": "Groß",
+    "babySeat": "Babyschale"
   },
   "customerInfo": {
     "title": "Kontaktdaten",

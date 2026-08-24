@@ -630,6 +630,12 @@ const RideHistory = () => {
                             {t('booking.childSeat')}
                           </span>
                         )}
+                        {ride.babySeat && (
+                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" /></svg>
+                            {t('booking.babySeat')}
+                          </span>
+                        )}
                       </div>
 
                       {/* Notes */}

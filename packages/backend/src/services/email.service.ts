@@ -161,6 +161,8 @@ type EmailTranslations = {
   luggageCount: string;
   smallLuggage: string;
   largeLuggage: string;
+  babySeat: string;
+  price: string;
   willContact: string;
 };
 
@@ -193,6 +195,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     luggageCount: 'Αποσκευές',
     smallLuggage: 'Μικρές αποσκευές',
     largeLuggage: 'Μεγάλες αποσκευές',
+    babySeat: 'Κάθισμα Μωρού',
+    price: 'Τιμή',
     willContact: 'Θα επικοινωνήσουμε μαζί σας για επιβεβαίωση.',
   },
   en: {
@@ -223,6 +227,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     luggageCount: 'Luggage',
     smallLuggage: 'Small suitcases',
     largeLuggage: 'Large suitcases',
+    babySeat: 'Baby Seat',
+    price: 'Price',
     willContact: 'We will contact you to confirm your booking.',
   },
   fr: {
@@ -253,6 +259,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     luggageCount: 'Bagages',
     smallLuggage: 'Petites valises',
     largeLuggage: 'Grandes valises',
+    babySeat: 'Siège Bébé',
+    price: 'Prix',
     willContact: 'Nous vous contacterons pour confirmer votre réservation.',
   },
   de: {
@@ -283,6 +291,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     luggageCount: 'Gepäck',
     smallLuggage: 'Kleine Koffer',
     largeLuggage: 'Große Koffer',
+    babySeat: 'Babyschale',
+    price: 'Preis',
     willContact: 'Wir werden Sie kontaktieren, um Ihre Buchung zu bestätigen.',
   },
   it: {
@@ -313,6 +323,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     luggageCount: 'Bagagli',
     smallLuggage: 'Valigie piccole',
     largeLuggage: 'Valigie grandi',
+    babySeat: 'Seggiolino Neonato',
+    price: 'Prezzo',
     willContact: 'Vi contatteremo per confermare la vostra prenotazione.',
   },
   es: {
@@ -343,6 +355,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     luggageCount: 'Equipaje',
     smallLuggage: 'Maletas pequeñas',
     largeLuggage: 'Maletas grandes',
+    babySeat: 'Silla de Bebé',
+    price: 'Precio',
     willContact: 'Nos pondremos en contacto con usted para confirmar su reserva.',
   },
 };
@@ -626,34 +640,16 @@ const getBookingConfirmationHTML = (ride: Ride) => {
           <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.payment}</td>
           <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; text-align: right;">${ride.paymentMethod === 'card' ? t.card : t.cash}</td>
         </tr>
+        ${ride.price != null ? `
+        <tr>
+          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.price}</td>
+          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #16a34a; font-weight: 700; text-align: right;">${ride.isRoundtrip ? `${ride.price}€ × 2 = ${ride.price * 2}€` : `${ride.price}€`}</td>
+        </tr>
+        ` : ''}
         ${ride.childSeat ? `
         <tr>
           <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.childSeat}</td>
           <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; text-align: right;">${t.yes}</td>
-        </tr>
-        ` : ''}
-        ${ride.smallLuggageCount != null && ride.smallLuggageCount > 0 ? `
-        <tr>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.smallLuggage}${ride.isRoundtrip ? ` (${t.outbound})` : ''}</td>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; text-align: right;">${ride.smallLuggageCount}</td>
-        </tr>
-        ` : ''}
-        ${ride.largeLuggageCount != null && ride.largeLuggageCount > 0 ? `
-        <tr>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.largeLuggage}${ride.isRoundtrip ? ` (${t.outbound})` : ''}</td>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; text-align: right;">${ride.largeLuggageCount}</td>
-        </tr>
-        ` : ''}
-        ${ride.isRoundtrip && ride.returnSmallLuggageCount != null && ride.returnSmallLuggageCount > 0 ? `
-        <tr>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.smallLuggage} (${t.return})</td>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; text-align: right;">${ride.returnSmallLuggageCount}</td>
-        </tr>
-        ` : ''}
-        ${ride.isRoundtrip && ride.returnLargeLuggageCount != null && ride.returnLargeLuggageCount > 0 ? `
-        <tr>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #666;">${t.largeLuggage} (${t.return})</td>
-          <td style="padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; text-align: right;">${ride.returnLargeLuggageCount}</td>
         </tr>
         ` : ''}
         ${ride.notes ? `
@@ -679,10 +675,10 @@ const getBookingConfirmationHTML = (ride: Ride) => {
           <td style="padding: 4px 0; color: #0c4a6e; font-weight: 600; text-align: right;">${ride.flightTime}</td>
         </tr>
         ` : ''}
-        ${ride.luggageCount != null && ride.luggageCount > 0 ? `
+        ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `
         <tr>
           <td style="padding: 4px 0; color: #0369a1;">${t.luggageCount}</td>
-          <td style="padding: 4px 0; color: #0c4a6e; font-weight: 600; text-align: right;">${ride.luggageCount}</td>
+          <td style="padding: 4px 0; color: #0c4a6e; font-weight: 600; text-align: right;">${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}</td>
         </tr>
         ` : ''}
       </table>
@@ -703,10 +699,10 @@ const getBookingConfirmationHTML = (ride: Ride) => {
           <td style="padding: 4px 0; color: #78350f; font-weight: 600; text-align: right;">${ride.returnFlightTime}</td>
         </tr>
         ` : ''}
-        ${ride.returnLuggageCount != null && ride.returnLuggageCount > 0 ? `
+        ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `
         <tr>
           <td style="padding: 4px 0; color: #92400e;">${t.luggageCount}</td>
-          <td style="padding: 4px 0; color: #78350f; font-weight: 600; text-align: right;">${ride.returnLuggageCount}</td>
+          <td style="padding: 4px 0; color: #78350f; font-weight: 600; text-align: right;">${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}</td>
         </tr>
         ` : ''}
       </table>
@@ -744,9 +740,9 @@ ${ride.isRoundtrip && returnDate ? `${t.return}: ${returnDate}${ride.returnPeopl
 ${t.details}:
 - ${t.name}: ${ride.customerName}
 - ${t.phone}: ${ride.customerPhone}
-- ${t.payment}: ${ride.paymentMethod === 'card' ? t.card : t.cash}${ride.childSeat ? `\n- ${t.childSeat}: ${t.yes}` : ''}${ride.smallLuggageCount ? `\n- ${t.smallLuggage}${ride.isRoundtrip ? ` (${t.outbound})` : ''}: ${ride.smallLuggageCount}` : ''}${ride.largeLuggageCount ? `\n- ${t.largeLuggage}${ride.isRoundtrip ? ` (${t.outbound})` : ''}: ${ride.largeLuggageCount}` : ''}${ride.isRoundtrip && ride.returnSmallLuggageCount ? `\n- ${t.smallLuggage} (${t.return}): ${ride.returnSmallLuggageCount}` : ''}${ride.isRoundtrip && ride.returnLargeLuggageCount ? `\n- ${t.largeLuggage} (${t.return}): ${ride.returnLargeLuggageCount}` : ''}${ride.notes ? `\n- ${t.notes}: ${ride.notes}` : ''}
-${ride.flightNumber ? `\n${t.flightInfo}:\n- ${t.flightNumber}: ${ride.flightNumber}${ride.flightTime ? `\n- ${t.flightTime}: ${ride.flightTime}` : ''}${ride.luggageCount ? `\n- ${t.luggageCount}: ${ride.luggageCount}` : ''}` : ''}
-${ride.returnFlightNumber ? `\n${t.returnFlightInfo}:\n- ${t.flightNumber}: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- ${t.flightTime}: ${ride.returnFlightTime}` : ''}${ride.returnLuggageCount ? `\n- ${t.luggageCount}: ${ride.returnLuggageCount}` : ''}` : ''}
+- ${t.payment}: ${ride.paymentMethod === 'card' ? t.card : t.cash}${ride.price != null ? `\n- ${t.price}: ${ride.isRoundtrip ? `${ride.price}€ × 2 = ${ride.price * 2}€` : `${ride.price}€`}` : ''}${ride.childSeat ? `\n- ${t.childSeat}: ${t.yes}` : ''}${ride.notes ? `\n- ${t.notes}: ${ride.notes}` : ''}
+${ride.flightNumber ? `\n${t.flightInfo}:\n- ${t.flightNumber}: ${ride.flightNumber}${ride.flightTime ? `\n- ${t.flightTime}: ${ride.flightTime}` : ''}${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `\n- ${t.luggageCount}: ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}` : ''}` : ''}
+${ride.returnFlightNumber ? `\n${t.returnFlightInfo}:\n- ${t.flightNumber}: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- ${t.flightTime}: ${ride.returnFlightTime}` : ''}${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `\n- ${t.luggageCount}: ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}` : ''}` : ''}
 
 ${t.willContact}
 
@@ -987,11 +983,8 @@ const getAdminNotificationHTML = (ride: Ride) => {
         <div>Email: <a href="mailto:${ride.customerEmail}" style="color: #92400e; text-decoration: none;">${ride.customerEmail}</a></div>
         <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #fcd34d;">
           <div>Πληρωμή: <strong>${ride.paymentMethod === 'card' ? 'Κάρτα' : 'Μετρητά'}</strong></div>
+          ${ride.price != null ? `<div>Τιμή: <strong style="color: #16a34a;">${ride.isRoundtrip ? `${ride.price}€ × 2 = ${ride.price * 2}€` : `${ride.price}€`}</strong></div>` : ''}
           ${ride.childSeat ? '<div>Παιδικό Κάθισμα: <strong>Ναι</strong></div>' : ''}
-          ${ride.smallLuggageCount != null && ride.smallLuggageCount > 0 ? `<div>Μικρές αποσκευές${ride.isRoundtrip ? ' (Μετάβαση)' : ''}: <strong>${ride.smallLuggageCount}</strong></div>` : ''}
-          ${ride.largeLuggageCount != null && ride.largeLuggageCount > 0 ? `<div>Μεγάλες αποσκευές${ride.isRoundtrip ? ' (Μετάβαση)' : ''}: <strong>${ride.largeLuggageCount}</strong></div>` : ''}
-          ${ride.isRoundtrip && ride.returnSmallLuggageCount != null && ride.returnSmallLuggageCount > 0 ? `<div>Μικρές αποσκευές (Επιστροφή): <strong>${ride.returnSmallLuggageCount}</strong></div>` : ''}
-          ${ride.isRoundtrip && ride.returnLargeLuggageCount != null && ride.returnLargeLuggageCount > 0 ? `<div>Μεγάλες αποσκευές (Επιστροφή): <strong>${ride.returnLargeLuggageCount}</strong></div>` : ''}
           ${ride.notes ? `<div style="margin-top: 4px;">Σημειώσεις: <strong>${ride.notes.replace(/\n/g, '<br>')}</strong></div>` : ''}
         </div>
       </div>
@@ -1003,7 +996,7 @@ const getAdminNotificationHTML = (ride: Ride) => {
       <div style="background: #e0f2fe; border: 1px solid #7dd3fc; border-radius: 6px; padding: 12px;">
         <div style="margin-bottom: 4px;">Αρ. Πτήσης: <strong>${ride.flightNumber}</strong></div>
         ${ride.flightTime ? `<div style="margin-bottom: 4px;">Ώρα Πτήσης: <strong>${ride.flightTime}</strong></div>` : ''}
-        ${ride.luggageCount != null && ride.luggageCount > 0 ? `<div>Αποσκευές: <strong>${ride.luggageCount}</strong></div>` : ''}
+        ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `<div>Αποσκευές: <strong>${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}</strong></div>` : ''}
       </div>
     </div>
     ` : ''}
@@ -1014,7 +1007,7 @@ const getAdminNotificationHTML = (ride: Ride) => {
       <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 6px; padding: 12px;">
         <div style="margin-bottom: 4px;">Αρ. Πτήσης: <strong>${ride.returnFlightNumber}</strong></div>
         ${ride.returnFlightTime ? `<div style="margin-bottom: 4px;">Ώρα Πτήσης: <strong>${ride.returnFlightTime}</strong></div>` : ''}
-        ${ride.returnLuggageCount != null && ride.returnLuggageCount > 0 ? `<div>Αποσκευές: <strong>${ride.returnLuggageCount}</strong></div>` : ''}
+        ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `<div>Αποσκευές: <strong>${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}</strong></div>` : ''}
       </div>
     </div>
     ` : ''}
@@ -1043,9 +1036,9 @@ ${ride.isRoundtrip && returnDate ? `Επιστροφή: ${returnDate}${ride.retu
 - Όνομα: ${ride.customerName}
 - Τηλέφωνο: ${ride.customerPhone}
 - Email: ${ride.customerEmail}
-- Πληρωμή: ${ride.paymentMethod === 'card' ? 'Κάρτα' : 'Μετρητά'}${ride.childSeat ? '\n- Παιδικό Κάθισμα: Ναι' : ''}${ride.smallLuggageCount ? `\n- Μικρές αποσκευές${ride.isRoundtrip ? ' (Μετάβαση)' : ''}: ${ride.smallLuggageCount}` : ''}${ride.largeLuggageCount ? `\n- Μεγάλες αποσκευές${ride.isRoundtrip ? ' (Μετάβαση)' : ''}: ${ride.largeLuggageCount}` : ''}${ride.isRoundtrip && ride.returnSmallLuggageCount ? `\n- Μικρές αποσκευές (Επιστροφή): ${ride.returnSmallLuggageCount}` : ''}${ride.isRoundtrip && ride.returnLargeLuggageCount ? `\n- Μεγάλες αποσκευές (Επιστροφή): ${ride.returnLargeLuggageCount}` : ''}${ride.notes ? `\n- Σημειώσεις: ${ride.notes}` : ''}
-${ride.flightNumber ? `\nΣτοιχεία Πτήσης:\n- Αρ. Πτήσης: ${ride.flightNumber}${ride.flightTime ? `\n- Ώρα Πτήσης: ${ride.flightTime}` : ''}${ride.luggageCount ? `\n- Αποσκευές: ${ride.luggageCount}` : ''}` : ''}
-${ride.returnFlightNumber ? `\nΣτοιχεία Πτήσης Επιστροφής:\n- Αρ. Πτήσης: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- Ώρα Πτήσης: ${ride.returnFlightTime}` : ''}${ride.returnLuggageCount ? `\n- Αποσκευές: ${ride.returnLuggageCount}` : ''}` : ''}
+- Πληρωμή: ${ride.paymentMethod === 'card' ? 'Κάρτα' : 'Μετρητά'}${ride.price != null ? `\n- Τιμή: ${ride.isRoundtrip ? `${ride.price}€ × 2 = ${ride.price * 2}€` : `${ride.price}€`}` : ''}${ride.childSeat ? '\n- Παιδικό Κάθισμα: Ναι' : ''}${ride.notes ? `\n- Σημειώσεις: ${ride.notes}` : ''}
+${ride.flightNumber ? `\nΣτοιχεία Πτήσης:\n- Αρ. Πτήσης: ${ride.flightNumber}${ride.flightTime ? `\n- Ώρα Πτήσης: ${ride.flightTime}` : ''}${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `\n- Αποσκευές: ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}` : ''}` : ''}
+${ride.returnFlightNumber ? `\nΣτοιχεία Πτήσης Επιστροφής:\n- Αρ. Πτήσης: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- Ώρα Πτήσης: ${ride.returnFlightTime}` : ''}${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `\n- Αποσκευές: ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}` : ''}` : ''}
 
 Comfort Transfer Services Admin
   `;

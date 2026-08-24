@@ -108,6 +108,7 @@ export interface Ride {
   returnPeople?: number;
   paymentMethod?: 'cash' | 'card';
   childSeat?: boolean;
+  babySeat?: boolean;
   notes?: string;
   userRating?: number;
   driverRating?: number;
@@ -147,6 +148,7 @@ export interface CreateRideRequest {
   people?: number;
   paymentMethod?: 'cash' | 'card';
   childSeat?: boolean;
+  babySeat?: boolean;
   flightNumber?: string;
   flightTime?: string;
   luggageCount?: number;

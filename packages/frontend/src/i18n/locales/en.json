@@ -109,7 +109,8 @@
     "largeLuggage": "Large suitcases",
     "luggage": "Luggage",
     "luggageSmallShort": "Small",
-    "luggageLargeShort": "Large"
+    "luggageLargeShort": "Large",
+    "babySeat": "Baby Seat"
   },
   "customerInfo": {
     "title": "Contact Information",

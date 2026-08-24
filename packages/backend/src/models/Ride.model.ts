@@ -131,6 +131,10 @@ const rideSchema = new Schema<RideDocument>(
       type: Boolean,
       default: false,
     },
+    babySeat: {
+      type: Boolean,
+      default: false,
+    },
     notes: {
       type: String,
       default: undefined,

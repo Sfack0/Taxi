@@ -58,6 +58,7 @@ export const createRide = async (userId: string | undefined, data: CreateRideReq
     notes: data.notes,
     paymentMethod: data.paymentMethod || 'cash',
     childSeat: data.childSeat ?? false,
+    babySeat: data.babySeat ?? false,
     flightNumber: data.flightNumber || undefined,
     flightTime: data.flightTime || undefined,
     luggageCount: data.luggageCount != null ? data.luggageCount : undefined,
@@ -428,6 +429,7 @@ export const updateRide = async (
     notes?: string;
     paymentMethod?: 'cash' | 'card';
     childSeat?: boolean;
+    babySeat?: boolean;
     flightNumber?: string;
     flightTime?: string;
     luggageCount?: number;
@@ -461,6 +463,7 @@ export const updateRide = async (
   if (updateData.notes !== undefined) ride.notes = updateData.notes;
   if (updateData.paymentMethod !== undefined) ride.paymentMethod = updateData.paymentMethod;
   if (updateData.childSeat !== undefined) ride.childSeat = updateData.childSeat;
+  if (updateData.babySeat !== undefined) ride.babySeat = updateData.babySeat;
   if (updateData.flightNumber !== undefined) ride.flightNumber = updateData.flightNumber;
   if (updateData.flightTime !== undefined) ride.flightTime = updateData.flightTime;
   if (updateData.luggageCount !== undefined) ride.luggageCount = updateData.luggageCount;

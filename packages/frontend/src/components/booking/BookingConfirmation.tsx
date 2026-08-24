@@ -20,6 +20,7 @@ interface BookingConfirmationProps {
   returnPeople: number;
   paymentMethod: 'cash' | 'card';
   childSeat: boolean;
+  babySeat: boolean;
   flightNumber: string;
   flightTime: string;
   smallLuggageCount: number;
@@ -47,6 +48,7 @@ const BookingConfirmation = ({
   returnPeople,
   paymentMethod,
   childSeat,
+  babySeat,
   flightNumber,
   flightTime,
   smallLuggageCount,
@@ -303,6 +305,12 @@ const BookingConfirmation = ({
             {childSeat && (
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-2">
                 <span className="text-gray-600 dark:text-gray-400">{t('booking.childSeat')}:</span>
+                <span className="text-gray-900 dark:text-gray-100 font-medium">{t('booking.yes')}</span>
+              </div>
+            )}
+            {babySeat && (
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-2">
+                <span className="text-gray-600 dark:text-gray-400">{t('booking.babySeat')}:</span>
                 <span className="text-gray-900 dark:text-gray-100 font-medium">{t('booking.yes')}</span>
               </div>
             )}

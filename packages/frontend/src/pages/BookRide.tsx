@@ -169,6 +169,7 @@ const BookRideContent = () => {
                 returnPeople={bookingState.returnPeople}
                 paymentMethod={bookingState.paymentMethod}
                 childSeat={bookingState.childSeat}
+                babySeat={bookingState.babySeat}
                 flightNumber={bookingState.flightNumber}
                 flightTime={bookingState.flightTime}
                 smallLuggageCount={bookingState.smallLuggageCount}
