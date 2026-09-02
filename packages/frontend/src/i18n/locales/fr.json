@@ -57,7 +57,10 @@
       "title": "À propos de nous",
       "p1": "Avec plus de 25 ans d'expérience, notre service de taxi familial offre un transport confortable et fiable pour les voyageurs qui apprécient la qualité et la confiance.",
       "p2": "Nous plaçons le confort, la sécurité et la ponctualité en priorité. Chaque trajet est effectué avec soin, des transferts aéroport aux courses privées en passant par le transport personnalisé à travers la Crète."
-    }
+    },
+    "highlightWifi": "WiFi gratuit",
+    "vehicleWifi": "WiFi gratuit",
+    "vehicleWifiDesc": "Restez connecté pendant tout le trajet"
   },
   "booking": {
     "step1": "Lieu",

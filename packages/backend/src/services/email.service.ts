@@ -164,6 +164,7 @@ type EmailTranslations = {
   babySeat: string;
   price: string;
   willContact: string;
+  addToCalendar: string;
 };
 
 const translations: Record<SupportedLanguage, EmailTranslations> = {
@@ -198,6 +199,7 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     babySeat: 'Κάθισμα Μωρού',
     price: 'Τιμή',
     willContact: 'Θα επικοινωνήσουμε μαζί σας για επιβεβαίωση.',
+    addToCalendar: 'Προσθήκη στο Google Calendar',
   },
   en: {
     subject: 'Booking Confirmation',
@@ -230,6 +232,7 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     babySeat: 'Baby Seat',
     price: 'Price',
     willContact: 'We will contact you to confirm your booking.',
+    addToCalendar: 'Add to Google Calendar',
   },
   fr: {
     subject: 'Confirmation de Réservation',
@@ -262,6 +265,7 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     babySeat: 'Siège Bébé',
     price: 'Prix',
     willContact: 'Nous vous contacterons pour confirmer votre réservation.',
+    addToCalendar: 'Ajouter à Google Agenda',
   },
   de: {
     subject: 'Buchungsbestätigung',
@@ -294,6 +298,7 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     babySeat: 'Babyschale',
     price: 'Preis',
     willContact: 'Wir werden Sie kontaktieren, um Ihre Buchung zu bestätigen.',
+    addToCalendar: 'Zu Google Kalender hinzufügen',
   },
   it: {
     subject: 'Conferma Prenotazione',
@@ -326,6 +331,7 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     babySeat: 'Seggiolino Neonato',
     price: 'Prezzo',
     willContact: 'Vi contatteremo per confermare la vostra prenotazione.',
+    addToCalendar: 'Aggiungi a Google Calendar',
   },
   es: {
     subject: 'Confirmación de Reserva',
@@ -358,6 +364,7 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     babySeat: 'Silla de Bebé',
     price: 'Precio',
     willContact: 'Nos pondremos en contacto con usted para confirmar su reserva.',
+    addToCalendar: 'Añadir a Google Calendar',
   },
 };
 
@@ -564,6 +571,98 @@ const formatPeople = (count: number, lang: SupportedLanguage = 'el') => {
   return count === 1 ? `1 ${t.person}` : `${count} ${t.people}`;
 };
 
+// ---- Google Calendar "add event" link -------------------------------------
+// Builds a calendar.google.com/render?TEMPLATE URL that opens Google Calendar
+// with the trip prefilled; the customer just presses Save. No attachment needed.
+const toGCalUTC = (date: Date | string): string => {
+  const d = new Date(date);
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getUTCFullYear()}${p(d.getUTCMonth() + 1)}${p(d.getUTCDate())}T${p(d.getUTCHours())}${p(d.getUTCMinutes())}${p(d.getUTCSeconds())}Z`;
+};
+
+const googleCalendarUrl = (opts: {
+  title: string;
+  start: Date | string;
+  durationMin: number;
+  location: string;
+  details: string;
+}): string => {
+  const start = new Date(opts.start);
+  const end = new Date(start.getTime() + opts.durationMin * 60000);
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: opts.title,
+    dates: `${toGCalUTC(start)}/${toGCalUTC(end)}`,
+    location: opts.location,
+    details: opts.details,
+    ctz: 'Europe/Athens',
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+};
+
+const calendarButton = (url: string, label: string): string =>
+  `<a href="${url}" target="_blank" style="display: inline-block; margin: 4px; padding: 10px 18px; background: #16a34a; color: #ffffff; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600;">📅 ${label}</a>`;
+
+// Calendar button(s) for a ride: outbound always, plus return for roundtrips.
+const calendarButtonsHTML = (ride: Ride, t: EmailTranslations, pickupTranslated: string, dropoffTranslated: string): string => {
+  const durationMin = ride.estimatedDuration && ride.estimatedDuration > 0 ? ride.estimatedDuration : 60;
+  const company = 'Comfort Transfer Services';
+  const buttons: string[] = [];
+
+  if (ride.scheduledFor) {
+    buttons.push(calendarButton(
+      googleCalendarUrl({
+        title: `${company}: ${pickupTranslated} → ${dropoffTranslated}`,
+        start: ride.scheduledFor,
+        durationMin,
+        location: pickupTranslated,
+        details: `${t.route}: ${pickupTranslated} → ${dropoffTranslated}\n${t.people}: ${ride.people ?? ''}\n${t.phone}: ${ride.customerPhone}${ride.price != null ? `\n${t.price}: ${ride.price}€` : ''}`,
+      }),
+      ride.isRoundtrip ? `${t.addToCalendar} (${t.outbound})` : t.addToCalendar,
+    ));
+  }
+
+  if (ride.isRoundtrip && ride.returnScheduledFor) {
+    buttons.push(calendarButton(
+      googleCalendarUrl({
+        title: `${company}: ${dropoffTranslated} → ${pickupTranslated}`,
+        start: ride.returnScheduledFor,
+        durationMin,
+        location: dropoffTranslated,
+        details: `${t.route}: ${dropoffTranslated} → ${pickupTranslated}\n${t.people}: ${ride.returnPeople ?? ride.people ?? ''}\n${t.phone}: ${ride.customerPhone}`,
+      }),
+      `${t.addToCalendar} (${t.return})`,
+    ));
+  }
+
+  if (!buttons.length) return '';
+  return `<div style="text-align: center; margin-top: 20px;">${buttons.join('')}</div>`;
+};
+
+// Plain-text version of the calendar links.
+const calendarLinksText = (ride: Ride, t: EmailTranslations, pickupTranslated: string, dropoffTranslated: string): string => {
+  const durationMin = ride.estimatedDuration && ride.estimatedDuration > 0 ? ride.estimatedDuration : 60;
+  const company = 'Comfort Transfer Services';
+  const lines: string[] = [];
+  if (ride.scheduledFor) {
+    const url = googleCalendarUrl({
+      title: `${company}: ${pickupTranslated} → ${dropoffTranslated}`,
+      start: ride.scheduledFor, durationMin, location: pickupTranslated,
+      details: `${t.route}: ${pickupTranslated} → ${dropoffTranslated}`,
+    });
+    lines.push(`${ride.isRoundtrip ? `${t.addToCalendar} (${t.outbound})` : t.addToCalendar}: ${url}`);
+  }
+  if (ride.isRoundtrip && ride.returnScheduledFor) {
+    const url = googleCalendarUrl({
+      title: `${company}: ${dropoffTranslated} → ${pickupTranslated}`,
+      start: ride.returnScheduledFor, durationMin, location: dropoffTranslated,
+      details: `${t.route}: ${dropoffTranslated} → ${pickupTranslated}`,
+    });
+    lines.push(`${t.addToCalendar} (${t.return}): ${url}`);
+  }
+  return lines.length ? `\n${lines.join('\n')}\n` : '';
+};
+
 // ============================================================================
 // CUSTOMER EMAIL (Multi-language)
 // ============================================================================
@@ -709,6 +808,8 @@ const getBookingConfirmationHTML = (ride: Ride) => {
     </div>
     ` : ''}
 
+    ${calendarButtonsHTML(ride, t, pickupTranslated, dropoffTranslated)}
+
     <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #eee; color: #999; font-size: 12px;">
       <p style="margin: 0 0 4px 0;">${t.willContact}</p>
       <p style="margin: 0;">Comfort Transfer Services</p>
@@ -744,6 +845,7 @@ ${t.details}:
 ${ride.flightNumber ? `\n${t.flightInfo}:\n- ${t.flightNumber}: ${ride.flightNumber}${ride.flightTime ? `\n- ${t.flightTime}: ${ride.flightTime}` : ''}${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `\n- ${t.luggageCount}: ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}` : ''}` : ''}
 ${ride.returnFlightNumber ? `\n${t.returnFlightInfo}:\n- ${t.flightNumber}: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- ${t.flightTime}: ${ride.returnFlightTime}` : ''}${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `\n- ${t.luggageCount}: ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}` : ''}` : ''}
 
+${calendarLinksText(ride, t, pickupTranslated, dropoffTranslated)}
 ${t.willContact}
 
 Comfort Transfer Services
@@ -1012,6 +1114,8 @@ const getAdminNotificationHTML = (ride: Ride) => {
     </div>
     ` : ''}
 
+    ${calendarButtonsHTML(ride, translations.el, ride.pickup.address, ride.dropoff.address)}
+
     <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #eee; color: #999; font-size: 12px;">
       <p style="margin: 0;">Comfort Transfer Services Admin</p>
     </div>
@@ -1039,7 +1143,7 @@ ${ride.isRoundtrip && returnDate ? `Επιστροφή: ${returnDate}${ride.retu
 - Πληρωμή: ${ride.paymentMethod === 'card' ? 'Κάρτα' : 'Μετρητά'}${ride.price != null ? `\n- Τιμή: ${ride.isRoundtrip ? `${ride.price}€ × 2 = ${ride.price * 2}€` : `${ride.price}€`}` : ''}${ride.childSeat ? '\n- Παιδικό Κάθισμα: Ναι' : ''}${ride.notes ? `\n- Σημειώσεις: ${ride.notes}` : ''}
 ${ride.flightNumber ? `\nΣτοιχεία Πτήσης:\n- Αρ. Πτήσης: ${ride.flightNumber}${ride.flightTime ? `\n- Ώρα Πτήσης: ${ride.flightTime}` : ''}${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `\n- Αποσκευές: ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}` : ''}` : ''}
 ${ride.returnFlightNumber ? `\nΣτοιχεία Πτήσης Επιστροφής:\n- Αρ. Πτήσης: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- Ώρα Πτήσης: ${ride.returnFlightTime}` : ''}${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `\n- Αποσκευές: ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}` : ''}` : ''}
-
+${calendarLinksText(ride, translations.el, ride.pickup.address, ride.dropoff.address)}
 Comfort Transfer Services Admin
   `;
 };

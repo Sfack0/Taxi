@@ -57,7 +57,10 @@
       "title": "Über uns",
       "p1": "Mit über 25 Jahren Erfahrung bietet unser familiengeführter Taxiservice komfortablen und zuverlässigen Transport für Reisende, die Qualität und Vertrauen schätzen.",
       "p2": "Komfort, Sicherheit und Pünktlichkeit stehen bei uns an erster Stelle. Jede Fahrt wird mit Sorgfalt durchgeführt, von Flughafentransfers über Privatfahrten bis hin zu individuellen Transporten auf ganz Kreta."
-    }
+    },
+    "highlightWifi": "Kostenloses WLAN",
+    "vehicleWifi": "Kostenloses WLAN",
+    "vehicleWifiDesc": "Bleiben Sie während der ganzen Fahrt verbunden"
   },
   "booking": {
     "step1": "Ort",

@@ -62,6 +62,23 @@ const VehicleInfo = () => {
                   </p>
                 </div>
               </div>
+
+              {/* Free WiFi */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {t('home.vehicleWifi')}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {t('home.vehicleWifiDesc')}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

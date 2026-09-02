@@ -57,7 +57,10 @@
       "title": "About Us",
       "p1": "With over 25 years of experience, our family-owned taxi service offers comfortable, reliable transportation for travelers who value quality and trust.",
       "p2": "We put comfort, safety, and punctuality first. Every ride is handled with care, from airport transfers and private rides to personalized transportation across Crete."
-    }
+    },
+    "highlightWifi": "Free WiFi",
+    "vehicleWifi": "Free WiFi",
+    "vehicleWifiDesc": "Stay connected throughout your ride"
   },
   "booking": {
     "step1": "Booking",

@@ -57,7 +57,10 @@
       "title": "Chi siamo",
       "p1": "Con oltre 25 anni di esperienza, il nostro servizio taxi familiare offre un trasporto comodo e affidabile per viaggiatori che apprezzano qualità e fiducia.",
       "p2": "Mettiamo al primo posto comfort, sicurezza e puntualità. Ogni corsa è gestita con cura, dai trasferimenti aeroportuali alle corse private fino al trasporto personalizzato in tutta Creta."
-    }
+    },
+    "highlightWifi": "WiFi gratuito",
+    "vehicleWifi": "WiFi gratuito",
+    "vehicleWifiDesc": "Resta connesso per tutto il viaggio"
   },
   "booking": {
     "step1": "Luogo",
