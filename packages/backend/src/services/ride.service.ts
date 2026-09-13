@@ -362,7 +362,16 @@ export const acceptRide = async (rideId: string): Promise<IRide> => {
   ride.acceptedAt = new Date();
   await ride.save();
 
-  return ride.toJSON() as IRide;
+  const rideJSON = ride.toJSON() as IRide;
+
+  // Notify the customer their booking is confirmed. Await it: in serverless the
+  // container freezes once the HTTP response is sent, killing pending promises.
+  const [accepted] = await Promise.allSettled([sendBookingConfirmation(rideJSON, 'accepted')]);
+  if (accepted.status === 'rejected') {
+    logger.error('Failed to send booking accepted email:', accepted.reason);
+  }
+
+  return rideJSON;
 };
 
 export const rejectRide = async (rideId: string, reason?: string): Promise<IRide> => {

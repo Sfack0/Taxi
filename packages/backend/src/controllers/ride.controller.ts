@@ -8,7 +8,20 @@ import {
   PaginatedResponse,
 } from '@cts/shared';
 import * as rideService from '../services/ride.service';
+import { verifyRideAction } from '../utils/rideActionToken';
 import logger from '../utils/logger';
+
+// Minimal styled HTML page for one-click email actions (Greek — admin-facing).
+const actionResultPage = (title: string, message: string, color: string): string => `<!DOCTYPE html>
+<html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${title}</title></head>
+<body style="font-family: Arial, sans-serif; background: #f3f4f6; margin: 0; padding: 24px; color: #111827;">
+  <div style="max-width: 440px; margin: 40px auto; background: #fff; border-radius: 12px; padding: 32px 24px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.1);">
+    <div style="width: 64px; height: 64px; border-radius: 50%; background: ${color}1a; color: ${color}; display: inline-flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; margin-bottom: 16px;">✓</div>
+    <h1 style="font-size: 20px; margin: 0 0 8px 0; color: ${color};">${title}</h1>
+    <p style="color: #4b5563; font-size: 15px; margin: 0;">${message}</p>
+    <p style="color: #9ca3af; font-size: 12px; margin-top: 24px;">Comfort Transfer Services</p>
+  </div>
+</body></html>`;
 
 // Greece is UTC+2 (winter) / UTC+3 (summer EEST). Offset the date-only filter
 // strings so that "2026-06-04" means 00:00–23:59 Greek local time, not UTC.
@@ -270,6 +283,38 @@ export const acceptRide = async (
     });
   } catch (error) {
     next(error);
+  }
+};
+
+// One-click accept from the admin notification email. Public route secured by a
+// signed token bound to the ride id + action; behaves exactly like the in-app
+// accept (sets status to accepted AND emails the customer their confirmation).
+export const acceptRideByEmail = async (
+  req: Request<{ id: string }, any, any, { token?: string }>,
+  res: Response
+): Promise<void> => {
+  const rideId = req.params.id;
+  const token = req.query.token;
+
+  if (!verifyRideAction(rideId, 'accept', token)) {
+    res.status(403).send(actionResultPage('Μη έγκυρος σύνδεσμος', 'Ο σύνδεσμος αποδοχής δεν είναι έγκυρος ή έχει αλλοιωθεί.', '#dc2626'));
+    return;
+  }
+
+  try {
+    await rideService.acceptRide(rideId);
+    res.status(200).send(actionResultPage('Η κράτηση έγινε αποδεκτή', 'Ο πελάτης ειδοποιήθηκε με email επιβεβαίωσης.', '#16a34a'));
+  } catch (error: any) {
+    if (error?.code === 'INVALID_STATUS') {
+      res.status(200).send(actionResultPage('Ήδη επεξεργασμένη', 'Αυτή η κράτηση δεν είναι πλέον σε εκκρεμότητα (ίσως έχει ήδη γίνει αποδεκτή).', '#d97706'));
+      return;
+    }
+    if (error?.code === 'RIDE_NOT_FOUND') {
+      res.status(404).send(actionResultPage('Δεν βρέθηκε', 'Η κράτηση δεν βρέθηκε.', '#dc2626'));
+      return;
+    }
+    logger.error('accept-email error:', error);
+    res.status(500).send(actionResultPage('Σφάλμα', 'Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά ή κάντε αποδοχή από την εφαρμογή.', '#dc2626'));
   }
 };
 

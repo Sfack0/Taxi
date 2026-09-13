@@ -7,6 +7,7 @@ const router = Router();
 
 // Public routes (no authentication required)
 router.post('/', rideController.createRide); // Guest bookings allowed
+router.get('/:id/accept-email', rideController.acceptRideByEmail); // One-click admin accept from email (signed token)
 router.get('/:id', rideController.getRide); // Guest access to their booking
 
 // Admin routes (require authentication + admin role)

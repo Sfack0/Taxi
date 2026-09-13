@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import type { Ride, SupportedLanguage } from '@cts/shared';
 import logger from '../utils/logger';
 import { EmailLog, EmailLogStatus } from '../models/EmailLog.model';
+import { signRideAction, publicBaseUrl } from '../utils/rideActionToken';
 
 // Check if emails are enabled
 const isEmailEnabled = () => process.env.EMAIL_ENABLED === 'true';
@@ -135,6 +136,7 @@ const sendEmail = async (options: {
 
 type EmailTranslations = {
   subject: string;
+  bookingReceived: string;
   bookingConfirmation: string;
   withReturn: string;
   route: string;
@@ -165,11 +167,14 @@ type EmailTranslations = {
   price: string;
   willContact: string;
   addToCalendar: string;
+  acceptedSubject: string;
+  acceptedMessage: string;
 };
 
 const translations: Record<SupportedLanguage, EmailTranslations> = {
   el: {
-    subject: 'Επιβεβαίωση Κράτησης',
+    subject: 'Λάβαμε την κράτησή σας',
+    bookingReceived: 'Λάβαμε την κράτησή σας',
     bookingConfirmation: 'Επιβεβαίωση Κράτησης',
     withReturn: 'με επιστροφή',
     route: 'Διαδρομή',
@@ -200,9 +205,12 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     price: 'Τιμή',
     willContact: 'Θα επικοινωνήσουμε μαζί σας για επιβεβαίωση.',
     addToCalendar: 'Προσθήκη στο Google Calendar',
+    acceptedSubject: 'Η κράτησή σας επιβεβαιώθηκε',
+    acceptedMessage: 'Η κράτησή σας επιβεβαιώθηκε. Ο οδηγός σας θα είναι εκεί στην ώρα του.',
   },
   en: {
-    subject: 'Booking Confirmation',
+    subject: 'We received your booking',
+    bookingReceived: 'We received your booking',
     bookingConfirmation: 'Booking Confirmation',
     withReturn: 'round trip',
     route: 'Route',
@@ -233,9 +241,12 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     price: 'Price',
     willContact: 'We will contact you to confirm your booking.',
     addToCalendar: 'Add to Google Calendar',
+    acceptedSubject: 'Your booking is confirmed',
+    acceptedMessage: 'Your booking has been confirmed. Your driver will be there on time.',
   },
   fr: {
-    subject: 'Confirmation de Réservation',
+    subject: 'Nous avons reçu votre réservation',
+    bookingReceived: 'Nous avons reçu votre réservation',
     bookingConfirmation: 'Confirmation de Réservation',
     withReturn: 'aller-retour',
     route: 'Itinéraire',
@@ -266,9 +277,12 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     price: 'Prix',
     willContact: 'Nous vous contacterons pour confirmer votre réservation.',
     addToCalendar: 'Ajouter à Google Agenda',
+    acceptedSubject: 'Votre réservation est confirmée',
+    acceptedMessage: 'Votre réservation a été confirmée. Votre chauffeur sera là à l\'heure.',
   },
   de: {
-    subject: 'Buchungsbestätigung',
+    subject: 'Wir haben Ihre Buchung erhalten',
+    bookingReceived: 'Wir haben Ihre Buchung erhalten',
     bookingConfirmation: 'Buchungsbestätigung',
     withReturn: 'Hin und zurück',
     route: 'Route',
@@ -299,9 +313,12 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     price: 'Preis',
     willContact: 'Wir werden Sie kontaktieren, um Ihre Buchung zu bestätigen.',
     addToCalendar: 'Zu Google Kalender hinzufügen',
+    acceptedSubject: 'Ihre Buchung ist bestätigt',
+    acceptedMessage: 'Ihre Buchung wurde bestätigt. Ihr Fahrer wird pünktlich da sein.',
   },
   it: {
-    subject: 'Conferma Prenotazione',
+    subject: 'Abbiamo ricevuto la tua prenotazione',
+    bookingReceived: 'Abbiamo ricevuto la tua prenotazione',
     bookingConfirmation: 'Conferma Prenotazione',
     withReturn: 'andata e ritorno',
     route: 'Percorso',
@@ -332,9 +349,12 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     price: 'Prezzo',
     willContact: 'Vi contatteremo per confermare la vostra prenotazione.',
     addToCalendar: 'Aggiungi a Google Calendar',
+    acceptedSubject: 'La tua prenotazione è confermata',
+    acceptedMessage: 'La tua prenotazione è stata confermata. Il tuo autista sarà lì in orario.',
   },
   es: {
-    subject: 'Confirmación de Reserva',
+    subject: 'Hemos recibido tu reserva',
+    bookingReceived: 'Hemos recibido tu reserva',
     bookingConfirmation: 'Confirmación de Reserva',
     withReturn: 'ida y vuelta',
     route: 'Ruta',
@@ -365,6 +385,8 @@ const translations: Record<SupportedLanguage, EmailTranslations> = {
     price: 'Precio',
     willContact: 'Nos pondremos en contacto con usted para confirmar su reserva.',
     addToCalendar: 'Añadir a Google Calendar',
+    acceptedSubject: 'Tu reserva está confirmada',
+    acceptedMessage: 'Tu reserva ha sido confirmada. Tu conductor estará allí a tiempo.',
   },
 };
 
@@ -600,11 +622,14 @@ const googleCalendarUrl = (opts: {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
-const calendarButton = (url: string, label: string): string =>
-  `<a href="${url}" target="_blank" style="display: inline-block; margin: 4px; padding: 10px 18px; background: #16a34a; color: #ffffff; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600;">📅 ${label}</a>`;
+// One shared, full-width button style so every email CTA looks identical.
+const emailButton = (url: string, label: string): string =>
+  `<a href="${url}" target="_blank" style="display: block; width: 260px; max-width: 82%; margin: 8px auto; padding: 13px 20px; background: #16a34a; color: #ffffff; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600; text-align: center;">${label}</a>`;
 
-// Calendar button(s) for a ride: outbound always, plus return for roundtrips.
-const calendarButtonsHTML = (ride: Ride, t: EmailTranslations, pickupTranslated: string, dropoffTranslated: string): string => {
+const calendarButton = (url: string, label: string): string => emailButton(url, `📅 ${label}`);
+
+// The calendar button(s) as raw HTML (no wrapper): outbound always, plus return.
+const calendarButtonsInner = (ride: Ride, t: EmailTranslations, pickupTranslated: string, dropoffTranslated: string): string => {
   const durationMin = ride.estimatedDuration && ride.estimatedDuration > 0 ? ride.estimatedDuration : 60;
   const company = 'Comfort Transfer Services';
   const buttons: string[] = [];
@@ -635,8 +660,13 @@ const calendarButtonsHTML = (ride: Ride, t: EmailTranslations, pickupTranslated:
     ));
   }
 
-  if (!buttons.length) return '';
-  return `<div style="text-align: center; margin-top: 20px;">${buttons.join('')}</div>`;
+  return buttons.join('');
+};
+
+// Wrapped calendar buttons (used by the customer email).
+const calendarButtonsHTML = (ride: Ride, t: EmailTranslations, pickupTranslated: string, dropoffTranslated: string): string => {
+  const inner = calendarButtonsInner(ride, t, pickupTranslated, dropoffTranslated);
+  return inner ? `<div style="text-align: center; margin-top: 20px;">${inner}</div>` : '';
 };
 
 // Plain-text version of the calendar links.
@@ -663,11 +693,27 @@ const calendarLinksText = (ride: Ride, t: EmailTranslations, pickupTranslated: s
   return lines.length ? `\n${lines.join('\n')}\n` : '';
 };
 
+// One-click accept link for the admin email (signed token — no login needed).
+const adminAcceptUrl = (ride: Ride): string => {
+  const rideId = String(ride._id);
+  return `${publicBaseUrl()}/api/v1/rides/${rideId}/accept-email?token=${signRideAction(rideId, 'accept')}`;
+};
+
+// Admin email action buttons: Accept on top, Add-to-Calendar below — same style.
+const adminActionButtonsHTML = (ride: Ride): string => {
+  const cal = calendarButtonsInner(ride, translations.el, ride.pickup.address, ride.dropoff.address);
+  return `
+    <div style="text-align: center; margin: 20px 0;">
+      ${emailButton(adminAcceptUrl(ride), '✓ Αποδοχή Κράτησης')}
+      ${cal}
+    </div>`;
+};
+
 // ============================================================================
 // CUSTOMER EMAIL (Multi-language)
 // ============================================================================
 
-const getBookingConfirmationHTML = (ride: Ride) => {
+const getBookingConfirmationHTML = (ride: Ride, variant: 'new' | 'accepted' = 'new') => {
   const rawLang = ride.customerLanguage || 'el';
   const lang = (translations[rawLang as SupportedLanguage] ? rawLang : 'el') as SupportedLanguage;
   const t = translations[lang];
@@ -677,6 +723,11 @@ const getBookingConfirmationHTML = (ride: Ride) => {
   // Translate locations for customer email
   const pickupTranslated = translateLocation(ride.pickup.address, lang);
   const dropoffTranslated = translateLocation(ride.dropoff.address, lang);
+
+  const acceptedBanner = variant === 'accepted' ? `
+    <div style="background: #16a34a; color: #ffffff; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; text-align: center; font-weight: 600; font-size: 15px;">
+      ✓ ${t.acceptedSubject}
+    </div>` : '';
 
   return `
 <!DOCTYPE html>
@@ -689,8 +740,9 @@ const getBookingConfirmationHTML = (ride: Ride) => {
   <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 24px;">
     <div style="text-align: center; border-bottom: 1px solid #eee; padding-bottom: 16px; margin-bottom: 20px;">
       <h1 style="color: #0ea5e9; margin: 0 0 4px 0; font-size: 24px;">Comfort Transfer Services</h1>
-      <p style="color: #666; margin: 0; font-size: 14px;">${t.bookingConfirmation}${ride.isRoundtrip ? ` (${t.withReturn})` : ''}</p>
+      <p style="color: #666; margin: 0; font-size: 14px;">${variant === 'accepted' ? t.bookingConfirmation : t.bookingReceived}${ride.isRoundtrip ? ` (${t.withReturn})` : ''}</p>
     </div>
+    ${acceptedBanner}
 
     <div style="margin-bottom: 16px;">
       <div style="font-size: 12px; color: #666; text-transform: uppercase; margin-bottom: 8px;">${t.route}</div>
@@ -808,10 +860,10 @@ const getBookingConfirmationHTML = (ride: Ride) => {
     </div>
     ` : ''}
 
-    ${calendarButtonsHTML(ride, t, pickupTranslated, dropoffTranslated)}
+    ${variant === 'accepted' ? calendarButtonsHTML(ride, t, pickupTranslated, dropoffTranslated) : ''}
 
     <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #eee; color: #999; font-size: 12px;">
-      <p style="margin: 0 0 4px 0;">${t.willContact}</p>
+      <p style="margin: 0 0 4px 0;">${variant === 'accepted' ? t.acceptedMessage : t.willContact}</p>
       <p style="margin: 0;">Comfort Transfer Services</p>
     </div>
   </div>
@@ -820,7 +872,7 @@ const getBookingConfirmationHTML = (ride: Ride) => {
   `;
 };
 
-const getBookingConfirmationText = (ride: Ride) => {
+const getBookingConfirmationText = (ride: Ride, variant: 'new' | 'accepted' = 'new') => {
   const rawLang = ride.customerLanguage || 'el';
   const lang = (translations[rawLang as SupportedLanguage] ? rawLang : 'el') as SupportedLanguage;
   const t = translations[lang];
@@ -832,7 +884,8 @@ const getBookingConfirmationText = (ride: Ride) => {
   const dropoffTranslated = translateLocation(ride.dropoff.address, lang);
 
   return `
-Comfort Transfer Services - ${t.bookingConfirmation}${ride.isRoundtrip ? ` (${t.withReturn})` : ''}
+Comfort Transfer Services - ${variant === 'accepted' ? t.bookingConfirmation : t.bookingReceived}${ride.isRoundtrip ? ` (${t.withReturn})` : ''}
+${variant === 'accepted' ? `\n✓ ${t.acceptedSubject}\n` : ''}
 
 ${t.route}: ${pickupTranslated} → ${dropoffTranslated}
 ${scheduledDate ? `\n${ride.isRoundtrip ? t.outbound : t.date}: ${scheduledDate}${ride.people ? ` (${formatPeople(ride.people, lang)})` : ''}` : ''}
@@ -845,29 +898,29 @@ ${t.details}:
 ${ride.flightNumber ? `\n${t.flightInfo}:\n- ${t.flightNumber}: ${ride.flightNumber}${ride.flightTime ? `\n- ${t.flightTime}: ${ride.flightTime}` : ''}${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0) > 0 ? `\n- ${t.luggageCount}: ${(ride.smallLuggageCount || 0) + (ride.largeLuggageCount || 0) + (ride.luggageCount || 0)}` : ''}` : ''}
 ${ride.returnFlightNumber ? `\n${t.returnFlightInfo}:\n- ${t.flightNumber}: ${ride.returnFlightNumber}${ride.returnFlightTime ? `\n- ${t.flightTime}: ${ride.returnFlightTime}` : ''}${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0) > 0 ? `\n- ${t.luggageCount}: ${(ride.returnSmallLuggageCount || 0) + (ride.returnLargeLuggageCount || 0) + (ride.returnLuggageCount || 0)}` : ''}` : ''}
 
-${calendarLinksText(ride, t, pickupTranslated, dropoffTranslated)}
-${t.willContact}
+${variant === 'accepted' ? calendarLinksText(ride, t, pickupTranslated, dropoffTranslated) : ''}
+${variant === 'accepted' ? t.acceptedMessage : t.willContact}
 
 Comfort Transfer Services
   `;
 };
 
-export const sendBookingConfirmation = async (ride: Ride): Promise<void> => {
+export const sendBookingConfirmation = async (ride: Ride, variant: 'new' | 'accepted' = 'new'): Promise<void> => {
   if (!isEmailEnabled()) return;
 
   const rawLang = ride.customerLanguage || 'el';
   const lang = (translations[rawLang as SupportedLanguage] ? rawLang : 'el') as SupportedLanguage;
-  logger.info('Sending booking confirmation email, customerLanguage:', ride.customerLanguage, '-> using:', lang);
+  logger.info('Sending booking confirmation email, customerLanguage:', ride.customerLanguage, '-> using:', lang, '| variant:', variant);
   const t = translations[lang];
 
   try {
     await sendEmail({
       from: `"Comfort Transfer Services" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
       to: ride.customerEmail,
-      subject: t.subject,
-      text: getBookingConfirmationText(ride),
-      html: getBookingConfirmationHTML(ride),
-      type: 'booking_confirmation',
+      subject: variant === 'accepted' ? t.acceptedSubject : t.subject,
+      text: getBookingConfirmationText(ride, variant),
+      html: getBookingConfirmationHTML(ride, variant),
+      type: variant === 'accepted' ? 'booking_accepted' : 'booking_confirmation',
       rideId: String(ride._id),
     });
   } catch (error) {
@@ -1114,7 +1167,7 @@ const getAdminNotificationHTML = (ride: Ride) => {
     </div>
     ` : ''}
 
-    ${calendarButtonsHTML(ride, translations.el, ride.pickup.address, ride.dropoff.address)}
+    ${adminActionButtonsHTML(ride)}
 
     <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #eee; color: #999; font-size: 12px;">
       <p style="margin: 0;">Comfort Transfer Services Admin</p>
@@ -1131,6 +1184,9 @@ const getAdminNotificationText = (ride: Ride) => {
 
   return `
 Comfort Transfer Services - Νέα Κράτηση${ride.isRoundtrip ? ' (με επιστροφή)' : ''}
+
+✓ Αποδοχή Κράτησης:
+${adminAcceptUrl(ride)}
 
 Διαδρομή: ${ride.pickup.address} → ${ride.dropoff.address}
 ${scheduledDate ? `\n${ride.isRoundtrip ? 'Μετάβαση' : 'Ημερομηνία'}: ${scheduledDate}${ride.people ? ` (${formatPeopleGreek(ride.people)})` : ''}` : ''}
