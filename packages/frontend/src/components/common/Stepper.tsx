@@ -19,12 +19,12 @@ const Stepper = ({ value, onChange, min = 0, max = 15, icon }: StepperProps) => 
   };
 
   const btnBase =
-    'flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md text-gray-700 dark:text-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500';
+    'flex h-9 w-7 min-[360px]:w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-md text-gray-700 dark:text-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500';
   const btnEnabled = 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 active:bg-gray-300 dark:active:bg-gray-500 cursor-pointer';
   const btnDisabled = 'bg-gray-50 dark:bg-gray-800 text-gray-300 dark:text-gray-600 cursor-not-allowed';
 
   return (
-    <div className="inline-flex items-center gap-1 px-1 py-1 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800">
+    <div className="flex w-full items-center gap-0.5 sm:gap-1 p-1 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800">
       <button
         type="button"
         onClick={decrement}
@@ -37,7 +37,7 @@ const Stepper = ({ value, onChange, min = 0, max = 15, icon }: StepperProps) => 
         </svg>
       </button>
 
-      <div className="flex items-center justify-center gap-1 w-12 sm:w-14">
+      <div className="flex flex-1 min-w-0 items-center justify-center gap-1">
         {icon && <span className="shrink-0 text-gray-400">{icon}</span>}
         <span className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 tabular-nums">
           {current}

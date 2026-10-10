@@ -226,12 +226,14 @@ const ToursPage = () => {
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                           {t('booking.people')} *
                         </label>
-                        <Stepper
-                          value={people}
-                          onChange={setPeople}
-                          min={1}
-                          max={8}
-                        />
+                        <div className="max-w-[200px]">
+                          <Stepper
+                            value={people}
+                            onChange={setPeople}
+                            min={1}
+                            max={8}
+                          />
+                        </div>
                       </div>
 
                       {/* Pickup */}

@@ -39,7 +39,7 @@ const Home = () => {
       <HeroCarousel images={carouselImages}>
         <h1 className="font-heading text-white font-bold mb-3 sm:mb-4 drop-shadow-lg text-center">
           <span className="block text-3xl sm:text-4xl md:text-5xl">{t('home.tagline')}</span>
-          <span className="block text-base sm:text-lg md:text-xl mt-1 tracking-widest uppercase text-white/80">Heraklion · Crete</span>
+          <span className="block text-base sm:text-lg md:text-xl mt-1 tracking-wide text-white/80">by Parasiris</span>
         </h1>
         <p className="text-base sm:text-lg text-white/70 mb-2 max-w-xl text-center">
           {t('home.subtitle')}

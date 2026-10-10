@@ -28,7 +28,10 @@ const getAdminWhatsAppText = (ride: Ride): string => {
   return lines.join('\n');
 };
 
-const RETRY_DELAY_MS = 2000;
+// Kept short: the booking request awaits this before responding, and the
+// Netlify function has a ~10s limit (2 × 3s + 1s worst case).
+const REQUEST_TIMEOUT_MS = 3000;
+const RETRY_DELAY_MS = 1000;
 
 // CallMeBot sometimes answers 200 with an error in the body, so success is only
 // "queued"/"sent" in the response text.
@@ -37,7 +40,7 @@ const trySendWhatsApp = async (phone: string, apikey: string, text: string): Pro
 
   try {
     const res = await fetch(`https://api.callmebot.com/whatsapp.php?${params.toString()}`, {
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
     const body = (await res.text()).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
     if (res.ok && /queued|sent/i.test(body)) return null;
