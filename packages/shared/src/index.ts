@@ -124,6 +124,8 @@ export interface Ride {
   returnSmallLuggageCount?: number;
   returnLargeLuggageCount?: number;
   price?: number;
+  // Phones the new-booking WhatsApp alert could not be delivered to (after retry)
+  whatsappFailedTo?: string[];
   createdAt: Date;
   updatedAt: Date;
   rideNumber?: string;

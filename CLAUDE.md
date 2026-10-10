@@ -79,7 +79,7 @@ Taxi van booking platform for Comfort Transfer Services (CTS) — a 9-seat taxi 
 ## Deployment (Netlify)
 
 - `netlify.toml` defines: build `npm run build:production`, publish `packages/frontend/dist`, functions `netlify/functions`, redirect `/api/*` → the `api` function, SPA fallback `/*` → `index.html`.
-- **Backend env vars must be set in the Netlify UI** (Site settings → Environment): `MONGODB_URI`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, `BREVO_API_KEY`, `BREVO_SENDER_EMAIL`, `GOOGLE_MAPS_API_KEY`, plus frontend `VITE_GOOGLE_MAPS_API_KEY`. Do NOT set `SERVE_STATIC` (leave the function API-only).
+- **Backend env vars must be set in the Netlify UI** (Site settings → Environment): `MONGODB_URI`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, `BREVO_API_KEY`, `BREVO_SENDER_EMAIL`, `GOOGLE_MAPS_API_KEY`, `CALLMEBOT_RECIPIENTS` (WhatsApp new-booking alerts, `phone:apikey` pairs comma-separated; failures email `WHATSAPP_ALERT_EMAIL`, default giannis2001.gs@gmail.com), plus frontend `VITE_GOOGLE_MAPS_API_KEY`. Do NOT set `SERVE_STATIC` (leave the function API-only).
 - `SERVE_STATIC=true` re-enables the old single-service mode where Express also serves `packages/frontend/dist` + SPA catch-all (used by the previous Render deploy / local full-stack preview). Off by default.
 - Serverless notes: Mongo uses a cached connection (`connectDatabase()` in `config/database.ts`) to survive warm invocations; no background jobs exist (serverless-safe); Netlify function payload limit is 6MB — carousel image uploads are client-side resized so they stay under it.
 

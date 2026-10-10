@@ -1,7 +1,13 @@
 import { CreateRideRequest, Ride as IRide, RateRideRequest, RideFilters, PaginationParams } from '@cts/shared';
 import { Ride } from '../models/Ride.model';
 import { AppError } from '../middleware/error.middleware';
-import { sendBookingConfirmation, sendAdminNotification, sendCancellationNotification } from './email.service';
+import {
+  sendBookingConfirmation,
+  sendAdminNotification,
+  sendCancellationNotification,
+  sendWhatsAppFailureAlert,
+} from './email.service';
+import { sendAdminWhatsApp } from './whatsapp.service';
 
 import logger from '../utils/logger';
 
@@ -76,18 +82,29 @@ export const createRide = async (userId: string | undefined, data: CreateRideReq
 
   const rideJSON = ride.toJSON() as IRide;
 
-  // Await the emails before returning. In serverless (Netlify Functions) the
+  // Await the notifications before returning. In serverless (Netlify Functions) the
   // container freezes as soon as the HTTP response is sent, so fire-and-forget
   // promises get killed before the Brevo request completes and no email is sent.
-  const [confirmation, adminNotification] = await Promise.allSettled([
+  const [confirmation, adminNotification, whatsapp] = await Promise.allSettled([
     sendBookingConfirmation(rideJSON),
     sendAdminNotification(rideJSON),
+    sendAdminWhatsApp(rideJSON),
   ]);
   if (confirmation.status === 'rejected') {
     logger.error('Failed to send customer confirmation email:', confirmation.reason);
   }
   if (adminNotification.status === 'rejected') {
     logger.error('Failed to send admin notification email:', adminNotification.reason);
+  }
+  if (whatsapp.status === 'fulfilled' && whatsapp.value.length) {
+    const failedPhones = whatsapp.value.map((failure) => failure.phone);
+    rideJSON.whatsappFailedTo = failedPhones;
+    await Promise.allSettled([
+      Ride.updateOne({ _id: ride._id }, { whatsappFailedTo: failedPhones }).catch((error) =>
+        logger.error('Failed to record WhatsApp failure on ride:', error)
+      ),
+      sendWhatsAppFailureAlert(rideJSON, whatsapp.value),
+    ]);
   }
 
   return rideJSON;

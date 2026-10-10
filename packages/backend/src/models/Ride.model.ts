@@ -212,6 +212,10 @@ const rideSchema = new Schema<RideDocument>(
       min: 0,
       default: undefined,
     },
+    whatsappFailedTo: {
+      type: [String],
+      default: undefined,
+    },
   },
   {
     timestamps: true,
