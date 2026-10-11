@@ -1226,25 +1226,25 @@ export const sendAdminNotification = async (ride: Ride): Promise<void> => {
 };
 
 // ============================================================================
-// WHATSAPP FAILURE ALERT (developer only)
+// TELEGRAM FAILURE ALERT (developer only)
 // ============================================================================
 
 const escapeHtml = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-// Sent when the new-booking WhatsApp alert could not reach one or more drivers.
-export const sendWhatsAppFailureAlert = async (
+// Sent when the new-booking Telegram alert could not reach one or more drivers.
+export const sendNotificationFailureAlert = async (
   ride: Ride,
-  failures: { phone: string; error: string }[]
+  failures: { recipient: string; error: string }[]
 ): Promise<void> => {
   if (!isEmailEnabled()) return;
 
-  const alertEmail = process.env.WHATSAPP_ALERT_EMAIL || 'giannis2001.gs@gmail.com';
+  const alertEmail = process.env.NOTIFY_ALERT_EMAIL || 'giannis2001.gs@gmail.com';
   const scheduledDate = ride.scheduledFor ? formatDateGreek(ride.scheduledFor) : null;
   const route = `${ride.pickup.address} → ${ride.dropoff.address}`;
-  const failureLines = failures.map((failure) => `- ${failure.phone}: ${failure.error}`).join('\n');
+  const failureLines = failures.map((failure) => `- ${failure.recipient}: ${failure.error}`).join('\n');
 
-  const text = `Η ειδοποίηση WhatsApp για νέα κράτηση δεν στάλθηκε (και μετά από retry).
+  const text = `Η ειδοποίηση Telegram για νέα κράτηση δεν στάλθηκε (και μετά από retry).
 
 Κράτηση: ${ride.rideNumber || String(ride._id)}
 Διαδρομή: ${route}${scheduledDate ? `\nΗμερομηνία: ${scheduledDate}` : ''}
@@ -1256,14 +1256,14 @@ ${failureLines}
 
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h2 style="color: #b91c1c; margin: 0 0 12px 0;">⚠️ Η ειδοποίηση WhatsApp δεν στάλθηκε</h2>
+      <h2 style="color: #b91c1c; margin: 0 0 12px 0;">⚠️ Η ειδοποίηση Telegram δεν στάλθηκε</h2>
       <p style="margin: 0 0 12px 0;">Η ειδοποίηση για νέα κράτηση απέτυχε (και μετά από retry).</p>
       <p style="margin: 0 0 4px 0;"><strong>Κράτηση:</strong> ${escapeHtml(ride.rideNumber || String(ride._id))}</p>
       <p style="margin: 0 0 4px 0;"><strong>Διαδρομή:</strong> ${escapeHtml(route)}</p>
       ${scheduledDate ? `<p style="margin: 0 0 12px 0;"><strong>Ημερομηνία:</strong> ${escapeHtml(scheduledDate)}</p>` : ''}
       <p style="margin: 12px 0 4px 0;"><strong>Αποτυχίες:</strong></p>
       <ul style="margin: 0 0 12px 0;">
-        ${failures.map((failure) => `<li><strong>${escapeHtml(failure.phone)}</strong>: ${escapeHtml(failure.error)}</li>`).join('')}
+        ${failures.map((failure) => `<li><strong>${escapeHtml(failure.recipient)}</strong>: ${escapeHtml(failure.error)}</li>`).join('')}
       </ul>
       <p style="color: #666; font-size: 14px; margin: 0;">Το email της κράτησης στο admin στάλθηκε κανονικά.</p>
     </div>`;
@@ -1272,14 +1272,14 @@ ${failureLines}
     await sendEmail({
       from: `"Comfort Transfer Services" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
       to: alertEmail,
-      subject: `⚠️ WhatsApp δεν στάλθηκε — Νέα κράτηση${scheduledDate ? ` ${scheduledDate}` : ''}`,
+      subject: `⚠️ Telegram δεν στάλθηκε — Νέα κράτηση${scheduledDate ? ` ${scheduledDate}` : ''}`,
       text,
       html,
-      type: 'whatsapp_failure_alert',
+      type: 'telegram_failure_alert',
       rideId: String(ride._id),
     });
   } catch (error) {
-    logger.error('Failed to send WhatsApp failure alert email:', error);
+    logger.error('Failed to send Telegram failure alert email:', error);
   }
 };
 

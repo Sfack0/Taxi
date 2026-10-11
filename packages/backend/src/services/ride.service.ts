@@ -5,9 +5,9 @@ import {
   sendBookingConfirmation,
   sendAdminNotification,
   sendCancellationNotification,
-  sendWhatsAppFailureAlert,
+  sendNotificationFailureAlert,
 } from './email.service';
-import { sendAdminWhatsApp } from './whatsapp.service';
+import { sendAdminTelegram } from './telegram.service';
 
 import logger from '../utils/logger';
 
@@ -85,10 +85,10 @@ export const createRide = async (userId: string | undefined, data: CreateRideReq
   // Await the notifications before returning. In serverless (Netlify Functions) the
   // container freezes as soon as the HTTP response is sent, so fire-and-forget
   // promises get killed before the Brevo request completes and no email is sent.
-  const [confirmation, adminNotification, whatsapp] = await Promise.allSettled([
+  const [confirmation, adminNotification, telegram] = await Promise.allSettled([
     sendBookingConfirmation(rideJSON),
     sendAdminNotification(rideJSON),
-    sendAdminWhatsApp(rideJSON),
+    sendAdminTelegram(rideJSON),
   ]);
   if (confirmation.status === 'rejected') {
     logger.error('Failed to send customer confirmation email:', confirmation.reason);
@@ -96,14 +96,14 @@ export const createRide = async (userId: string | undefined, data: CreateRideReq
   if (adminNotification.status === 'rejected') {
     logger.error('Failed to send admin notification email:', adminNotification.reason);
   }
-  if (whatsapp.status === 'fulfilled' && whatsapp.value.length) {
-    const failedPhones = whatsapp.value.map((failure) => failure.phone);
-    rideJSON.whatsappFailedTo = failedPhones;
+  if (telegram.status === 'fulfilled' && telegram.value.length) {
+    const failedRecipients = telegram.value.map((failure) => failure.recipient);
+    rideJSON.notificationFailedTo = failedRecipients;
     await Promise.allSettled([
-      Ride.updateOne({ _id: ride._id }, { whatsappFailedTo: failedPhones }).catch((error) =>
-        logger.error('Failed to record WhatsApp failure on ride:', error)
+      Ride.updateOne({ _id: ride._id }, { notificationFailedTo: failedRecipients }).catch((error) =>
+        logger.error('Failed to record Telegram failure on ride:', error)
       ),
-      sendWhatsAppFailureAlert(rideJSON, whatsapp.value),
+      sendNotificationFailureAlert(rideJSON, telegram.value),
     ]);
   }
 

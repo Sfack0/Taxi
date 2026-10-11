@@ -212,7 +212,7 @@ const rideSchema = new Schema<RideDocument>(
       min: 0,
       default: undefined,
     },
-    whatsappFailedTo: {
+    notificationFailedTo: {
       type: [String],
       default: undefined,
     },

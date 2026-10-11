@@ -973,10 +973,10 @@ const AdminDashboard = () => {
                               )}
                             </div>
 
-                            {ride.whatsappFailedTo && ride.whatsappFailedTo.length > 0 && (
+                            {ride.notificationFailedTo && ride.notificationFailedTo.length > 0 && (
                               <div className="flex items-start gap-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2 text-xs sm:text-sm text-red-700 dark:text-red-400">
                                 <span aria-hidden="true">⚠️</span>
-                                <span>WhatsApp ειδοποίηση απέτυχε για: {ride.whatsappFailedTo.join(', ')}</span>
+                                <span>Telegram ειδοποίηση απέτυχε για: {ride.notificationFailedTo.join(', ')}</span>
                               </div>
                             )}
 
