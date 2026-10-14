@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 const DRIVERS = [
-  { name: 'Matthaios', phone: '6949811410', hours: '17:00 – 05:00' },
-  { name: 'Giannis', phone: '6972455475', hours: '05:00 – 17:00' },
+  { name: 'Matthaios', phone: '6949811410', hours: '17:00 – 05:00', photo: '/images/drivers/matthaios.png' },
+  { name: 'Giannis', phone: '6972455475', hours: '05:00 – 17:00', photo: '/images/drivers/giannis.png' },
 ];
 const EMAIL = 'cts.crete@gmail.com';
 
@@ -29,33 +29,44 @@ const ContactSection = () => {
 
         {/* Driver cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-6">
-          {DRIVERS.map(({ name, phone, hours }) => (
+          {DRIVERS.map(({ name, phone, hours, photo }) => (
             <div
               key={phone}
-              className="rounded-2xl bg-white dark:bg-gray-800 shadow-md p-5 flex flex-col items-center gap-3"
+              className="rounded-2xl bg-white dark:bg-gray-800 shadow-md p-5 flex items-center gap-4"
             >
-              <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{name}</h3>
-              <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">{hours}</span>
+              <img
+                src={photo}
+                alt={name}
+                loading="lazy"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shrink-0 ring-2 ring-amber-500/40 shadow"
+              />
 
-              <a
-                href={`tel:+30${phone}`}
-                className="flex items-center gap-2 text-gray-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
-              >
-                <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span className="font-medium">+30 {phone}</span>
-              </a>
+              <div className="flex flex-col items-start gap-2 min-w-0">
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-lg leading-tight">{name}</h3>
+                  <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">{hours}</span>
+                </div>
 
-              <a
-                href={`https://wa.me/30${phone}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 transition-colors text-white text-sm font-medium"
-              >
-                {whatsappSvg}
-                WhatsApp
-              </a>
+                <a
+                  href={`tel:+30${phone}`}
+                  className="flex items-center gap-2 text-gray-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                >
+                  <svg className="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span className="font-medium">+30 {phone}</span>
+                </a>
+
+                <a
+                  href={`https://wa.me/30${phone}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 transition-colors text-white text-sm font-medium"
+                >
+                  {whatsappSvg}
+                  WhatsApp
+                </a>
+              </div>
             </div>
           ))}
         </div>
