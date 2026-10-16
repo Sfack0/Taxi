@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 const DRIVERS = [
-  { name: 'Matthaios', phone: '6949811410', hours: '17:00 – 05:00', photo: '/images/drivers/matthaios.png' },
-  { name: 'Giannis', phone: '6972455475', hours: '05:00 – 17:00', photo: '/images/drivers/giannis.png' },
+  { name: 'Matthaios', phone: '6949811410', hours: '17:00 – 05:00', photo: '/images/drivers/matthaios.jpg' },
+  { name: 'Giannis', phone: '6972455475', hours: '05:00 – 17:00', photo: '/images/drivers/giannis.jpg' },
 ];
 const EMAIL = 'cts.crete@gmail.com';
 
